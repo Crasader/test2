@@ -53,28 +53,6 @@
 </script>
 </head>
 <body>
-<A href='#' onclick="sum(5,6)">a+b</A></p>
-<button onclick="myfuntion()">計算1+3+5+...+15</button>
-<button onclick="test()">test</button>
-<div class="title">
-<h1><image src="PICTURE/startup.png" style="width: 30px;">BATTLESHIPS !</h1>
-<div id ="messagearea"></div>
-<table style = "border-color: black;" width = "400" border ="1" height = "400" align ="center">
-<tr>
-<td id = "00"></td><td id = "10"></td><td id = "20"></td><td id = "30">
-</td><td id = "40"></td><td id = "50"></td><td id = "60"></td>
-</tr>
-<tr>
-<td id = "01"></td><td id = "11"></td><td id = "21"></td><td id = "31">
-</td><td id = "41"></td><td id = "51"></td><td id = "61"></td>
-</tr>
-<tr>
-<td id = "02"></td><td id = "12" class="hit" ></td><td id = "22"></td><td id = "32">
-</td><td id = "42"></td><td id = "52"></td><td id = "62"></td
-</table>
-
-<form align="center" >
-<input type ="text" id = "guess" placeholder="A0" >
-<input type ="button" id ="firebutton" value="fire">
+45611228494944416
 </body>
 </html>
