@@ -1,0 +1,31 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Payment Withdraw Fee</h1>
+    <code>GET /api/payment_charge/{id}/withdraw_fee</code>
+</div>
+
+<p class="lead">取得線上支付設定的出款手續費</p>
+
+<form class="form-horizontal">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/payment_charge/</span>
+                    <input data-request-param="id" type="text" class="form-control" placeholder="{id}">
+                    <span class="input-group-addon">/withdraw_fee</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{id}</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_payment_withdraw_fee" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,2 @@
+0
+a:2:{i:0;O:27:"Doctrine\ORM\Mapping\Entity":2:{s:15:"repositoryClass";s:48:"BB\DurianBundle\Repository\IpBlacklistRepository";s:8:"readOnly";b:0;}i:1;O:26:"Doctrine\ORM\Mapping\Table":5:{s:4:"name";s:12:"ip_blacklist";s:6:"schema";N;s:7:"indexes";N;s:17:"uniqueConstraints";a:1:{i:0;O:37:"Doctrine\ORM\Mapping\UniqueConstraint":2:{s:4:"name";s:63:"uni_ip_blacklist_domain_ip_created_date_create_user_login_error";s:7:"columns";a:5:{i:0;s:6:"domain";i:1;s:2:"ip";i:2;s:12:"created_date";i:3;s:11:"create_user";i:4;s:11:"login_error";}}}s:7:"options";a:0:{}}}

@@ -1,0 +1,598 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Transfer Out</h1>
+    <code>PUT /api/user/{userId}/cash_fake/transfer_out</code>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">假現金轉帳</p>
+        <p>僅適用體育投注、AG視訊、PT、歐博視訊、MG電子、東方視訊、GD視訊、Gns機率、ISB電子、888捕魚、HB電子、BG視訊、PP電子、JDB電子、
+            AG電子、MW電子、RT電子、SG電子、VR彩票、PTⅡ電子、EVO視訊、BNG電子、開元 棋牌、WM電子</p>
+        <p>廠商出入款對應opcode如下表：</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:transfer_out_vendor.html.twig' %}
+    <div>
+        <table class="table table-striped table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th><div align="center">廠商</div></th>
+                    <th><div align="center">入款(使用金額需帶正值)</div></th>
+                    <th><div align="center">出款(使用金額需帶負值)</div></th>
+                    <th><div align="center">轉出外接平台(API業主使用，金額需帶正值)</div></th>
+                    <th><div align="center">外接平台轉入(API業主使用，金額需帶負值)</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>沙巴</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1044  DEPOSIT-MANUAL-IN_4 人工存入-體育投注-存入</code></p>
+                        <p style="margin-left:8px;"><code>1045  DEPOSIT-MANUAL-TRANSFER_4 人工存入-體育投注-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1046  WITHDRAWAL-MANUAL-TRANSFER_4 人工提出-體育投注-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1047  WITHDRAWAL-MANUAL-OUT_4 人工提出-體育投注-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1007  TRANSFER-4-OUT 體育投注額度轉出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1006  TRANSFER-4-IN 體育投注額度轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>AG視訊</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1076  DEPOSIT-MANUAL-IN_19 人工存入-AG視訊-存入</code></p>
+                        <p style="margin-left:8px;"><code>1077  DEPOSIT-MANUAL-TRANSFER_19 人工存入-AG視訊-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1078  WITHDRAWAL-MANUAL-TRANSFER_19 人工提出-AG視訊-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1079  WITHDRAWAL-MANUAL-OUT_19 人工提出-AG視訊-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1075  TRANSFER-AGLIVE-OUT AG視訊額度轉出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1074  TRANSFER-AGLIVE-IN AG視訊額度轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Play Tech</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1087  DEPOSIT-MANUAL-IN_20 人工存入-PT-存入</code></p>
+                        <p style="margin-left:8px;"><code>1088  DEPOSIT-MANUAL-TRANSFER_20 人工存入-PT-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1089  WITHDRAWAL-MANUAL-TRANSFER_20 人工提出-PT-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1090  WITHDRAWAL-MANUAL-OUT_20 人工提出-PT-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1086  TRANSFER-PT-OUT PT額度轉出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1085  TRANSFER-PT-IN PT額度轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>歐博視訊</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1104 DEPOSIT-MANUAL-IN_22 人工存入-歐博視訊-存入</code></p>
+                        <p style="margin-left:8px;"><code>1105 DEPOSIT-MANUAL-TRANSFER_22 人工存入-歐博視訊-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1106 WITHDRAWAL-MANUAL-TRANSFER_22 人工提出-歐博視訊-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1107 WITHDRAWAL-MANUAL-OUT_22 人工提出-歐博視訊-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1103  TRANSFER-22-OUT 轉出至歐博視訊</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1102  TRANSFER-22-IN 由歐博視訊轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>MG電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1112 DEPOSIT-MANUAL-IN_23 人工存入-MG電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1113 DEPOSIT-MANUAL-TRANSFER_23 人工存入-MG電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1114 WITHDRAWAL-MANUAL-TRANSFER_23 人工提出-MG電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1115 WITHDRAWAL-MANUAL-OUT_23 人工提出-MG電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1111  TRANSFER-23-OUT 轉出至MG電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1110  TRANSFER-23-IN 由MG電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>東方視訊</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1120 DEPOSIT-MANUAL-IN_24 人工存入-東方視訊-存入</code></p>
+                        <p style="margin-left:8px;"><code>1121 DEPOSIT-MANUAL-TRANSFER_24 人工存入-東方視訊-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1122 WITHDRAWAL-MANUAL-TRANSFER_24 人工提出-東方視訊-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1123 WITHDRAWAL-MANUAL-OUT_24 人工提出-東方視訊-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1119  TRANSFER-24-OUT 轉出至東方視訊</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1118  TRANSFER-24-IN 由東方視訊轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>GD視訊</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1148 DEPOSIT-MANUAL-IN_27 人工存入-GD視訊-存入</code></p>
+                        <p style="margin-left:8px;"><code>1140 DEPOSIT-MANUAL-TRANSFER_27 人工存入-GD視訊-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1141 WITHDRAWAL-MANUAL-TRANSFER_27 人工提出-GD視訊-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1142 WITHDRAWAL-MANUAL-OUT_27 人工提出-GD視訊-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1147  TRANSFER-27-OUT 轉出至GD視訊</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1146  TRANSFER-27-IN 由GD視訊轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gns 機率</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1161 DEPOSIT-MANUAL-IN_28 人工存入-Gns機率-存入</code></p>
+                        <p style="margin-left:8px;"><code>1162 DEPOSIT-MANUAL-TRANSFER_28 人工存入-Gns機率-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1163 WITHDRAWAL-MANUAL-TRANSFER_28 人工提出-Gns機率-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1164 WITHDRAWAL-MANUAL-OUT_28 人工提出-Gns機率-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1160  TRANSFER-28-OUT 轉出至Gns機率</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1159  TRANSFER-28-IN 由Gns機率轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ISB 電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1181 DEPOSIT-MANUAL-IN_29 人工存入-ISB電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1182 DEPOSIT-MANUAL-TRANSFER_29 人工存入-ISB電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1183 WITHDRAWAL-MANUAL-TRANSFER_29 人工提出-ISB電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1184 WITHDRAWAL-MANUAL-OUT_29 人工提出-ISB電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1180  TRANSFER-29-OUT 轉出至ISB電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1179  TRANSFER-29-IN 由ISB電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>888捕魚</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1216 DEPOSIT-MANUAL-IN_33 人工存入-888捕魚-存入</code></p>
+                        <p style="margin-left:8px;"><code>1217 DEPOSIT-MANUAL-TRANSFER_33 人工存入-888捕魚-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1218 WITHDRAWAL-MANUAL-TRANSFER_33 人工提出-888捕魚-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1219 WITHDRAWAL-MANUAL-OUT_33 人工提出-888捕魚-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1215  TRANSFER-33-OUT 轉出至888捕魚</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1214  TRANSFER-33-IN 由888捕魚轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>HB電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1254 DEPOSIT-MANUAL-IN_32 人工存入-HB電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1255 DEPOSIT-MANUAL-TRANSFER_32 人工存入-HB電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1256 WITHDRAWAL-MANUAL-TRANSFER_32 人工提出-HB電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1257 WITHDRAWAL-MANUAL-OUT_32 人工提出-HB電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1253  TRANSFER-32-OUT 轉出至HB電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1252  TRANSFER-32-IN 由HB電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>BG視訊</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1268 DEPOSIT-MANUAL-IN_36 人工存入-BG視訊-存入</code></p>
+                        <p style="margin-left:8px;"><code>1269 DEPOSIT-MANUAL-TRANSFER_36 人工存入-BG視訊-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1270 WITHDRAWAL-MANUAL-TRANSFER_36 人工提出-BG視訊-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1271 WITHDRAWAL-MANUAL-OUT_36 人工提出-BG視訊-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1267  TRANSFER-36-OUT 轉出至BG視訊</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1266  TRANSFER-36-IN 由BG視訊轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PP電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1278 DEPOSIT-MANUAL-IN_37 人工存入-PP電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1279 DEPOSIT-MANUAL-TRANSFER_37 人工存入-PP電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1280 WITHDRAWAL-MANUAL-TRANSFER_37 人工提出-PP電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1281 WITHDRAWAL-MANUAL-OUT_37 人工提出-PP電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1277  TRANSFER-37-OUT 轉出至PP電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1276  TRANSFER-37-IN 由PP電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>JDB電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1296 DEPOSIT-MANUAL-IN_39 人工存入-JDB電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1297 DEPOSIT-MANUAL-TRANSFER_39 人工存入-JDB電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1298 WITHDRAWAL-MANUAL-TRANSFER_39 人工提出-JDB電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1299 WITHDRAWAL-MANUAL-OUT_39 人工提出-JDB電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042  TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1295  TRANSFER-39-OUT 轉出至JDB電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1294  TRANSFER-39-IN 由JDB電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043  TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>AG電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1304 DEPOSIT-MANUAL-IN_40 人工存入-AG電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1305 DEPOSIT-MANUAL-TRANSFER_40 人工存入-AG電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1306 WITHDRAWAL-MANUAL-TRANSFER_40 人工提出-AG電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1307 WITHDRAWAL-MANUAL-OUT_40 人工提出-AG電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042 TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1303 TRANSFER-40-OUT 轉出至AG電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1302 TRANSFER-40-IN 由AG電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043 TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>MW電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1312 DEPOSIT-MANUAL-IN_41 人工存入-MW電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1313 DEPOSIT-MANUAL-TRANSFER_41 人工存入-MW電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1314 WITHDRAWAL-MANUAL-TRANSFER_41 人工提出-MW電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1315 WITHDRAWAL-MANUAL-OUT_41 人工提出-MW電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042 TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1311 TRANSFER-41-OUT 轉出至MW電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1310 TRANSFER-41-IN 由MW電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043 TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>RT電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1356 DEPOSIT-MANUAL-IN_42 人工存入-RT電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1357 DEPOSIT-MANUAL-TRANSFER_42 人工存入-RT電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1358 WITHDRAWAL-MANUAL-TRANSFER_42 人工提出-RT電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1359 WITHDRAWAL-MANUAL-OUT_42 人工提出-RT電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042 TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1355 TRANSFER-42-OUT 轉出至RT電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1354 TRANSFER-42-IN 由RT電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043 TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SG電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1564 DEPOSIT-MANUAL-IN_44 人工存入-SG電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1565 DEPOSIT-MANUAL-TRANSFER_44 人工存入-SG電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1566 WITHDRAWAL-MANUAL-TRANSFER_44 人工提出-SG電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1567 WITHDRAWAL-MANUAL-OUT_44 人工提出-SG電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042 TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1563 TRANSFER-44-OUT 轉出至SG電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1562 TRANSFER-44-IN 由SG電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043 TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>VR彩票</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1373 DEPOSIT-MANUAL-IN_45 人工存入-VR彩票-存入</code></p>
+                        <p style="margin-left:8px;"><code>1374 DEPOSIT-MANUAL-TRANSFER_45 人工存入-VR彩票-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1375 WITHDRAWAL-MANUAL-TRANSFER_45 人工提出-VR彩票-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1376 WITHDRAWAL-MANUAL-OUT_45 人工提出-VR彩票-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042 TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1372 TRANSFER-45-OUT 轉出至VR彩票</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1371 TRANSFER-45-IN 由VR彩票轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043 TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PTⅡ電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1415 DEPOSIT-MANUAL-IN_46 人工存入-PTⅡ電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1416 DEPOSIT-MANUAL-TRANSFER_46 人工存入-PTⅡ電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1417 WITHDRAWAL-MANUAL-TRANSFER_46 人工提出-PTⅡ電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1418 WITHDRAWAL-MANUAL-OUT_46 人工提出-PTⅡ電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042 TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1414 TRANSFER-46-OUT 轉出至PTⅡ電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1413 TRANSFER-46-IN 由PTⅡ電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043 TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>EVO視訊</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1399 DEPOSIT-MANUAL-IN_47 人工存入-EVO視訊-存入</code></p>
+                        <p style="margin-left:8px;"><code>1400 DEPOSIT-MANUAL-TRANSFER_47 人工存入-EVO視訊-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1401 WITHDRAWAL-MANUAL-TRANSFER_47 人工提出-EVO視訊-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1402 WITHDRAWAL-MANUAL-OUT_47 人工提出-EVO視訊-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042 TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1398 TRANSFER-47-OUT 轉出至EVO視訊</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1397 TRANSFER-47-IN 由EVO視訊轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043 TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>BNG電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1407 DEPOSIT-MANUAL-IN_48 人工存入-BNG電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1408 DEPOSIT-MANUAL-TRANSFER_48 人工存入-BNG電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1409 WITHDRAWAL-MANUAL-TRANSFER_48 人工提出-BNG電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1410 WITHDRAWAL-MANUAL-OUT_48 人工提出-BNG電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042 TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1406 TRANSFER-48-OUT 轉出至BNG電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1405 TRANSFER-48-IN 由BNG電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043 TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>開元 棋牌</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1440 DEPOSIT-MANUAL-IN_49 人工存入-開元 棋牌-存入</code></p>
+                        <p style="margin-left:8px;"><code>1441 DEPOSIT-MANUAL-TRANSFER_49 人工存入-開元 棋牌-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1442 WITHDRAWAL-MANUAL-TRANSFER_49 人工提出-開元 棋牌-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1443 WITHDRAWAL-MANUAL-OUT_49 人工提出-開元 棋牌-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042 TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1439 TRANSFER-49-OUT 轉出至開元 棋牌</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1438 TRANSFER-49-IN 由開元 棋牌轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043 TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>WM電子</td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1454 DEPOSIT-MANUAL-IN_50 人工存入-WM電子-存入</code></p>
+                        <p style="margin-left:8px;"><code>1455 DEPOSIT-MANUAL-TRANSFER_50 人工存入-WM電子-轉移</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1456 WITHDRAWAL-MANUAL-TRANSFER_50 人工提出-WM電子-轉移</code></p>
+                        <p style="margin-left:8px;"><code>1457 WITHDRAWAL-MANUAL-OUT_50 人工提出-WM電子-提出</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1042 TRANSFER-API-IN API轉入</code></p>
+                        <p style="margin-left:8px;"><code>1453 TRANSFER-50-OUT 轉出至WM電子</code></p>
+                    </td>
+                    <td>
+                        <p style="margin-left:8px;"><code>1452 TRANSFER-50-IN 由WM電子轉入</code></p>
+                        <p style="margin-left:8px;"><code>1043 TRANSFER-API-OUT API轉出</code></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="alert alert-info">
+        memo(備註)的字數限制為<code>100</code>個字，若超過只會保留前100個字
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/cash_fake/transfer_out</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">vendor</label>
+            <div class="col-md-5">
+                <input name="vendor" type="text" class="form-control" value="SABAH">
+            </div>
+            <span class="help-block col-md-4">廠商。預設沙巴</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <input name="amount" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">交易金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ref_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ref_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備查編號。預設空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">operator</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="operator" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">操作者。預設空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註。預設空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">api_owner</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="api_owner" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否為API業主。預設0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">force_copy</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="force_copy" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">允許強制明細編號存入refId。預設為不允許</span>
+        </div>
+       <div class="form-group">
+            <label class="control-label col-md-3">auto_commit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="auto_commit" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">自動確認交易。預設自動</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_cash_fake_transfer_out" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

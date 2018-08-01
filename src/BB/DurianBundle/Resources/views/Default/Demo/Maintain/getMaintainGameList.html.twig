@@ -1,0 +1,24 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Maintain Game List</h1>
+    <code>GET /api/maintain/game_list</code>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">取得目前維護中遊戲</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:game_map.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_maintain_game_list" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

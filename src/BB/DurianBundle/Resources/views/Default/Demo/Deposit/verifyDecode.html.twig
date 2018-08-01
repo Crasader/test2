@@ -1,0 +1,63 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+function resetDataParam() {
+    var param = {};
+
+    $('.input-value').each(function() {
+        var key = $(this).find('input[name=key]').val();
+        var value = $(this).find('input[name=value]').val();
+        param[key] = value;
+    });
+
+    return param;
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Verify Decode</h1>
+    <code>GET /api/deposit/{entryId}/verify</code>
+</div>
+
+<p class="lead">入款解密驗證</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/deposit/</span>
+                    <input data-request-param="entryId" type="text" class="form-control" placeholder="{entryId}">
+                    <span class="input-group-addon">/verify</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{entryId}</p>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template input-value">
+                <label class="control-label col-md-3">key</label>
+                <div class="col-md-5">
+                    <input name="key" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">欄位名稱</span>
+                <label class="control-label col-md-3">value</label>
+                <div class="col-md-5">
+                    <input name="value" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">欄位值</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_deposit_verify" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

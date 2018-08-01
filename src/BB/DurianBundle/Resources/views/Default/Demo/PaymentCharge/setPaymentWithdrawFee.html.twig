@@ -1,0 +1,271 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set Payment Withdraw Fee</h1>
+    <code>PUT /api/payment_charge/{id}/withdraw_fee</code>
+</div>
+
+<p class="lead">修改線上支付設定的出款手續費</p>
+
+<form class="form-horizontal">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/payment_charge/</span>
+                    <input data-request-param="id" type="text" class="form-control" placeholder="{id}">
+                    <span class="input-group-addon">/withdraw_fee</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{id}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">free_period</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="free_period" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">重覆出款時數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">free_count</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="free_count" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">免收手續費次數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="amount_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">出款手續費上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount_percent</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="amount_percent" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">出款手續費比例</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">withdraw_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="withdraw_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">出款上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">withdraw_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="withdraw_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">出款下限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">mobile_free_period</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="mobile_free_period" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電子錢包重覆出款時數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">mobile_free_count</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="mobile_free_count" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電子錢包免收手續費次數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">mobile_amount_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="mobile_amount_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電子錢包出款手續費上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">mobile_amount_percent</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="mobile_amount_percent" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電子錢包出款手續費比例</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">mobile_withdraw_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="mobile_withdraw_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電子錢包出款上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">mobile_withdraw_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="mobile_withdraw_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電子錢包出款下限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bitcoin_free_period</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bitcoin_free_period" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">比特幣重覆出款時數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bitcoin_free_count</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bitcoin_free_count" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">比特幣免收手續費次數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bitcoin_amount_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bitcoin_amount_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">比特幣出款手續費上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bitcoin_amount_percent</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bitcoin_amount_percent" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">比特幣出款手續費比例</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bitcoin_withdraw_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bitcoin_withdraw_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">比特幣出款上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bitcoin_withdraw_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bitcoin_withdraw_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">比特幣出款下限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account_replacement_tips</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="account_replacement_tips" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">出款銀行帳號更換提示</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account_tips_interval</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="account_tips_interval" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">出款銀行帳號更換提示時間間隔</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_set_payment_charge_withdraw_fee" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

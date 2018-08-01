@@ -1,0 +1,109 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Generate UserId</h1>
+    <code>GET /api/user/id</code>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <p class="lead">產生使用者Id<code>(即將移除)</code></p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:role_map.html.twig' %}
+    {% include 'BBDurianBundle:Default/Doc:ingress_map.html.twig' %}
+</div>
+<div class="alert alert-info">
+    產生廳主Id時可不用帶<code>domain</code>
+</div>
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">parent_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="parent_id" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者父層ID，不送則產生廳主Id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="domain" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">廳主id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">client_ip</label>
+            <div class="col-md-5">
+                <input name="client_ip" type="text" class="form-control" value="0.0.0.0">
+            </div>
+            <span class="help-block col-md-4">操作者ip</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">role</label>
+            <div class="col-md-5">
+                <input name="role" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">帳號身份，產生廳主Id請代入7，其餘請參考Role Map</span>
+        </div>
+         <div class="form-group">
+            <label class="control-label col-md-3">sub</label>
+            <div class="col-md-5">
+                <input name="sub" type="text" class="form-control" value="0">
+            </div>
+            <span class="help-block col-md-4">子帳號。預設0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">verify_ip</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="verify_ip" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否檢查ip封鎖列表。設1檢查，設0不檢查。預設為1</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">verify_blacklist</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="verify_blacklist" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否檢查黑名單。設1檢查，設0不檢查。預設為1</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ingress</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ingress" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">登入來源(公司入口)，請填入代碼</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_user_id_generate" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

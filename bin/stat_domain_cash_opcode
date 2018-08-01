@@ -1,0 +1,11 @@
+#!/bin/sh
+
+BIN=$(cd $(dirname "$0"); pwd)
+PHP=`which php`
+yest=$( date --date="yesterday" +"%Y/%m/%d" )
+
+if [ 1 -gt "`ps aux | grep stat-domain-cash-opcode | grep -v grep | wc -l`" ]
+then
+    $PHP -d memory_limit=512M $BIN/../app/console durian:stat-domain-cash-opcode --batch-size=1000 --wait-sec=0.3 --start-date="$yest" --end-date="$yest" --env=prod >> $BIN/../app/logs/stat_domain_cash_opcode.log 2>&1
+fi
+

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+MAX=$1
+BIN=$(cd $(dirname "$0"); pwd)
+PHP=`which php`
+
+# 最大同時跑的數量預設為1個
+if [ -z "$MAX" ]
+then
+    MAX=1
+fi
+
+if [ $MAX -gt "`ps aux | grep generate-rm-plan-user | grep console | grep -v grep | wc -l`" ]
+then
+    $PHP -d memory_limit=512M $BIN/../app/console durian:generate-rm-plan-user --batch-size=10000 --wait-time=500000 --env=prod >> $BIN/../app/logs/prod.generate_rm_plan_user.log 2>&1 &
+fi

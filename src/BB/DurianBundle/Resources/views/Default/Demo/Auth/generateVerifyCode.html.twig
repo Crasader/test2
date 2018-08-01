@@ -1,0 +1,31 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Generate Verify Code</h1>
+    <code>POST /api/user/{userId}/email_verify_code</code>
+</div>
+
+<p class="lead">產生使用者email認證碼</p>
+
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="control-label col-md-2"></label>
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon">/api/user/</span>
+                <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                <span class="input-group-addon">/email_verify_code</span>
+            </div>
+        </div>
+        <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+    </div>
+    <fieldset>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_auth_generate_email_verify_code" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

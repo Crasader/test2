@@ -1,0 +1,31 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Card Tracking</h1>
+    <code>GET /api/card/deposit/{entryId}/tracking</code>
+</div>
+
+<p class="lead">租卡入款查詢結果</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class = "col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/card/deposit/</span>
+                    <input data-request-param="entryId" type="text" class="form-control" placeholder="{entryId}">
+                    <span class="input-group-addon">/tracking</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{entryId}</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_card_deposit_tracking" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

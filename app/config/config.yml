@@ -1,0 +1,554 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: "@BBDurianBundle/Resources/config/config.yml"}
+
+framework:
+    #esi:             ~
+    translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: "%trusted_proxies%"
+    session:         ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   "%database_driver%"
+                host:     "%database_master_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+                keep_slave: true
+                #set PDO ATTR_TIMEOUT (s)
+                options: {2: "%pdo_attr_timeout%"}
+                server_version: 5.6
+                slaves:
+                    0:
+                        name:     default_slave
+                        host:     "%database_slave_host%"
+                        port:     "%database_port%"
+                        dbname:   "%database_name%"
+                        user:     "%database_user%"
+                        password: "%database_password%"
+                        charset:  UTF8
+            his:
+                driver:   "%database_his_driver%"
+                host:     "%database_his_master_host%"
+                port:     "%database_his_port%"
+                dbname:   "%database_his_name%"
+                user:     "%database_his_user%"
+                password: "%database_his_password%"
+                charset:  UTF8
+                keep_slave: true
+                #set PDO ATTR_TIMEOUT (s)
+                options: {2: "%pdo_attr_timeout%"}
+                server_version: 5.6
+                slaves:
+                    0:
+                        name:     his_slave
+                        host:     "%database_his_slave_host%"
+                        port:     "%database_his_port%"
+                        dbname:   "%database_his_name%"
+                        user:     "%database_his_user%"
+                        password: "%database_his_password%"
+                        charset:  UTF8
+            entry:
+                driver:   "%database_entry_driver%"
+                host:     "%database_entry_master_host%"
+                port:     "%database_entry_port%"
+                dbname:   "%database_entry_name%"
+                user:     "%database_entry_user%"
+                password: "%database_entry_password%"
+                charset:  UTF8
+                keep_slave: true
+                #set PDO ATTR_TIMEOUT (s)
+                options: {2: "%pdo_attr_timeout%"}
+                server_version: 5.6
+                slaves:
+                    0:
+                        name:     entry_slave
+                        host:     "%database_entry_slave_host%"
+                        port:     "%database_entry_port%"
+                        dbname:   "%database_entry_name%"
+                        user:     "%database_entry_user%"
+                        password: "%database_entry_password%"
+                        charset:  UTF8
+            share:
+                driver:   "%database_share_driver%"
+                host:     "%database_share_master_host%"
+                port:     "%database_share_port%"
+                dbname:   "%database_share_name%"
+                user:     "%database_share_user%"
+                password: "%database_share_password%"
+                charset:  UTF8
+                keep_slave: true
+                #set PDO ATTR_TIMEOUT (s)
+                options: {2: "%pdo_attr_timeout%"}
+                server_version: 5.6
+                slaves:
+                    0:
+                        name:     share_slave
+                        host:     "%database_share_slave_host%"
+                        port:     "%database_share_port%"
+                        dbname:   "%database_share_name%"
+                        user:     "%database_share_user%"
+                        password: "%database_share_password%"
+                        charset:  UTF8
+            outside:
+                driver:   "%database_outside_driver%"
+                host:     "%database_outside_master_host%"
+                port:     "%database_outside_port%"
+                dbname:   "%database_outside_name%"
+                user:     "%database_outside_user%"
+                password: "%database_outside_password%"
+                charset:  UTF8
+                keep_slave: true
+                #set PDO ATTR_TIMEOUT (s)
+                options: {2: "%pdo_attr_timeout%"}
+                server_version: 5.6
+                slaves:
+                    0:
+                        name:     outside_slave
+                        host:     "%database_outside_slave_host%"
+                        port:     "%database_outside_port%"
+                        dbname:   "%database_outside_name%"
+                        user:     "%database_outside_user%"
+                        password: "%database_outside_password%"
+                        charset:  UTF8
+            ip_blocker:
+                driver:   "%database_ip_blocker_driver%"
+                host:     "%database_ip_blocker_master_host%"
+                port:     "%database_ip_blocker_port%"
+                dbname:   "%database_ip_blocker_name%"
+                user:     "%database_ip_blocker_user%"
+                password: "%database_ip_blocker_password%"
+                charset:  UTF8
+                keep_slave: true
+                #set PDO ATTR_TIMEOUT (s)
+                options: {2: "%pdo_attr_timeout%"}
+                server_version: 5.6
+                slaves:
+                    0:
+                        name:     ip_blocker_slave
+                        host:     "%database_ip_blocker_slave_host%"
+                        port:     "%database_ip_blocker_port%"
+                        dbname:   "%database_ip_blocker_name%"
+                        user:     "%database_ip_blocker_user%"
+                        password: "%database_ip_blocker_password%"
+                        charset:  UTF8
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    BBDurianBundle: ~
+            his:
+                connection: his
+                mappings:
+                    BBDurianBundle: ~
+            entry:
+                connection: entry
+                mappings:
+                    BBDurianBundle: ~
+            share:
+                connection: share
+                mappings:
+                    BBDurianBundle: ~
+            outside:
+                connection: outside
+                mappings:
+                    BBDurianBundle: ~
+            ip_blocker:
+                connection: ip_blocker
+                mappings:
+                    BBDurianBundle: ~
+
+# Monolog Configuration
+monolog:
+    channels: ['msg']
+    handlers:
+        # Record all messages when connect to payment gateway
+        payment:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/payment.log"
+            level: debug
+            channels: ~
+
+        # Record entry queue when executing the CashFakeOperator
+        sync_cash_fake_entry_queue:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_cash_fake_entry_queue.log"
+            level: debug
+            channels: ~
+
+        # Record balance queue when executing the CashFakeOperator
+        sync_cash_fake_queue:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_cash_fake_queue.log"
+            level: debug
+            channels: ~
+
+        # Record all SQLs when executing the sync-user-deposit-withdraw command
+        sync_user_deposit_withdraw:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_user_deposit_withdraw.log"
+            level: debug
+            channels: ~
+
+        # Record all SQLs when executing the sync-cash-fake --entry command
+        sync_cash_fake_entry:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_cash_fake_entry.log"
+            level: debug
+            channels: ~
+
+        # Record all SQLs when executing the sync-cash-fake --balance command
+        sync_cash_fake_balance:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_cash_fake_balance.log"
+            level: debug
+            channels: ~
+
+        # Record all SQLs when executing the sync-cash-fake --history command
+        sync_cash_fake_history:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_cash_fake_history.log"
+            level: debug
+            channels: ~
+
+        # Record all SQLs when executing the sync-credit --entry command
+        sync_credit_entry:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_credit_entry.log"
+            level: debug
+            channels: ~
+
+        # Record all SQLs when executing the sync-credit --credit --period command
+        sync_credit:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_credit.log"
+            level: debug
+            channels: ~
+
+        # Record all SQLs when executing the message-to-italking command
+        message_to_italking:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/message_to_italking.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the check-balance command
+        check_balance:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/check_balance.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the check-redis-balance command
+        check_redis_balance:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/check_redis_balance.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the sync-rm-plan-user command
+        sync_rm_plan_user:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_rm_plan_user.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the execute-rm-plan command
+        execute_rm_plan:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/execute_rm_plan.log"
+            level: debug
+            channels: ~
+
+        # Record all SQLs when executing the check-deposit-tracking command
+        check_deposit_tracking:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/check_deposit_tracking.log"
+            level: debug
+            channels: ~
+
+        # Record all SQLs when executing the check-card-deposit-tracking command
+        check_card_deposit_tracking:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/check_card_deposit_tracking.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the send-message command
+        send_message:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/send_message.log"
+            level: info
+            channels: ~
+
+        # Record all messages when executing the message operator
+        send_message_http_detail:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/send_message_http_detail.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the pop-failed-message command
+        pop_failed_message:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/pop_failed_message.log"
+            level: info
+            channels: ~
+
+        # Record all messages when executing the remove-overdue-user command
+        remove_overdue_user:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/remove_overdue_user.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the create-reward-entry command
+        create_reward_entry:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/create_reward_entry.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the remove_ipl_overdue_user command
+        remove_ipl_overdue_user:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/remove_ipl_overdue_user.log"
+            level: debug
+            channels: ~
+
+        # Record all SQLs when executing the obtain-reward --sync command
+        sync_obtain_reward:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_obtain_reward.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the obtain-reward --do-op command
+        op_obtain_reward:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/op_obtain_reward.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the copy_user_crossDomain command
+        copy_user_crossDomain:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/copy_user_crossDomain.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the generate_rm_plan command
+        generate_rm_plan:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/generate_rm_plan.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the monitor-stat command
+        monitor_stat:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/monitor_stat.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when connecting auto confirm
+        remit_auto_confirm:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/remit_auto_confirm.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the sync-login-log command
+        sync_login_log:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_login_log.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the generate_rm_plan_user command
+        generate_rm_plan_user:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/generate_rm_plan_user.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the regular-login command
+        regular_login:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/regular_login.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the sync-login-log_mobile command
+        sync_login_log_mobile:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/sync_login_log_mobile.log"
+            level: debug
+            channels: ~
+
+        # Record all messages when executing the monitor_queue_length command
+        monitor_queue_length:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%/monitor_queue_length.log"
+            level: debug
+            channels: ~
+
+fos_js_routing:
+    routes_to_expose: [ home, ^demo_.*$, ^api_.*$, ^monitor_.*$, ^tools.*$, ^log_operation$ ]
+
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: "redis://%redis_host%:%redis_port%"
+            options:
+                prefix: "%database_name%_"
+                profile: 2.8
+        cluster:
+            type: predis
+            alias: cluster
+            dsn: %redis_clusters%
+            options:
+                prefix: "%cluster_name%_"
+                profile: 2.8
+        sequence:
+            type: predis
+            alias: sequence
+            dsn: %redis_sequence%
+            options:
+                prefix: "%sequence_name%_"
+                profile: 2.8
+        reward:
+            type: predis
+            alias: reward
+            dsn: %redis_reward%
+            options:
+                prefix: "%reward_name%_"
+                profile: 2.8
+        map:
+            type: predis
+            alias: map
+            dsn: %redis_map%
+            options:
+                prefix: "%map_name%_"
+                profile: 2.8
+                cluster: redis
+        wallet1:
+            type: predis
+            alias: wallet1
+            dsn: %redis_wallet1%
+            options:
+                prefix: "%database_name%_"
+                profile: 2.8
+        wallet2:
+            type: predis
+            alias: wallet2
+            dsn: %redis_wallet2%
+            options:
+                prefix: "%database_name%_"
+                profile: 2.8
+        wallet3:
+            type: predis
+            alias: wallet3
+            dsn: %redis_wallet3%
+            options:
+                prefix: "%database_name%_"
+                profile: 2.8
+        wallet4:
+            type: predis
+            alias: wallet4
+            dsn: %redis_wallet4%
+            options:
+                prefix: "%database_name%_"
+                profile: 2.8
+        kue:
+            type: predis
+            alias: kue
+            dsn: %redis_kue%
+            options:
+                prefix: "%kue_name%:"
+                profile: 2.8
+        slide:
+            type: predis
+            alias: slide
+            dsn: %redis_slide%
+            options:
+                prefix: "%slide_name%_"
+                profile: 2.8
+        oauth2:
+            type: predis
+            alias: oauth2
+            dsn: %redis_oauth2%
+            options:
+                prefix: "%oauth2_prefix%"
+                profile: 2.8
+        bodog:
+            type: predis
+            alias: bodog
+            dsn: %redis_bodog%
+            options:
+                prefix: "%bodog_name%_"
+                profile: 2.8
+        external:
+            type: predis
+            alias: external
+            dsn: %redis_external%
+            options:
+                prefix: "%external_name%_"
+                profile: 2.8
+        total_balance:
+            type: predis
+            alias: total_balance
+            dsn: %redis_total_balance%
+            options:
+                prefix: "%total_balance_name%_"
+                profile: 2.8
+        suncity:
+            type: predis
+            alias: suncity
+            dsn: %redis_suncity%
+            options:
+                prefix: "%suncity_name%_"
+                profile: 2.8
+        ip_blocker:
+            type: predis
+            alias: ip_blocker
+            dsn: %redis_ip_blocker%
+            options:
+                prefix: "%ip_blocker_name%_"
+                profile: 2.8
+                cluster: redis
+
+    doctrine:
+        result_cache:
+            client: default
+            entity_manager: default

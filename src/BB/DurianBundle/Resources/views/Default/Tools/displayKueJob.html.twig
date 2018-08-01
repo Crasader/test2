@@ -1,0 +1,170 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block javascripts %}
+<script type="text/javascript">
+$(function () {
+    $('.btn_delete_kue').click(function() {
+        var param = $('form').serialize();
+
+        $.ajax({
+            url: Routing.generate('tools_delete_kue_job'),
+            type: 'DELETE',
+            data: param,
+            dataType: 'json',
+            success: function(data) {
+                var action = '刪除';
+                showResult(action, data);
+            }
+        });
+    });
+
+    $('.btn_redo_kue').click(function() {
+        var param = $('form').serialize();
+
+        $.ajax({
+            url: Routing.generate('tools_redo_kue_job'),
+            type: 'PUT',
+            data: param,
+            dataType: 'json',
+            success: function(data) {
+                var action = '重新執行';
+                showResult(action, data);
+            }
+        });
+    });
+
+    {# 處理回傳並顯示結果 #}
+    function showResult (action, data) {
+        $('.result_msg').empty();
+        $('.result_msg').removeClass('alert alert-danger');
+        $('.result_msg').removeClass('alert alert-success');
+
+        var showMsg = '';
+
+        if (data.result === 'error') {
+            showMsg += '<p><strong>' + action + '失敗</strong></p>';
+            showMsg += '<p>錯誤代碼：' + data.code + '</p>';
+            showMsg += '<p>錯誤訊息：' + data.msg + '</p>';
+
+            $('.result_msg').html(showMsg).addClass('alert alert-danger');
+        }
+
+        if (data.result === 'ok') {
+            $('.kue_inactive span').html(data.ret.nums.inactive);
+            $('.kue_complete span').html(data.ret.nums.complete);
+            $('.kue_active span').html(data.ret.nums.active);
+            $('.kue_failed span').html(data.ret.nums.failed);
+
+            showMsg += '<p><strong>' + action + '成功</strong></p>';
+            showMsg += '<p>成功數量: ' + data.ret.success_count + '</p>';
+            showMsg += '<p>失敗數量: ' + data.ret.failed_count + '</p>';
+
+            $('.result_msg').html(showMsg).addClass('alert alert-success');
+        }
+    }
+});
+
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h1>Kue Job工具</h1>
+</div>
+<div class="form-group col-md-12">
+    <div class="alert alert-info">
+        <p>請選擇欲刪除或重新執行的job類型、狀態、欲動作job之範圍與排序。(<code>0為第一個job</code>)</p>
+        <br/>
+        <p>
+            <strong>例:</strong> 欲刪除類型為「<code>test</code>」，狀態為「<code>已完成</code>」，
+            Job Id以「<code>ASC</code>」排序，第<code>1</code>個到第<code>3</code>個Job
+        </p>
+        <p>
+            類型 => test <br/>
+            狀態 => 已完成 (Complete) <br/>
+            區間 => 0 至 2 <br/>
+            排序 => ASC <br/>
+        </p>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-1">
+        <label class="control-label">Kue數量</label>
+    </div>
+    <div class="col-md-2">
+        <label class="control-label kue_inactive">
+            尚未執行 (Queued): <span> {{ nums.inactive }} </span>
+        </label>
+        <br/>
+        <label class="control-label kue_active">
+            執行中 (Active): <span> {{ nums.active }} </span>
+        </label>
+        <br/>
+        <label class="control-label kue_failed">
+            失敗 (Failed): <span> {{ nums.failed }} </span>
+        </label>
+        <br/>
+        <label class="control-label kue_complete">
+            已完成 (Complete): <span> {{ nums.complete }} </span>
+        </label>
+    </div>
+</div>
+<form class="form-horizontal col-md-12" role="form">
+    <div class="form-group">
+        <div class="col-md-1">
+            <label class="control-label">類型:</label>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" name="type">
+                <option value="null" selected>--</option>
+                {% for type in types %}
+                    <option value='{{ type }}'>{{ type }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label class="control-label">狀態:</label>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="status">
+                <option value="null" selected>--</option>
+                <option value="inactive">尚未執行</option>
+                <option value="active">執行中</option>
+                <option value="failed">失敗</option>
+                <option value="complete">已完成</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <label class="control-label">排序:</label>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" name="order">
+                <option value="asc" selected>ASC</option>
+                <option value="desc">DESC</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-1">
+            <label class="control-label">區間:</label>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group">
+                <input name="from" type="text" value="0" class="form-control">
+                <span class="input-group-addon">至</span>
+                <input name="to" type="text" value="0" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-md-2">
+        <button class="btn btn-primary btn_delete_kue" type="button">刪除</button>
+        <button class="btn btn-primary btn_redo_kue" type="button">重新執行</button>
+    </div>
+</form>
+
+{# output #}
+<div class="form-group col-md-12">
+    <div class="result_msg"></div>
+</div>
+
+{% endblock %}

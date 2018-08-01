@@ -1,0 +1,272 @@
+#!/bin/sh
+
+# 檢查預設服務
+echo -e "\n1. 預設啟動服務檢查"
+# 預設啟動的服務列表
+serviceEnable=(
+snmpd.service
+munin-node.service
+ntpd.service
+ntpdate.service
+)
+# 預設停用的服務列表
+serviceDisable=(
+auditd.service
+autofs.service
+avahi-daemon.service
+irqbalance.service
+lvm2-monitor.service
+messagebus.service
+postfix.service
+rpcbind.target
+chronyd.service
+)
+echo "enable 服務"
+for i in ${serviceEnable[@]}
+do
+    if  systemctl list-unit-files | grep $i | grep -q 'enabled'; then
+        echo -e "\033[32m$i ok\033[0m"
+    else
+        echo -e "\033[31m$i failed\033[0m"
+    fi
+done
+
+echo -e "\ndisable 服務"
+for i in ${serviceDisable[@]}
+do
+    if  systemctl list-unit-files | grep $i | grep -q 'disabled'; then
+        echo -e "\033[32m$i ok\033[0m"
+    else
+        echo -e "\033[31m$i failed\033[0m"
+    fi
+done
+
+# 檢查現行服務
+echo -e "\n2.現行服務檢查"
+echo -e "enable 服務"
+for i in ${serviceEnable[@]}
+do
+    if  systemctl status $i | grep -q 'active (running)'; then
+        echo -e "\033[32m$i ok\033[0m"
+    else
+        echo -e "\033[31m$i failed\033[0m"
+    fi
+done
+
+echo -e "\ndisable 服務"
+for i in ${serviceDisable[@]}
+do
+    if  systemctl status $i | grep -q 'inactive (dead)'; then
+        echo -e "\033[32m$i ok\033[0m"
+    else
+        echo -e "\033[31m$i failed\033[0m"
+    fi
+done
+
+# 檢查 selinux 是否 disabled
+echo -e "\n3. selinux 檢查"
+if grep -q "^SELINUX=disabled" /etc/selinux/config; then
+    echo -e "\033[32mcheck ok\033[0m"
+else
+    echo -e "\033[31mc heck failed\033[0m"
+fi
+
+# 檢查時區是否為台北時間
+echo -e "\n4. 時區檢查"
+if ls -al /etc/localtime | grep -q '/usr/share/zoneinfo/Asia/Taipei'; then
+    echo -e "\033[32mcheck ok\033[0m"
+else
+    echo -e "\033[31mcheck failed\033[0m"
+fi
+
+# 檢查 bridge 模組是否安裝
+echo -e "\n5. bridge 模組檢查"
+if lsmod | grep -q '^bridge'; then
+    echo -e "\033[32mcheck ok\033[0m"
+else
+    echo -e "\033[31mcheck failed\033[0m"
+fi
+
+# 檢查 local.conf
+echo -e "\n6. local.conf 檢查"
+file=/etc/security/limits.d/local.conf
+if [ ! -e $file ]; then
+    echo -e "\033[31mcheck failed\033[0m"
+elif grep -q 'soft    nproc     65535' $file && grep -q 'hard    nproc     65535' $file && grep -q 'soft    nofile    65535' $file && grep -q 'hard    nofile    65535' $file; then
+    echo -e "\033[32mcheck ok\033[0m"
+else
+    echo -e "\033[31mcheck failed\033[0m"
+fi
+
+# 檢查 log 目錄
+echo -e "\n7. log 目錄檢查"
+log=(
+/var/log/nginx
+/var/log/php-fpm
+)
+for i in ${log[@]}
+do
+    if [ -e $i ]; then
+        echo -e "\033[32m$i ok\033[0m"
+    else
+        echo -e "\033[31m$i failed\033[0m"
+    fi
+done
+
+# 檢查 logrotate
+echo -e "\n8. logrotate 檢查"
+logrotate=(
+/etc/logrotate.d/nginx
+/etc/logrotate.d/php-fpm
+/etc/logrotate.d/durian
+)
+for i in ${logrotate[@]}
+do
+    if [ -e $i ]; then
+        echo -e "\033[32m$i ok\033[0m"
+    else
+        echo -e "\033[31m$i failed\033[0m"
+    fi
+done
+date=$(date --date="2 day ago" +"%Y%m%d")
+nginxLog=/var/log/nginx/s.bb.durian.access.log-
+if [ -e $nginxLog$date.gz ]; then
+    echo -e "\033[32mweb nginx log ok\033[0m"
+else
+    echo -e "\033[31mweb nginx log failed\033[0m"
+fi
+
+# 檢查 sysctl 現行參數是否正確
+echo -e "\n9. sysctl 現行參數檢查"
+# sysctl 參數列表，現行有空格，.conf設定檔內沒有空格
+sysctl=(
+'net.ipv4.tcp_tw_reuse = 1'
+'net.ipv4.tcp_tw_recycle = 1'
+'net.core.netdev_max_backlog = 10000'
+'net.ipv4.tcp_max_syn_backlog = 65535'
+'net.core.somaxconn = 65535'
+'vm.swappiness = 0'
+)
+sysctlAll=$(sysctl -a)
+for (( i=0; i<${#sysctl[@]}; i++ ))
+do
+    if echo $sysctlAll | grep -q "${sysctl[$i]}"; then
+        echo -e "\033[32m${sysctl[$i]} ok\033[0m"
+    else
+        echo -e "\033[31m${sysctl[$i]} failed\033[0m"
+    fi
+done
+
+# 檢查 sysctl.conf
+echo -e "\n10. sysctl.conf 檢查"
+for (( i=0; i<${#sysctl[@]}; i++ ))
+do
+    sysctlNoBlank=$(echo ${sysctl[$i]} | tr -d '[:blank:]')
+    if grep -q $sysctlNoBlank /etc/sysctl.conf; then
+        echo -e "\033[32m$sysctlNoBlank ok\033[0m"
+    else
+        echo -e "\033[31m$sysctlNoBlank failed\033[0m"
+    fi
+done
+
+# 檢查 durian 使用者
+echo -e "\n11. durian 使用者檢查"
+id=$(id -u durian)
+if [[ $id =~ ^[0-9]+$ ]]; then
+    echo -e "\033[32mdurian user ok\033[0m"
+else
+    echo -e "\033[31mdurian user failed\033[0m"
+fi
+
+# 檢查套件是否安裝
+echo -e "\n12. 套件檢查"
+# 預設安裝套件清單
+package=(
+ORBit2.x86_64
+alsa-lib.x86_64
+autofs.x86_64
+avahi.x86_64
+bc.x86_64
+biosdevname.x86_64
+busybox.x86_64
+compat-expat1.x86_64
+dbus-python.x86_64
+dejavu-fonts-common.noarch
+dejavu-sans-fonts.noarch
+device-mapper-event.x86_64
+device-mapper-event-libs.x86_64
+elfutils.x86_64
+elfutils-libs.x86_64
+fontpackages-filesystem.noarch
+gcc.x86_64
+gcc-c++.x86_64
+gd.x86_64
+gettext.x86_64
+gettext-libs.x86_64
+git.x86_64
+glibc.i686
+hesiod.x86_64
+hwloc.x86_64
+irqbalance.x86_64
+kexec-tools.x86_64
+kpartx.x86_64
+krb5-workstation.x86_64
+libcom_err-devel.x86_64
+libcroco.x86_64
+libdaemon.x86_64
+libgomp.x86_64
+libmcrypt-devel.x86_64
+libpcap.x86_64
+libproxy.x86_64
+libsepol-devel.x86_64
+libstdc++-devel.x86_64
+libtalloc.x86_64
+libtar.x86_64
+libtdb.x86_64
+libtevent.x86_64
+libtirpc.x86_64
+libtool.x86_64
+libunistring.x86_64
+lm_sensors.x86_64
+lvm2.x86_64
+lvm2-libs.x86_64
+microcode_ctl.x86_64
+ntsysv.x86_64
+parted.x86_64
+python-setuptools.noarch
+remi-release.noarch
+strace.x86_64
+traceroute.x86_64
+usbutils.x86_64
+vconfig.x86_64
+virt-what.x86_64
+xcb-util.x86_64
+bash-completion
+rsync
+wget
+openssh-clients
+man
+ntp
+ntpdate
+munin-node
+mysql
+libjpeg
+freetype-devel
+vim-enhanced
+libmcrypt
+libgearman
+lsof.x86_64
+)
+# 已安裝套件列表
+installed=$(yum list installed)
+failed=0
+for i in ${package[@]}
+do
+    if ! echo $installed | grep -q $i; then
+        echo -e "\033[31m$i failed\033[0m"
+        failed=1
+    fi
+done
+if [ $failed -eq 0 ] ; then
+    echo -e "\033[32mpackages ok\033[0m"
+fi

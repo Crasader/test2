@@ -1,0 +1,47 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Free Transfer Wallet Recycle</h1>
+    <code>PUT /api/user/{userId}/free_transfer_wallet/recycle</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">免轉錢包自動回收額度</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/free_transfer_wallet/recycle</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">action</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="action" type="text" class="form-control" disabled value="0">
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否為進入畫面，設1為進入，設0為離開，預設為離開</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_free_transfer_wallet_recycle" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

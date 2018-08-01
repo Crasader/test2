@@ -1,0 +1,93 @@
+#!/bin/sh
+
+BIN=$(cd $(dirname "$0"); pwd)
+PHP="/usr/local/bin/php"
+
+time=`$PHP $BIN/../app/console durian:time-generator --day --commandName='stat-cash-all-offer'`
+
+start="`echo $time|awk -F ',' '{print $1}'| sed "s/,/ /g"`"
+end="`echo $time|awk -F ',' '{print $2}'| sed "s/,/ /g"`"
+
+#因為是美東時間，判斷背景觸發時間如果是在中午12點前執行的話，最後驗證時間須往前一天
+nowHour=$( date +"%H" )
+if [ $nowHour -lt 12 ]; then
+    end=`date --date="$end 1 days ago" +'%Y-%m-%d'`
+fi
+
+#因 background_process 的 last_end_time 記的是執行時昨天的日期, 會造成每天統計了兩天的資料, 所以這邊將起始時間加一天
+start=`date --date="$start 1 days" +'%Y-%m-%d'`
+
+echo "開始時間$start" >> $BIN/../app/logs/stat_all.log
+echo "結束時間$end" >> $BIN/../app/logs/stat_all.log
+
+runStart="$start"
+conditionStart=`date -d "$start" +'%Y%m%d%H%M%S'`
+conditionEnd=`date -d "$end" +'%Y%m%d%H%M%S'`
+start1=`date -d "$start" +'%Y-%m-%d %H:%M:%S'`
+
+batchSize='3000'
+waitSec='0.3'
+
+while [ $conditionStart -lt $conditionEnd ]
+do
+    echo "=stat-cash-opcode" >> $BIN/../app/logs/stat_all.log
+    echo "$PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-opcode --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}"" >> $BIN/../app/logs/stat_all.log
+    $PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-opcode --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}" >> $BIN/../app/logs/stat_all.log 2>&1
+    if [ "$?" -ne "0" ]; then
+        exit 1
+    fi
+
+    #為了消化語法避免資料庫落後先 sleep 120 秒
+    sleep 120
+
+    echo "=stat-domain-cash-opcode" >> $BIN/../app/logs/stat_all.log
+    echo "$PHP -d memory_limit=256M $BIN/../app/console durian:stat-domain-cash-opcode --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}"" >> $BIN/../app/logs/stat_all.log
+    $PHP -d memory_limit=256M $BIN/../app/console durian:stat-domain-cash-opcode --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}" >> $BIN/../app/logs/stat_all.log 2>&1
+    if [ "$?" -ne "0" ]; then
+       exit 1
+    fi
+
+    echo "=stat-cash-deposit-withdraw" >> $BIN/../app/logs/stat_all.log
+    echo "$PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-deposit-withdraw --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}"" >> $BIN/../app/logs/stat_all.log
+    $PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-deposit-withdraw --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}" >> $BIN/../app/logs/stat_all.log 2>&1
+    if [ "$?" -ne "0" ]; then
+        exit 1
+    fi
+
+    echo "=stat-cash-offer" >> $BIN/../app/logs/stat_all.log
+    echo "$PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-offer --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}"" >> $BIN/../app/logs/stat_all.log
+    $PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-offer --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}" >> $BIN/../app/logs/stat_all.log 2>&1
+    if [ "$?" -ne "0" ]; then
+        exit 1
+    fi
+
+    echo "=stat-cash-rebate" >> $BIN/../app/logs/stat_all.log
+    echo "$PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-rebate --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}"" >> $BIN/../app/logs/stat_all.log
+    $PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-rebate --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}" >> $BIN/../app/logs/stat_all.log 2>&1
+    if [ "$?" -ne "0" ]; then
+       exit 1
+    fi
+
+    echo "=stat-cash-remit" >> $BIN/../app/logs/stat_all.log
+    echo "$PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-remit --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}"" >> $BIN/../app/logs/stat_all.log
+    $PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-remit --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}" >> $BIN/../app/logs/stat_all.log 2>&1
+    if [ "$?" -ne "0" ]; then
+       exit 1
+    fi
+
+    #為了消化語法避免資料庫落後先 sleep 120 秒
+    sleep 120
+
+    echo "=stat-cash-all-offer" >> $BIN/../app/logs/stat_all.log
+    echo "$PHP -d memory_limit=512M $BIN/../app/console durian:stat-cash-all-offer --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}"" >> $BIN/../app/logs/stat_all.log
+    $PHP -d memory_limit=512M $BIN/../app/console durian:stat-cash-all-offer --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}" >> $BIN/../app/logs/stat_all.log 2>&1
+    if [ "$?" -ne "0" ]; then
+       exit 1
+    fi
+
+    runEnd=`date --date="$runStart 1 days" +'%Y-%m-%d'`
+    runStart="$runEnd"
+    start1=`date --date="$start1 1 days" +'%Y-%m-%d %H:%M:%S'`
+    conditionStart=`date -d "$start1" +'%Y%m%d%H%M%S'`
+done
+

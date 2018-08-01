@@ -1,0 +1,291 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Edit User Detail</h1>
+    <code>PUT /api/user/{userId}/detail</code>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <p class="lead">修改使用者詳細資料</p>
+        <p>1.真實姓名<code>name_real</code>僅能修改原本真實姓名後綴<code>-1~99</code>或<code>-*</code></p>
+        <p>2.如果原本真實姓名為空字串，可以改成任何真實姓名</p>
+        <p>3.測試帳號不能修改真實姓名</p>
+    </div>
+    <div class="col-md-3">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>name_real</th><th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>小明 => 小明-1</td><td>✔</td>
+                </tr>
+                <tr>
+                    <td>小明 => 小明-*</td><td>✔</td>
+                </tr>
+                <tr>
+                    <td>小明 => 小明-99</td><td>✔</td>
+                </tr>
+                <tr>
+                    <td>小明-1 => 小明</td><td>✔</td>
+                </tr>
+                <tr>
+                    <td>'' => 小明</td><td>✔</td>
+                </tr>
+                <tr>
+                    <td>小明 => 小明-100</td><td>×</td>
+                </tr>
+                <tr>
+                    <td>小明 => 小明1</td><td>×</td>
+                </tr>
+                <tr>
+                    <td>小明 => 小明-</td><td>×</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:sensitive_data.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/detail</span>
+                </div>
+            </div>
+            <button class="btn btn-default" type="button" id="load-btn" data-request-routing="api_user_get_detail">Load</button>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">email</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="email" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電子信箱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">nickname</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="nickname" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">遊戲暱稱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name_real</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name_real" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">真實姓名</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name_chinese</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name_chinese" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">中文名稱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name_english</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name_english" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">英文名稱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">country</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="country" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">國籍</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">passport</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="passport" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">護照號碼，證件欄位</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">identity_card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="identity_card" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">身分證字號，證件欄位</span>
+        </div>
+         <div class="form-group">
+            <label class="control-label col-md-3">driver_license</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="driver_license" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">駕照號碼，證件欄位</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">insurance_card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="insurance_card" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">保險證字號，證件欄位</span>
+        </div>
+         <div class="form-group">
+            <label class="control-label col-md-3">health_card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="health_card" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">健保卡號碼，證件欄位</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">birthday</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="birthday" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">生日</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">telephone</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="telephone" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">聯絡電話</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">qq_num</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="qq_num" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">QQ帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">password</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="password" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">線上取款密碼</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">note</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="note" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">筆記</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">verify_blacklist</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="verify_blacklist" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否檢查黑名單。設1檢查，設0不檢查。預設為1</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">wechat</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="wechat" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">微信帳號</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_user_edit_detail" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

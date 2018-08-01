@@ -1,0 +1,252 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Blacklist</h1>
+    <code>GET /api/blacklist</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">回傳黑名單</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <code>系統封鎖黑名單只保留兩個月，人工封鎖黑名單會一直保留直到人工解除</code>
+        <p>預設只回傳目前封鎖中黑名單</p>
+        <p>單一指定<code>domain</code> 則只回傳<code>該廳</code>封鎖的黑名單，不回傳全廳封鎖黑名單</p>
+        <p>單一指定<code>whole_domain = 1</code> 則只回傳<code>全廳</code>封鎖黑名單</p>
+        <p><code>domain</code>,<code>whole_domain</code>都不指定則回傳全部封鎖中黑名單</p>
+        <p><code>domain</code>,<code>whole_domain</code>都帶則回傳指定廳及全廳黑名單</p>
+        <p>若指定回傳系統封鎖黑名單，<code>system_lock 請帶1</code></p>
+        <p>若指定回傳控端黑名單，<code>control_terminal 請帶1</code></p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">domain[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="domain[]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">廳主</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">whole_domain</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="whole_domain" value=0 type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否只回傳全廳。設1只會回傳全廳，設0則不指定。預設為0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="account" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">銀行帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">identity_card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="identity_card" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">身分證字號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name_real</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name_real" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">真實姓名</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">telephone</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="telephone" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電話</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">email</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="email" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電子信箱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ip</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ip" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">IP</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">note</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="note" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">system_lock</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="system_lock" value=0 type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">指定回傳系統封鎖黑名單，預設不過濾</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">control_terminal</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="control_terminal" value=0 type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">指定回傳控端黑名單，預設不過濾</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">removed</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="removed" value=0 type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否回傳已刪除的黑名單。設1回傳刪除名單，預設為0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">start_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="start_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋開始時間。ISO-8601格式</span>
+            <label class="control-label col-md-3">end_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="end_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋結束時間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">sort[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="sort[]" type="text" class="form-control" value="id" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">排序欄位</span>
+                <label class="control-label col-md-3">order[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="order[]" type="text" class="form-control" value="asc" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">升冪或降冪。可設定asc或desc</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_result</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_result" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁從第幾筆開始</span>
+            <label class="control-label col-md-3">max_results</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁顯示筆數</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_blacklist" data-request-type="GET" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

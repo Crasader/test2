@@ -1,0 +1,151 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Card Deposit</h2>
+    <code>POST /api/user/{userId}/card/deposit</code>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <p class="lead">租卡入款</p>
+    </div>
+</div>
+
+<div class="alert alert-danger">
+    注意！入款金額不得超過小數點後4位, 否則會噴150610003錯誤
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/card/deposit</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">payment_vendor_id</label>
+            <div class="col-md-5">
+                <input name="payment_vendor_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">付款廠商ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">currency</label>
+            <div class="col-md-5">
+                <input name="currency" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">入款幣別</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">payway_currency</label>
+            <div class="col-md-5">
+                <input name="payway_currency" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">付款種類的幣別</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <input name="amount" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">入款金額，不得超過小數點後4位</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">merchant_card_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="merchant_card_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">租卡商家ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">postcode</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="postcode" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">郵遞區號，預設為空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">address</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="address" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">地址，預設為空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">telephone</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="telephone" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電話，預設為空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">email</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="email" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">email，預設為空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註,預設空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">web_shop</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="web_shop" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">來自購物網，預設為0</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_card_deposit" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+MAX=$1
+BIN=$(cd $(dirname "$0"); pwd)
+PHP='/usr/local/bin/php'
+
+# 最大同時跑的數量預設為20個
+if [ -z "$MAX" ]
+then
+    MAX=20
+fi
+
+if [ $MAX -gt "`ps aux | grep 'send-message' | grep -v grep | grep -v 'immediate' | wc -l`" ]
+then
+    $PHP $BIN/../app/console durian:send-message --env=prod >> $BIN/../app/logs/send_message.log 2>&1 &
+fi

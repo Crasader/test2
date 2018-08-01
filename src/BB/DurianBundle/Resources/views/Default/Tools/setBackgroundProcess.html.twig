@@ -1,0 +1,227 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block javascripts %}
+<script type="text/javascript">
+$(function () {
+    {# 選單插入null選項 #}
+    $('select[name="process[]"]').prepend("<option value='' selected='selected'></option>");
+    $('select[name="enable[]"]').prepend("<option value='' selected='selected'></option>");
+
+    $('.btn-get.fix-bg').click(function() {
+        {# 除去前後空白 #}
+        $('.fix-bg').find('input:text').each(function() {
+            var value = $.trim($(this).val());
+            $(this).val(value);
+        });
+
+        var param = $('form.fix-bg').serialize();
+        $('.num-msg').html('').removeClass('alert alert-danger alert-success');
+
+        $.ajax({
+            url: Routing.generate('tools_set_background_process'),
+            type: 'PUT',
+            data: param,
+            dataType: 'json',
+            success: function(data) {
+                var showMsg = '';
+
+                if (data.result === 'error') {
+                    showMsg += '<p><strong>修改失敗</strong></p>';
+                    showMsg += '<p>錯誤代碼：' + data.code + '</p>';
+                    showMsg += '<p>錯誤訊息：' + data.msg + '</p>';
+
+                    $('.num-msg').html(showMsg).addClass('alert alert-danger');
+                }
+
+                if (data.result === 'ok') {
+                    showMsg += '<p><strong>修改成功</strong></p>';
+                    showMsg += '<p>修正後：</p>';
+
+                    for (var key in data.ret) {
+                        showMsg += '<p>' + data.ret[key] + '</p>';
+                    }
+
+                    $('.num-msg').html(showMsg).addClass('alert alert-success');
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
+
+{% block body %}
+
+<div class="page-header">
+    <h1>修正背景工具</h1>
+</div>
+
+<p class="lead">選擇須修正的背景程式，和輸入修正的數值。</p>
+<div class="alert alert-warning">
+    執行數量欄位請輸入想增加多少或是扣除多少，<code>扣除須加負號</code>。
+    <strong>ex:</strong> activate-merchant 的執行數量須扣除2，則在<code>執行數量</code>輸入<code>-2</code>
+</div>
+
+<form class="form fix-bg" role="form">
+    <fieldset>
+        <div class="form-group">
+            <div class="clearfix">
+                <div class="col-md-3">
+                    <label for="selectProcessName">程式名稱</label>
+                    <select name="process[]" class="form-control">
+                        {% for processName in allProcessName %}
+                            <option value='{{ processName }}'>{{ processName }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label for="inputProcseeNum">執行數量</label>
+                    <input name="num[]" type="text" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="selectProcessName">啟用狀態</label>
+                            <select name="enable[]" class="form-control">
+                                <option value='0' selected>停用</option>
+                                <option value='1'>啟用</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="selectProcessName">程式名稱</label>
+                    <select name="process[]" class="form-control">
+                        {% for processName in allProcessName %}
+                            <option value='{{ processName }}'>{{ processName }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label for="inputProcseeNum">執行數量</label>
+                    <input name="num[]" type="text" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="selectProcessName">啟用狀態</label>
+                            <select name="enable[]" class="form-control">
+                                <option value='0' selected>停用</option>
+                                <option value='1'>啟用</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="clearfix">
+                <div class="col-md-3">
+                    <label for="selectProcessName">程式名稱</label>
+                    <select name="process[]" class="form-control">
+                        {% for processName in allProcessName %}
+                            <option value='{{ processName }}'>{{ processName }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label for="inputProcseeNum">執行數量</label>
+                    <input name="num[]" type="text" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="selectProcessName">啟用狀態</label>
+                            <select name="enable[]" class="form-control">
+                                <option value='0' selected>停用</option>
+                                <option value='1'>啟用</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="selectProcessName">程式名稱</label>
+                    <select name="process[]" class="form-control">
+                        {% for processName in allProcessName %}
+                            <option value='{{ processName }}'>{{ processName }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label for="inputProcseeNum">執行數量</label>
+                    <input name="num[]" type="text" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="selectProcessName">啟用狀態</label>
+                            <select name="enable[]" class="form-control">
+                                <option value='0' selected>停用</option>
+                                <option value='1'>啟用</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="clearfix">
+                <div class="col-md-3">
+                    <label for="selectProcessName">程式名稱</label>
+                    <select name="process[]" class="form-control">
+                        {% for processName in allProcessName %}
+                            <option value='{{ processName }}'>{{ processName }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label for="inputProcseeNum">執行數量</label>
+                    <input name="num[]" type="text" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="selectProcessName">啟用狀態</label>
+                            <select name="enable[]" class="form-control">
+                                <option value='0' selected>停用</option>
+                                <option value='1'>啟用</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="selectProcessName">程式名稱</label>
+                    <select name="process[]" class="form-control">
+                        {% for processName in allProcessName %}
+                            <option value='{{ processName }}'>{{ processName }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <label for="inputProcseeNum">執行數量</label>
+                    <input name="num[]" type="text" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <label for="selectProcessName">啟用狀態</label>
+                            <select name="enable[]" class="form-control">
+                                <option value='0' selected>停用</option>
+                                <option value='1'>啟用</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-1 col-md-offset-10">
+                <button class="btn btn-primary btn-get fix-bg" type="button">確認修正</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+{# output #}
+<div class="col-md-11 num-msg"></div>
+<div class="col-md-1"></div>
+
+{% endblock %}

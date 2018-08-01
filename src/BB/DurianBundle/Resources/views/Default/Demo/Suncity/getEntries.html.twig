@@ -1,0 +1,107 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Suncity Entries</h1>
+    <code>GET /api/user/{userId}/suncity/entry</code>
+</div>
+
+<p class="lead">查詢使用者太陽城交易明細</p>
+
+<div class="alert alert-info">
+    此API僅供RD5檢查使用，帶入參數與回傳內容均為<code>太陽城的資料</code>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/suncity/entry</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ref_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ref_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">查詢參考編號(RD5 entry id)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">start</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋開始時間。ISO-8601格式</span>
+            <label class="control-label col-md-3">end</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋結束時間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">opcode[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="opcode[]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">查詢Opcode(太陽城opcode)。可輸入多個</span>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="control-label col-md-3">page</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="page" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">頁數</span>
+            <label class="control-label col-md-3">page_limit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="page_limit" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁筆數</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_suncity_entries" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

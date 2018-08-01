@@ -1,0 +1,107 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create Level</h1>
+    <code>POST /api/level</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">新增層級</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:merchant_order_strategy.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <input name="domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">廳</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">alias</label>
+            <div class="col-md-5">
+                <input name="alias" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">層級別名</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">order_strategy</label>
+            <div class="col-md-5">
+                <input name="order_strategy" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">排序方式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">created_at_start</label>
+            <div class="col-md-5">
+                <input name="created_at_start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">使用者建立時間的條件起始值</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">created_at_end</label>
+            <div class="col-md-5">
+                <input name="created_at_end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">使用者建立時間的條件結束值</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_count</label>
+            <div class="col-md-5">
+                <input name="deposit_count" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">入款次數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_total</label>
+            <div class="col-md-5">
+                <input name="deposit_total" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">入款總額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_max</label>
+            <div class="col-md-5">
+                <input name="deposit_max" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">最大入款額度</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">withdraw_count</label>
+            <div class="col-md-5">
+                <input name="withdraw_count" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">出款次數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">withdraw_total</label>
+            <div class="col-md-5">
+                <input name="withdraw_total" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">出款總額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_create_level" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

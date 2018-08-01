@@ -1,0 +1,45 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Promotion</h1>
+    <code>GET /api/user/{userId}/promotion</code>
+</div>
+
+<p class="lead">回傳推廣資料</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" placeholder="{userId}" class="form-control">
+                    <span class="input-group-addon">/promotion</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入使用者編號{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">domain</label>
+            <div class="col-md-6">
+                <input name="domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">廳主id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">fields[]</label>
+            <div class="col-md-5">
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="url">url</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="others">others</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_get_promotion" data-request-type="GET" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

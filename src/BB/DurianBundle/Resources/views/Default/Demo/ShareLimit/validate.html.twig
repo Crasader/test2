@@ -1,0 +1,94 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Validate ShareLimit</h1>
+    <code>GET /api/share_limit/validate</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+    <p class="lead">檢查佔成</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:share_limit_group.html.twig' %}
+</div>
+<div class="alert alert-info">
+    <code>user_id</code>或<code>parent_id</code>只能二選一
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">user_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="user_id" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">parent_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="parent_id" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">上層ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">next</label>
+            <div class="col-md-5">
+                <input name="next" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">現行:0, 預改:1</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">group_num</label>
+            <div class="col-md-5">
+                <input name="group_num" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">群組代碼</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">upper</label>
+            <div class="col-md-5">
+                <input name="upper" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">佔成(含下層)上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">lower</label>
+            <div class="col-md-5">
+                <input name="lower" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">佔成(含下層)下限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">parent_upper</label>
+            <div class="col-md-5">
+                <input name="parent_upper" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">上層的佔成(不含下層)上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">parent_lower</label>
+            <div class="col-md-5">
+                <input name="parent_lower" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">上層的佔成(不含下層)下限</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_shareLimit_validate" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

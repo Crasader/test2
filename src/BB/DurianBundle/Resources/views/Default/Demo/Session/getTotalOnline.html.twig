@@ -1,0 +1,44 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Total Online</h1>
+    <code>GET /api/online/total</code>
+</div>
+
+<p class="lead">回傳線上人數</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="domain" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">廳</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">in_time</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="in_time" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">幾分鐘內的在線人數（單位：分鐘）。預設5分鐘</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_total_online" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

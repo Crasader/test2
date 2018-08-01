@@ -1,0 +1,155 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get User Detail By Domain</h1>
+    <code>GET /api/customize/user_detail</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">取得指定廳內會員的詳細資訊</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:sensitive_data.html.twig' %}
+</div>
+
+<div class="alert alert-danger">
+    注意！此API專門設計給研一「現金系統>帳號查詢>會員查詢」使用
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p><code>start_at</code>, <code>end_at</code> 或 <code>usernames</code> 兩者擇一帶入</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <input name="domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">廳</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">start_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="start_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}"  disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋開始時間。請使用ISO-8601格式</span>
+            <label class="control-label col-md-3">end_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="end_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}"  disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋結束時間。請使用ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">usernames[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="usernames[]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">使用者帳號</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="template">
+                <label class="control-label col-md-3">has_deposit</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="has_deposit" type="text" class="form-control" value="0" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">是否曾經入款</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="template">
+                <label class="control-label col-md-3">has_withdraw</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="has_withdraw" type="text" class="form-control" value="0" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">是否曾經出款</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">sort[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="sort[]" type="text" class="form-control" value="user" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">排序欄位</span>
+                <label class="control-label col-md-3">order[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="order[]" type="text" class="form-control" value="asc" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">升冪或降冪。可設定asc或desc</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_result</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_result" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁從第幾筆開始</span>
+            <label class="control-label col-md-3">max_results</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁顯示筆數</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_domain_user_detail" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}
+

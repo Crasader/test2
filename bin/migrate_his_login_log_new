@@ -1,0 +1,4 @@
+#!/bin/sh
+
+BIN=$(cd $(dirname "$0"); pwd)
+$BIN/../app/console durian:migrate:his_login_log_new --start=`date -d'-1 day' +%Y/%m/%d` --end=`date -d'-1 day' +%Y/%m/%d` --env=prod

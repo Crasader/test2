@@ -1,0 +1,162 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get CashFake Entries</h1>
+    <code>GET /api/user/{userId}/cash_fake/entry</code>
+</div>
+
+<p class="lead">回傳快開額度的交易明細</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/cash_fake/entry</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ref_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ref_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">查詢參考編號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">start</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋開始時間。ISO-8601格式</span>
+            <label class="control-label col-md-3">end</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋結束時間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">opcode[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="opcode[]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">查詢Opcode。用陣列輸入多個</span>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">sort[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="sort[]" type="text" class="form-control" value="id" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">排序欄位</span>
+                <label class="control-label col-md-3">order[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="order[]" type="text" class="form-control" value="asc" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">升冪或降冪。可設定asc或desc</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_result</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_result" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁從第幾筆開始</span>
+            <label class="control-label col-md-3">max_results</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁顯示筆數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fields[]</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <label class="checkbox">
+                        <input name="fields[]" type="checkbox" value="operator">operator
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">sub_total</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sub_total" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否回傳小計資訊。預設0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">sub_ret</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sub_ret" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否回傳附屬資訊。預設0</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_cashFake_get_entry" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create Remit Account</h1>
+    <code>POST /api/remit_account</code>
+</div>
+
+<p class="lead">新增出入款帳號</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <input name="domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">廳</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bank_info_id</label>
+            <div class="col-md-5">
+                <input name="bank_info_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">銀行ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account</label>
+            <div class="col-md-5">
+                <input name="account" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account_type</label>
+            <div class="col-md-5">
+                <input name="account_type" type="text" value="0" class="form-control">
+            </div>
+            <span class="help-block col-md-4">帳號類別。0 出款帳號，1 入款帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">auto_remit_id</label>
+            <div class="col-md-5">
+                <input name="auto_remit_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">自動認款平台ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">auto_confirm</label>
+            <div class="col-md-5">
+                <input name="auto_confirm" type="text" value="0" class="form-control">
+            </div>
+            <span class="help-block col-md-4">自動確認。預設 0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">currency</label>
+            <div class="col-md-5">
+                <input name="currency" type="text" value="CNY" class="form-control">
+            </div>
+            <span class="help-block col-md-4">幣別</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">control_tips</label>
+            <div class="col-md-5">
+                <input name="control_tips" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">控端提示</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">recipient</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="recipient" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">收款人</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">message</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="message" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">會員端提示訊息</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bank_limit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bank_limit" type="text" value="0" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">限額。預設 0:無上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">crawler_on</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="crawler_on" type="text" value="0" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否啟用爬蟲。預設 0:停用</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">web_bank_account</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="web_bank_account" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">網銀登入帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">web_bank_password</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="web_bank_password" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">網銀登入密碼</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">enable</label>
+            <div class="col-md-5">
+                <input name="enable" type="text" value="1" class="form-control">
+            </div>
+            <span class="help-block col-md-4">啟停用。預設 1</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">level_id[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="level_id[]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">層級ID</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_create_remit_account" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

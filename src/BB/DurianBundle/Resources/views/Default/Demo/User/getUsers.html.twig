@@ -1,0 +1,98 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Users</h1>
+    <code>GET /api/users</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">回傳多個使用者資料</p>
+        <p>可另外傳入多個<code>fields[]</code>指定回傳欄位</p>
+        <p>如參數<code>sub_ret=1</code>但沒有帶入<code>all_parents</code>、<code>parent</code>參數或沒有相關資訊，則不會回傳<code>sub_ret</code>附屬資訊。</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:sensitive_data.html.twig' %}
+</div>
+<div class="alert alert-danger">
+    下注用的佔成一定要用專用API <code>GET /api/user/{userId}/share_limit/{groupNum}/division</code>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">users[]</label>
+                <div class="col-md-5">
+                    <input name="users[]" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">使用者ID</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fields[]</label>
+            <div class="col-md-5">
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="id">id</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="parent_id">parent_id</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="username">username</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="domain">domain</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="alias">alias</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="sub">sub</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="enable">enable</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="block">block</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="bankrupt">bankrupt</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="test">test</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="hidden_test">hidden_test</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="rent">rent</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="size">size</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="err_num">err_num</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="created_at">created_at</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="modified_at">modified_at</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="password_expire_at">password_expire_at</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="password_reset">password_reset</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="last_bank">last_bank</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="last_login">last_login</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="currency">currency</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="role">role</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fields[]</label>
+            <div class="col-md-5">
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="parent">parent</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="all_parents">all_parents</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="cash">cash</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="cash_fake">cash_fake</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="card">card</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="enabled_card">enabled_card</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="credit">credit</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="outside">outside</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="sharelimit">sharelimit</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="sharelimit_next">sharelimit_next</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="sharelimit_sys">sharelimit_sys</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="sharelimit_next_sys">sharelimit_next_sys</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="oauth">oauth</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="login_code">login_code</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">sub_ret</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sub_ret" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否回傳附屬資訊。預設0</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_users" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Check Cash Entry RefId</h1>
+    <code>GET /api/check/cash/entry/ref_id</code>
+</div>
+
+<p class="lead">回傳時間區間內的現金明細ref_id</p>
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">opcode[]</label>
+                <div class="col-md-5">
+                    <input name="opcode[]" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">查詢Opcode。用陣列輸入多個</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">start</label>
+            <div class="col-md-5">
+                <input name="start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">搜尋開始時間。ISO-8601格式</span>
+            <label class="control-label col-md-3">end</label>
+            <div class="col-md-5">
+                <input name="end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">搜尋結束時間。ISO-8601格式</span>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_result</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_result" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁從第幾筆開始</span>
+            <label class="control-label col-md-3">max_results</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁顯示筆數</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_check_cash_entry_ref_id" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

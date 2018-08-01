@@ -1,0 +1,30 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get BankInfo</h1>
+    <code>GET /api/bank_info/{bankInfoId}</code>
+</div>
+
+<p class="lead">回傳銀行</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/bank_info/</span>
+                    <input data-request-param="bankInfoId" type="text" class="form-control" placeholder="{bankInfoId}">
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">填入網址變數{bankInfoId}銀行ID</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_bank_info_get" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

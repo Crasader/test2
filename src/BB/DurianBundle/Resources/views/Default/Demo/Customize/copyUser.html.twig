@@ -1,0 +1,85 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Copy User</h1>
+    <code>POST /api/customize/user/copy</code>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <p class="lead">複製使用者</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">old_user_id</label>
+            <div class="col-md-5">
+                <input name="old_user_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">舊使用者id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">new_user_id</label>
+            <div class="col-md-5">
+                <input name="new_user_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">新使用者id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">new_parent_id</label>
+            <div class="col-md-5">
+                <input name="new_parent_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">新上層id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">username</label>
+            <div class="col-md-5">
+                <input name="username" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">使用者帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">role</label>
+            <div class="col-md-5">
+                <input name="role" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">使用者階層</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">target_domain</label>
+            <div class="col-md-5">
+                <input name="target_domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">目標廳domain</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">source_domain</label>
+            <div class="col-md-5">
+                <input name="source_domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">來源廳domain</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">preset_level</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="preset_level" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">複製會員時需帶目標廳未分層id</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_customize_user_copy" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

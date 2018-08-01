@@ -1,0 +1,378 @@
+#!/bin/sh
+# Usage: ./rhel_setup --source_config=xxx.xx.xx.xx --proxy=http://xxx.xx.xx.xx:3128
+# source_config : rsync 來源的主機 ip
+# proxy         : proxy 的主機ip與port
+#
+# rhel 自動安裝步驟
+
+# 讀取參數source_config,proxy設定
+PARSED_OPTIONS=$(getopt -n "$0" -o h --long "source_config:,proxy:,help"  -- "$@")
+
+if [ $? -ne 0 ];
+then
+  exit 1
+fi
+
+eval set -- "$PARSED_OPTIONS"
+
+check_config=false
+check_proxy=false
+
+while true;
+do
+    case "$1" in
+        --source_config)
+            echo "source_config is: $2"
+            source_ip="$2"
+            check_config=true
+            shift 2;;
+
+        --proxy)
+            echo "proxy is: $2"
+            proxy="$2"
+            check_proxy=true
+            shift 2;;
+
+        -h|--help)
+            echo "usage $0 --source_config=xxx.xx.xx.xx --proxy=http://xxx.xx.xx.xx:3128"
+            exit 1;;
+
+        --)
+            shift
+            break;;
+    esac
+done
+
+if [ "$check_config" == false ] || [ "$check_proxy" == false ]
+then
+    echo '請輸入需要的參數 --source_config=xxx.xx.xx.xx --proxy=http://xxx.xx.xx.xx:3128'
+    exit 1
+fi
+
+echo -e '\n===== start =====\n'
+# 初始設定
+sed -i '/ctrlaltdel/s/^[^#]/#&/' /etc/inittab
+sed -i '/^id/s/^.*$/id:3:initdefault:/' /etc/inittab
+/bin/sed -i 's/#UseDNS yes/UseDNS no/g' /etc/ssh/sshd_config
+chmod 700 /usr/bin/consolehelper
+chmod 700 /sbin/halt
+file=/etc/profile
+customize=`grep "date >> .bash_history" $file`
+if [ ! "$customize" ]
+then
+    echo "date >> .bash_history" >> $file
+fi
+
+export http_proxy=$proxy
+export https_proxy=$http_proxy
+
+# 設定yum proxy
+conf=`grep proxy /etc/yum.conf`
+if [ ! $conf ]
+then
+    echo "proxy=$proxy" >> /etc/yum.conf
+fi
+
+# 安裝套件
+yum install -y  ORBit2.x86_64
+yum install -y  alsa-lib.x86_64
+yum install -y  autofs.x86_64
+yum install -y  avahi.x86_64
+yum install -y  bc.x86_64
+yum install -y  biosdevname.x86_64
+yum install -y  dbus-python.x86_64
+yum install -y  dejavu-fonts-common.noarch
+yum install -y  dejavu-sans-fonts.noarch
+yum install -y  device-mapper-event.x86_64
+yum install -y  device-mapper-event-libs.x86_64
+yum install -y  elfutils.x86_64
+yum install -y  elfutils-libs.x86_64
+yum install -y  fontpackages-filesystem.noarch
+yum install -y  gcc.x86_64
+yum install -y  gcc-c++.x86_64
+yum install -y  gd.x86_64
+yum install -y  gettext.x86_64
+yum install -y  gettext-libs.x86_64
+yum install -y  git.x86_64
+yum install -y  glibc.i686
+yum install -y  hesiod.x86_64
+yum install -y  hwloc.x86_64
+yum install -y  irqbalance.x86_64
+yum install -y  kexec-tools.x86_64
+yum install -y  kpartx.x86_64
+yum install -y  krb5-workstation.x86_64
+yum install -y  libcom_err-devel.x86_64
+yum install -y  libcroco.x86_64
+yum install -y  libdaemon.x86_64
+yum install -y  libgomp.x86_64
+yum install -y  libmcrypt-devel.x86_64
+yum install -y  libpcap.x86_64
+yum install -y  libproxy.x86_64
+yum install -y  libsepol-devel.x86_64
+yum install -y  libstdc++-devel.x86_64
+yum install -y  libtalloc.x86_64
+yum install -y  libtar.x86_64
+yum install -y  libtdb.x86_64
+yum install -y  libtevent.x86_64
+yum install -y  libtirpc.x86_64
+yum install -y  libtool.x86_64
+yum install -y  libunistring.x86_64
+yum install -y  lm_sensors.x86_64
+yum install -y  lsof.x86_64
+yum install -y  lvm2.x86_64
+yum install -y  lvm2-libs.x86_64
+yum install -y  microcode_ctl.x86_64
+yum install -y  ntsysv.x86_64
+yum install -y  parted.x86_64
+yum install -y  python-setuptools.noarch
+yum install -y  strace.x86_64
+yum install -y  traceroute.x86_64
+yum install -y  usbutils.x86_64
+yum install -y  vconfig.x86_64
+yum install -y  virt-what.x86_64
+yum install -y  xcb-util.x86_64
+
+# 安裝套件
+yum install -y  bash-completion
+yum install -y  rsync
+yum install -y  wget
+yum install -y  openssh-clients
+yum install -y  man
+yum install -y  ntp ntpdate
+yum install -y  mysql
+yum install -y  libjpeg
+yum install -y  freetype-devel
+yum install -y  vim-enhanced
+yum install -y  net-snmp
+yum install -y  smartmontools
+
+yum clean all
+yum --exclude=kernel* --exclude=centos* update -y
+yum install -y  munin-node
+echo -e '安裝套件完成\n'
+
+# 初始設定
+/sbin/chkconfig auditd off
+/sbin/chkconfig autofs off
+/sbin/chkconfig avahi-daemon off
+/sbin/chkconfig irqbalance off
+/sbin/chkconfig lvm2-monitor off
+/sbin/chkconfig messagebus off
+/sbin/chkconfig postfix off
+/sbin/chkconfig snmpd on
+/sbin/chkconfig chronyd off
+
+# 反安裝套件
+yum erase yum-autoupdate
+echo -e '反安裝套件完成\n'
+
+# 註解 /etc/resolv.conf 裡面所有參數
+sed -i 's/^nameserver/#nameserver/' /etc/resolv.conf
+echo -e '註解resolv參數完成\n'
+
+# 關閉防火牆
+service iptables stop
+
+# 修改檔案 /etc/selinux/config 關閉 selinux
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+echo -e '修改selinux完成\n'
+
+# 設定時區參數
+echo ZONE=\"Asia/Taipei\" > /etc/sysconfig/clock
+cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
+
+
+# 修改檔案 /etc/sysctl.conf 在最底下新增
+# net.ipv4.tcp_tw_reuse=1
+# net.ipv4.tcp_tw_recycle=1
+# net.ipv4.ip_forward = 1
+# net.core.netdev_max_backlog=10000
+# net.ipv4.tcp_max_syn_backlog=65535
+# net.core.somaxconn=65535
+# vm.swappiness=0
+file=/etc/sysctl.conf
+
+# 修改 net.ipv4.tcp_tw_reuse = 1
+customize=`grep net.ipv4.tcp_tw_reuse $file`
+if [ ! $customize ]
+then
+    echo 'net.ipv4.tcp_tw_reuse=1' >> $file
+else
+    sed -i "s/$customize/net.ipv4.tcp_tw_reuse=1/" $file
+fi
+
+# 修改 net.ipv4.ip_forward = 1
+customize=`grep net.ipv4.ip_forward $file`
+if [ ! $customize ]
+then
+    echo 'net.ipv4.ip_forward=1' >> $file
+else
+    sed -i "s/$customize/net.ipv4.ip_forward=1/" $file
+fi
+
+# 修改 net.ipv4.tcp_tw_recycle = 1
+customize=`grep net.ipv4.tcp_tw_recycle $file`
+if [ ! $customize ]
+then
+    echo 'net.ipv4.tcp_tw_recycle=1' >> $file
+else
+    sed -i "s/$customize/net.ipv4.tcp_tw_recycle=1/" $file
+fi
+
+# net.core.netdev_max_backlog = 10000
+customize=`grep net.core.netdev_max_backlog $file`
+if [ ! $customize ]
+then
+    echo 'net.core.netdev_max_backlog=10000' >> $file
+else
+    sed -i "s/$customize/net.core.netdev_max_backlog=10000/" $file
+fi
+
+# 修改 net.ipv4.tcp_max_syn_backlog = 65535
+customize=`grep net.ipv4.tcp_max_syn_backlog $file`
+if [ ! $customize ]
+then
+    echo 'net.ipv4.tcp_max_syn_backlog=65535' >> $file
+else
+    sed -i "s/$customize/net.ipv4.tcp_max_syn_backlog=65535/" $file
+fi
+
+# 修改 net.core.somaxconn = 65535
+customize=`grep net.core.somaxconn $file`
+if [ ! $customize ]
+then
+    echo 'net.core.somaxconn=65535' >> $file
+else
+    sed -i "s/$customize/net.core.somaxconn=65535/" $file
+fi
+
+# 修改 vm.swappiness = 0
+customize=`grep vm.swappiness $file`
+if [ ! $customize ]
+then
+    echo 'vm.swappiness=0' >> $file
+else
+    sed -i "s/$customize/vm.swappiness=0/" $file
+fi
+
+# 載入 bridge 模組
+modprobe bridge
+
+# 套用 sysctl 設定
+sysctl -p
+
+echo -e 'sysctl設定完成\n'
+
+# 新增檔案 /etc/security/limits.d/local.conf 並增加 open fieles, max user processes 數值
+file=/etc/security/limits.d/local.conf
+if [ ! -e $file ]
+then
+    echo '# max user processes' > $file
+    echo '*          soft    nproc     65535' >> $file
+    echo '*          hard    nproc     65535' >> $file
+    printf "\n"  >> $file
+    echo '# open files' >> $file
+    echo '*          soft    nofile    65535' >> $file
+    echo '*          hard    nofile    65535' >> $file
+fi
+
+echo -e '設定open files, max user processes數值完成\n'
+
+# 安裝額外的yum源epel
+yum install -y epel-release
+
+# 安裝epel提供的套件
+yum install -y  libmcrypt
+yum install -y  libgearman
+
+echo -e '安裝epel套件完成\n'
+
+# 複製nginx與php-fpm檔案
+rsync -av $source_ip:/usr/local/web /usr/local/
+echo -e '複製nginx, php完成\n'
+
+# 連結nginx與php-fpm執行檔
+ln -s /usr/local/web/nginx/sbin/nginx /usr/local/sbin/
+ln -s /usr/local/web/php/sbin/* /usr/local/sbin/
+ln -s /usr/local/web/php/bin/* /usr/local/bin/
+echo -e '連結nginx與php-fpm執行檔完成\n'
+
+# 複製icu目錄
+rsync -av $source_ip:/usr/local/lib/*icu* /usr/local/lib
+echo -e '複製icu目錄完成\n'
+
+# 建立log檔目錄
+file=/var/log/nginx
+if [ ! -e $file ]
+then
+    mkdir $file
+fi
+
+file=/var/log/php-fpm
+if [ ! -e $file ]
+then
+    mkdir $file
+fi
+echo -e '建立log檔目錄完成\n'
+
+# 設定init.d
+scp $source_ip:/etc/init.d/nginx /etc/init.d/
+scp $source_ip:/etc/init.d/php-fpm /etc/init.d/
+echo -e '設定init.d完成\n'
+
+# 設定logrotate.d
+scp $source_ip:/etc/logrotate.d/nginx /etc/logrotate.d/
+scp $source_ip:/etc/logrotate.d/php-fpm /etc/logrotate.d/
+scp $source_ip:/etc/logrotate.d/durian /etc/logrotate.d/
+echo -e '設定logrotate.d完成\n'
+
+# 設定snmp
+scp $source_ip:/etc/snmp/snmpd.all.conf /etc/snmp/
+scp $source_ip:/etc/snmp/snmpd.conf /etc/snmp/
+echo -e '設定snmp完成\n'
+
+# nginx, php設定檔
+rsync -av $source_ip:/etc/nginx /etc/
+scp $source_ip:/etc/php.ini /etc/
+scp $source_ip:/etc/php-fpm.conf /etc/
+echo -e 'nginx, php設定檔完成\n'
+
+# 加入使用者
+adduser durian
+passwd -d durian
+chmod 755 /home/durian
+rsync -av $source_ip:/home/durian/.ssh/ /home/durian/.ssh/
+rsync -av $source_ip:/root/.ssh/ /root/.ssh/
+echo -e '加入使用者完成\n'
+
+# munin-node 監控加入 node
+rsync -av $source_ip:/usr/share/munin/plugins/ /usr/share/munin/plugins/
+rsync -av $source_ip:/etc/munin/plugins/ /etc/munin/plugins/
+rsync -av $source_ip:/etc/munin/plugin-conf.d/munin-node /etc/munin/plugin-conf.d/munin-node
+chkconfig munin-node on
+service munin-node restart
+echo -e '複製munin-node plugins完成\n'
+
+# ntp 設定檔
+service chronyd stop
+systemctl enable ntpd
+systemctl enable ntpdate
+rsync -av $source_ip:/etc/ntp.conf /etc/
+service ntpd restart
+echo -e '複製ntp 設定檔完成\n'
+
+# pineapple 建置
+rsync -av $source_ip:/usr/local/src/node /usr/local/src/
+cd /usr/local/src/node
+./configure
+make && make install
+mkdir /var/run/pineapple
+chown durian:durian /var/run/pineapple
+rsync -av $source_ip:/home/durian/bb.pineapple/ /home/durian/bb.pineapple/
+rsync -av $source_ip:/home/durian/sk.pineapple/ /home/durian/sk.pineapple/
+echo -e 'pineapple 建置完成\n'
+
+# logind.conf設定檔
+rsync -av $source_ip:/etc/systemd/logind.conf /etc/systemd/
+systemctl restart systemd-logind.service
+echo -e '複製logind.conf完成\n'

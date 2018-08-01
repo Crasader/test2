@@ -1,0 +1,39 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Generate Access Token</h1>
+    <code>POST /api/slide/device/access_token</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">驗證裝置產生手勢登入標記</p>
+        <p></p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">app_id</label>
+            <div class="col-md-5">
+                <input name="app_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">裝置識別ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">slide_password</label>
+            <div class="col-md-5">
+                <input name="slide_password" type="password" class="form-control">
+            </div>
+            <span class="help-block col-md-4">手勢密碼</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_generate_access_token" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

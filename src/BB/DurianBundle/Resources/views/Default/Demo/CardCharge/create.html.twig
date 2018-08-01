@@ -1,0 +1,99 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create CardCharge</h1>
+    <code>POST /api/domain/{domain}/card_charge</code>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <p class="lead">新增租卡線上支付設定</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:order_strategy.html.twig' %}
+</div>
+
+<form class="form-horizontal">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/domain/</span>
+                    <input data-request-param="domain" type="text" class="form-control" placeholder="{domain}">
+                    <span class="input-group-addon">/card_charge</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{domain}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">order_strategy</label>
+            <div class="col-md-5">
+                <input name="order_strategy" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">排序設定</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sc_max</label>
+            <div class="col-md-5">
+                <input name="deposit_sc_max" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">大股東最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sc_min</label>
+            <div class="col-md-5">
+                <input name="deposit_sc_min" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">大股東最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_co_max</label>
+            <div class="col-md-5">
+                <input name="deposit_co_max" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">股東最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_co_min</label>
+            <div class="col-md-5">
+                <input name="deposit_co_min" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">股東最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sa_max</label>
+            <div class="col-md-5">
+                <input name="deposit_sa_max" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">總代理最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sa_min</label>
+            <div class="col-md-5">
+                <input name="deposit_sa_min" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">總代理最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_ag_max</label>
+            <div class="col-md-5">
+                <input name="deposit_ag_max" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">代理最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_ag_min</label>
+            <div class="col-md-5">
+                <input name="deposit_ag_min" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">代理最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_create_domain_card_charge" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

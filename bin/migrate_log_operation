@@ -1,0 +1,10 @@
+#!/bin/sh
+
+BIN=$(cd $(dirname "$0"); pwd)
+PHP=`which php`
+yest=$( date --date="yesterday" +"%Y/%m/%d" )
+
+if [ 1 -gt "`ps aux | grep migrate-log-operation | grep -v grep | wc -l`" ]
+then
+    $PHP -d memory_limit=512M $BIN/../app/console durian:migrate-log-operation --end-date="$yest" --env=prod >> $BIN/../app/logs/migrate_log_operation.log 2>&1 &
+fi

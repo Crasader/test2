@@ -1,0 +1,24 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Whitelist Update</h1>
+    <code>PUT /api/merchant/whitelist_update</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">更新商家白名單</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_merchant_whitelist_update" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+// 公鑰檔案上傳
+$('#public_key_file').change((ev) => {
+    var reader = new FileReader();
+    var file = ev.target.files[0];
+    reader.readAsBinaryString(file);
+
+    reader.onloadend = (ev) => {
+        $('#public_key_content').val(btoa(ev.target.result));
+    }
+});
+
+// 私鑰檔案上傳
+$('#private_key_file').change((ev) => {
+    var reader = new FileReader();
+    var file = ev.target.files[0];
+    reader.readAsBinaryString(file);
+
+    reader.onloadend = (ev) => {
+        $('#private_key_content').val(btoa(ev.target.result));
+    }
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set MerchantCard Key</h1>
+    <code>PUT /api/merchant_card/{merchantCardId}/key</code>
+</div>
+
+<p class="lead">設定租卡商家金鑰內容</p>
+
+<form id="form" class="form-horizontal" role="form" enctype="multipart/form-data">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/merchant_card/</span>
+                    <input data-request-param="merchantCardId" type="text" class="form-control" placeholder="{merchantCardId}">
+                    <span class="input-group-addon">/key</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{merchantCardId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">public_key_file</label>
+            <div class="col-md-5">
+                <input id="public_key_file" name="public_key_file" type="file" class="form-control">
+            </div>
+            <span class="help-block col-md-4">租卡商家公鑰檔案</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">public_key_content</label>
+            <div class="col-md-5">
+                <input id="public_key_content" name="public_key_content" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">租卡商家公鑰內容</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">private_key_file</label>
+            <div class="col-md-5">
+                <input id="private_key_file" name="private_key_file" type="file" class="form-control">
+            </div>
+            <span class="help-block col-md-4">租卡商家私鑰檔案</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">private_key_content</label>
+            <div class="col-md-5">
+                <input id="private_key_content" name="private_key_content" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">租卡商家私鑰內容</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_set_merchant_card_key" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

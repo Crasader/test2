@@ -1,0 +1,222 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Merchant Withdraw List</h1>
+    <code>GET /api/merchant/withdraw/list</code>
+</div>
+
+<p class="lead">回傳出款商家列表</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">payment_gateway_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="payment_gateway_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">支付平台ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">alias</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="alias" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">別名</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">number</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="number" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">商號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">enable</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="enable" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">啟停用</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="domain" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">廳主</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">currency</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="currency" type="text" class="form-control" value="CNY" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">幣別</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">level_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="level_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">層級ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">shop_url</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="shop_url" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">購物車URL</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">web_url</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="web_url" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">購物網URL</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">full_set</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="full_set" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">一條龍</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">created_by_admin</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="created_by_admin" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">由公司管理帳號新增</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bind_shop</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bind_shop" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">綁定購物網</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">suspend</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="suspend" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">暫停</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">removed</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="removed" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">刪除</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">approved</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="approved" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">已核准</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">mobile</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="mobile" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否支援電子錢包</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fields[]</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <label class="checkbox">
+                        <input name="fields[]" type="checkbox" value="bank_info">bank_info
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_merchant_withdraw_list" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

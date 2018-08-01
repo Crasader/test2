@@ -1,0 +1,82 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create Bitcoin Deposit Entry</h1>
+    <code>POST /user/{userId}/bitcoin_deposit</code>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <p class="lead">新增比特幣入款記錄</p>
+    </div>
+</div>
+
+<form class="form-horizontal">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/bitcoin_deposit</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <input name="amount" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">存款金額，不得超過小數點後4位</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bitcoin_amount</label>
+            <div class="col-md-5">
+                <input name="bitcoin_amount" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">比特幣支付金額，不得超過小數點後8位</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bitcoin_rate</label>
+            <div class="col-md-5">
+                <input name="bitcoin_rate" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">比特幣匯率，不得超過小數點後8位</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">rate_difference</label>
+            <div class="col-md-5">
+                <input name="rate_difference" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">比特幣匯差，不得超過小數點後8位</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">currency</label>
+            <div class="col-md-5">
+                <input name="currency" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">存款幣別</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註，預設為空字串</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_user_bitcoin_deposit" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

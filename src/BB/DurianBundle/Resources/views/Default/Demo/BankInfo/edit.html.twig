@@ -1,0 +1,99 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Edit Bank</h1>
+    <code>PUT /api/bank_info/{bankInfoId}</code>
+</div>
+
+<p class="lead">編輯銀行</p>
+<p>可編輯包含銀行是否為虛擬、銀行網址</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/bank_info/</span>
+                    <input data-request-param="bankInfoId" type="text" class="form-control" placeholder="{bankInfoId}">
+                </div>
+            </div>
+            <button id="load-btn" data-request-routing="api_bank_info_get" class="btn btn-default" type="button">Load</button>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{bankInfoId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bankname</label>
+            <div class="col-md-5">
+                <input name="bankname" type="text" class="form-control" disabled>
+            </div>
+            <span class="help-inline">銀行名稱(不能修改)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">virtual</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="virtual" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-inline">是否為虛擬銀行。0:實體 1:虛擬</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">withdraw</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="withdraw" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-inline">是否為出款銀行</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bank_url</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bank_url" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-inline">銀行網址</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">abbr</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="abbr" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-inline">銀行簡稱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">auto_withdraw</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="auto_withdraw" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-inline">是否為自動出款銀行</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_bank_info_edit" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

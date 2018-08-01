@@ -1,0 +1,47 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set PaymentCharge Rank</h1>
+    <code>PUT /api/payment_charge/rank</code>
+</div>
+
+<p class="lead">修改線上支付設定順序</p>
+
+<form class="form-horizontal">
+    <fieldset>
+        <div>
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="checkbox">data[0]</label>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[id]</label>
+                    <div class="col-md-5">
+                        <input name="data[0][id]" type="text" class="form-control">
+                    </div>
+                    <span class="help-block col-md-4">paymentCharge ID</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[rank]</label>
+                    <div class="col-md-5">
+                        <input name="data[0][rank]" type="text" class="form-control">
+                    </div>
+                    <span class="help-block col-md-4">排序</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[version]</label>
+                    <div class="col-md-5">
+                        <input name="data[0][version]" type="text" class="form-control">
+                    </div>
+                    <span class="help-block col-md-4">版本</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_set_payment_charge_rank" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

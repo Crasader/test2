@@ -1,0 +1,190 @@
+imports:
+    - { resource: config_dev.yml }
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    profiler:
+        enabled: false
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   pdo_sqlite
+                path:     "%kernel.cache_dir%/test.db"
+                slaves:
+                    0:
+                        name:     default_slave
+                        path:     "%kernel.cache_dir%/test.db"
+            his:
+                driver:   pdo_sqlite
+                path:     "%kernel.cache_dir%/test_his.db"
+                slaves:
+                    0:
+                        name:     his_slave
+                        path:     "%kernel.cache_dir%/test_his.db"
+            entry:
+                driver:   pdo_sqlite
+                path:     "%kernel.cache_dir%/test_entry.db"
+                slaves:
+                    0:
+                        name:     entry_slave
+                        path:     "%kernel.cache_dir%/test_entry.db"
+            share:
+                driver:   pdo_sqlite
+                path:     "%kernel.cache_dir%/test_share.db"
+                slaves:
+                    0:
+                        name:     share_slave
+                        path:     "%kernel.cache_dir%/test_share.db"
+            outside:
+                driver:   pdo_sqlite
+                path:     "%kernel.cache_dir%/test_outside.db"
+                slaves:
+                    0:
+                        name:     outside_slave
+                        path:     "%kernel.cache_dir%/test_outside.db"
+            ip_blocker:
+                driver:   pdo_sqlite
+                path:     "%kernel.cache_dir%/test_ip_blocker.db"
+                slaves:
+                    0:
+                        name:     ip_blocker_slave
+                        path:     "%kernel.cache_dir%/test_ip_blocker.db"
+
+liip_functional_test:
+    cache_sqlite_db: true
+
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: "redis://%redis_host%:%redis_port%/1"
+            options:
+                profile: 2.8
+        cluster:
+            type: predis
+            alias: cluster
+            dsn: "redis://%redis_host%:%redis_port%/2"
+            options:
+                profile: 2.8
+        sequence:
+            type: predis
+            alias: sequence
+            dsn: "redis://%redis_host%:%redis_port%/3"
+            options:
+                profile: 2.8
+        reward:
+            type: predis
+            alias: reward
+            dsn: "redis://%redis_host%:%redis_port%/5"
+            options:
+                profile: 2.8
+        map:
+            type: predis
+            alias: map
+            dsn: "redis://%redis_host%:%redis_port%/6"
+            options:
+                profile: 2.8
+        wallet1:
+            type: predis
+            alias: wallet1
+            dsn: "redis://%redis_host%:%redis_port%/7"
+            options:
+                profile: 2.8
+        wallet2:
+            type: predis
+            alias: wallet2
+            dsn: "redis://%redis_host%:%redis_port%/8"
+            options:
+                profile: 2.8
+        wallet3:
+            type: predis
+            alias: wallet3
+            dsn: "redis://%redis_host%:%redis_port%/9"
+            options:
+                profile: 2.8
+        wallet4:
+            type: predis
+            alias: wallet4
+            dsn: "redis://%redis_host%:%redis_port%/10"
+            options:
+                profile: 2.8
+        kue:
+            type: predis
+            alias: kue
+            dsn: "redis://%redis_host%:%redis_port%/9"
+            options:
+                profile: 2.8
+        slide:
+            type: predis
+            alias: slide
+            dsn: "redis://%redis_host%:%redis_port%/11"
+            options:
+                profile: 2.8
+        oauth2:
+            type: predis
+            alias: oauth2
+            dsn: "redis://%redis_host%:%redis_port%/2"
+            options:
+                profile: 2.8
+        total_balance:
+            type: predis
+            alias: total_balance
+            dsn: "redis://%redis_host%:%redis_port%/3"
+            options:
+                profile: 2.8
+        ip_blocker:
+            type: predis
+            alias: ip_blocker
+            dsn: "redis://%redis_host%:%redis_port%/4"
+            options:
+                profile: 2.8
+
+parameters:
+    italking_gm_code: 1
+    italking_esball_code: 6
+    italking_bet9_code: 98
+    italking_kresball_code: 140502001
+    italking_esball_global_code: 141023001
+    italking_eslot_code: 160810001
+
+    rd1_domain: domain1.net
+    rd1_ip: 127.0.0.1
+    rd1_api_key: akey
+
+    maintain_2_ip: 127.0.0.2
+    maintain_2_domain: domain2.net
+
+    maintain_mobile_ip: 127.0.0.2
+    maintain_mobile_domain: domain2.net
+    maintain_mobile_url: domain3.net
+
+    kiwi_host: kiwi.net
+    kiwi_api_key: akey
+    kiwi_ip: 127.0.0.3
+
+    kue_name: test
+
+    otp_server_ip: 127.0.0.4
+    otp_secret: radius
+    static_otp_username: test123
+    static_otp_password: test456
+
+    rd5_external_code: [19, 23]
+
+    maintain_domain_url: domain3.net
+
+    suncity_agent: [71, 72]
+
+    external_host: external.host
+    external_ip: 127.0.0.5
+    external_port: 80

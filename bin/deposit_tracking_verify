@@ -1,0 +1,51 @@
+#!/bin/sh
+
+MAX=$1
+BIN=$(cd $(dirname "$0"); pwd)
+
+# 最大同時跑的數量預設為20個
+if [ -z "$MAX" ]
+then
+    MAX=20
+fi
+
+# 每個背景處理 1000 筆 job
+JOB_PROCESS_INTERVAL=1000
+
+START=0
+END=$(( $(( $MAX - 1 )) * $JOB_PROCESS_INTERVAL ))
+
+# 取得目前欲處理的 job 數量
+allJobStats=(`$BIN/../app/console durian:deposit-tracking-verify --show-stats --env=prod`)
+failedCount=${allJobStats[0]}
+completeCount=${allJobStats[1]}
+
+for from in $(seq $START $JOB_PROCESS_INTERVAL $END)
+do
+    failedOption=""
+    completeOption=""
+
+    to=$(( $from + $JOB_PROCESS_INTERVAL - 1 ))
+
+    if [ $from -lt $failedCount ]
+    then
+        failedOption="--failed-from=$from --failed-to=$to"
+    fi
+
+    if [ $from -lt $completeCount ]
+    then
+        completeOption="--complete-from=$from --complete-to=$to"
+    fi
+
+    if [[ -z $failedOption && -z $completeOption ]]
+    then
+        break
+    fi
+
+    if [ $MAX -le "`ps aux | grep durian:deposit-tracking-verify | grep console | grep -v grep | wc -l`" ]
+    then
+        break
+    fi
+
+    $BIN/../app/console durian:deposit-tracking-verify $failedOption $completeOption --env=prod >> $BIN/../app/logs/prod/deposit_tracking_verify.log 2>&1 &
+done

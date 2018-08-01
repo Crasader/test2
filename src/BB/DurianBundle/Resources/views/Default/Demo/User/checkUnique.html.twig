@@ -1,0 +1,40 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Check Unique</h1>
+    <code>GET /api/user/check_unique</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">檢查使用者某些需要唯一的欄位是不是已經使用中</p>
+        <p class="alert alert-info">目前只能檢查登入帳號</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:sensitive_data.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <input name="domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">要查詢的廳ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fields[username]</label>
+            <div class="col-md-5">
+                <input name="fields[username]" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">檢查登入帳號</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_user_check_unique" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,216 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block head_style %}
+<style type="text/css">
+    #group {
+        column-count: 4;
+        -moz-column-count: 4;
+        -webkit-column-count: 4;
+    }
+
+    .list-group-item {
+        line-height: 30px;
+        padding: 0;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .label {
+        float: left;
+        line-height: 30px;
+        width: 5em;
+        padding: 0;
+    }
+
+    [data-method=post] .label {
+        background-color: #5cb85c;
+    }
+
+    [data-method=get] .label {
+        background-color: #337ab7;
+    }
+
+    [data-method=put] .label {
+        background-color: #f0ad4e;
+    }
+
+    [data-method=delete] .label {
+        background-color: #d9534f;
+    }
+</style>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    $(function () {
+        // 排序按鈕
+        var order = { method: false, route: false };
+        $("[id*='sorter']").click(function() {
+            var sorter = $(this).attr('data-sorter');
+            order[sorter] = !order[sorter];
+            sortList(sorter, order[sorter]);
+
+            $("[id*='sorter']").children().hide();
+            $(this).children().show();
+            $(this).children().toggleClass('dropup');
+        });
+
+        // method選單
+        $('#method').change(function() {
+            var group = $('#group-toggle').val();
+            var method = $(this).val();
+            window.location.hash = group + ':' + method;
+        });
+
+        // group選單
+        $('#group').find('a').click(function(e) {
+            var group = $(this).attr('href').substring(1);
+            var method = $('#method').val();
+            window.location.hash = group + ':' + method;
+
+            e.preventDefault();
+        });
+
+        // 網址列的hash改變時做篩選動作
+        $(window).on('hashchange', function() {
+            filterList();
+        });
+
+        filterList();
+
+        var offset = 300;
+        var duration = 500;
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > offset) {
+                $('a.back-to-top').fadeIn(duration);
+            } else {
+                $('a.back-to-top').fadeOut(duration);
+            }
+        });
+
+        $('a.back-to-top').click(function(e) {
+            e.preventDefault();
+            $('html, body').animate({ scrollTop: 0 }, duration);
+            return false;
+        });
+    });
+
+    function filterList() {
+        var list = $('#api-list');
+        var group = window.location.hash.substring(1).split(':')[0];
+        var method = window.location.hash.substring(1).split(':')[1] || '';
+
+        // 設定group選單
+        var selectedGroup = $('#group').find('a[href="#' + group + '"]');
+        var text = selectedGroup.text() + ' <span class="caret"></span>';
+        $('#group-toggle').html(text).val(group);
+        $('#group').find('li').removeClass('active');
+        selectedGroup.parent().addClass('active');
+
+        // 設定method選單
+        $('#method').val(method);
+
+        list.children('li').show();
+        if (group !== '') {
+            list.find('li[data-group!="' + group +'"]').hide();
+        }
+
+        if (method !== '') {
+            list.find('li[data-method!="' + method +'"]').hide();
+        }
+    }
+
+    function sortList(sorter, asc) {
+        var list = $('#api-list');
+        var item = list.children('li');
+
+        item.sort(function(a, b) {
+            var value1 = a.getAttribute('data-' + sorter);
+            var value2 = b.getAttribute('data-' + sorter);
+
+            if (asc) {
+                return strcmp(value1, value2);
+            }
+
+            return strcmp(value2, value1);
+        });
+
+        item.detach().appendTo(list);
+    }
+
+    function strcmp(a, b) {
+        if (a > b) {
+            return 1;
+        }
+
+        if (a < b) {
+            return -1;
+        }
+
+        return 0;
+    }
+</script>
+{% endblock %}
+
+{% block body %}
+    <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-2">
+                <select id="method" class="form-control">
+                    <option value="">All Method</option>
+                    <option value="get">GET</option>
+                    <option value="post">POST</option>
+                    <option value="put">PUT</option>
+                    <option value="delete">DELETE</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <button id="group-toggle" style="width:100%;" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        All Group <span class="caret"></span>
+                    </button>
+                    <ul id="group" class="dropdown-menu">
+                        <li class="active"><a href="#">All Group</a></li>
+                    {% for key, group in api %}
+                        <li><a href="#{{ key }}">{{ group.label }}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 col-md-offset-4 text-center">
+                <span id="method-sorter" data-sorter="method" class="form-control" style="cursor:pointer; padding:6px 0;">
+                    依請求方法排序 <span style="display:none;" class="order"><span class="caret"></span></span>
+                </span>
+            </div>
+            <div class="col-md-2 text-center">
+                <span id="route-sorter" data-sorter="route" class="form-control" style="cursor:pointer; padding:6px 0;">
+                    依路徑排序 <span style="display:none;" class="order"><span class="caret"></span></span>
+                </span>
+            </div>
+        </div>
+    </form>
+    <br>
+
+    <ul id="api-list" class="list-group">
+    {% for gkey, group in api %}
+        {% for ikey, sub in group.sub %}
+            <li class="list-group-item row" data-method="{{ sub.method|lower }}" data-route="{{ sub.route }}" data-group="{{ gkey }}">
+                <a href="{{ path('demo', { 'group': gkey, 'item': ikey }) }}">
+                    <div class="col-md-6" style="padding-left:0;">
+                        <span class="label">{{ sub.method }}</span>
+                        <span style="margin-left:10px;"><code>{{ sub.route }}</code></span>
+                    </div>
+                    <div class="col-md-6">
+                        <em style="color:#222;">{{ sub.name }}</em>
+                        <span class="pull-right">
+                            <small class="text-muted">{{ sub.description }}</small>
+                        </span>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    {% endfor %}
+    </ul>
+
+    <a style="position:fixed; bottom:2em; right:0; display:none;" class="back-to-top" href="#">Back to Top</a>
+{% endblock %}

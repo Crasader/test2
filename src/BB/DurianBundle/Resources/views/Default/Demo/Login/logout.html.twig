@@ -1,0 +1,31 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Logout</h1>
+    <code>PUT /api/logout</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">登出</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">session_id</label>
+            <div class="col-md-5">
+                <input name="session_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">session編號</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_logout" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

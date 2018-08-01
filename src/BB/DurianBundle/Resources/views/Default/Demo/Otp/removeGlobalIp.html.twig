@@ -1,0 +1,31 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Remove Global Ip</h1>
+    <code>DELETE /api/global_ip</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">刪除全域IP</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">ip</label>
+            <div class="col-md-5">
+                <input name="ip" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">IP</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_global_ip_remove" data-request-type="DELETE" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

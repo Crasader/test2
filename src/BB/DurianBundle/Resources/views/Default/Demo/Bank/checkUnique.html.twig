@@ -1,0 +1,74 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Check Unique</h1>
+    <code>GET /api/bank/check_unique</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">檢查銀行帳號是否唯一</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:sensitive_data.html.twig' %}
+</div>
+
+<div class="alert alert-info">
+    <code>domain</code>或<code>parent_id</code>擇ㄧ傳入即可，同時傳會用<code>domain</code>做查詢，都不傳會跳錯誤訊息；日後會將<code>domain</code>移除
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <input name="domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">要查詢的廳主ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">parent_id</label>
+            <div class="col-md-5">
+                <input name="parent_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">要查詢的parent ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account</label>
+            <div class="col-md-5">
+                <input name="account" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">檢查帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">depth</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="depth" type="text" class="form-control" value="5" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">查詢與parent相差的層數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">user_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="user_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">排除的使用者id</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_bank_check_unique" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create Petition</h1>
+    <code>POST /api/petition</code>
+</div>
+<p class="lead">新增修改資料提交單</p>
+<form class="form-horizontal" role="form">
+    <fieldset>
+         <div class="form-group">
+            <label class="control-label col-md-3">user_id</label>
+            <div class="col-md-5">
+                <input name="user_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">使用者ID</span>
+        </div>
+       <div class="form-group">
+            <label class="control-label col-md-3">value</label>
+            <div class="col-md-5">
+                <input name="value" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">新的資料值</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">operator</label>
+            <div class="col-md-5">
+                <input name="operator" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">操作人</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">verify_blacklist</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="verify_blacklist" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否檢查黑名單。設1檢查，設0不檢查。預設為1</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_petition_create" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

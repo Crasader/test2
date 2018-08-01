@@ -1,0 +1,38 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set User Level</h1>
+    <code>PUT /api/user_level</code>
+</div>
+
+<p class="lead">設定會員層級</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="checkbox">user_levels[0]</label>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[user_id]</label>
+                    <div class="col-md-5">
+                        <input name="user_levels[0][user_id]" type="text" class="form-control">
+                    </div>
+                    <span class="help-block col-md-4">使用者ID</span>
+                    <label class="control-label col-md-3">[level_id]</label>
+                    <div class="col-md-5">
+                        <input name="user_levels[0][level_id]" type="text" class="form-control">
+                    </div>
+                    <span class="help-block col-md-4">會員層級ID</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_set_user_level" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

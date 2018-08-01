@@ -1,0 +1,7 @@
+# Register routing for FOSJsRoutingBundle
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+durian:
+    resource: "@BBDurianBundle/Resources/config/routing.yml"
+    prefix: /

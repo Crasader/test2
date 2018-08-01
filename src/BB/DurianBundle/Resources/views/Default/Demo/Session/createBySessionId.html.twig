@@ -1,0 +1,37 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create Session By Session Id</h1>
+    <code>POST /api/session/{sessionId}</code>
+</div>
+<p class="lead">使用Session Id，建立使用者 Session 資料</p>
+<div class="alert alert-info">目前僅供<code>唯一額度</code>使用</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/session/</span>
+                    <input data-request-param="sessionId" type="text" placeholder="{sessionId}" class="form-control">
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入Session 編號{sessionId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">user_id</label>
+            <div class="col-md-5">
+                <input name="user_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">使用者ID</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_session_create_by_session_id" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

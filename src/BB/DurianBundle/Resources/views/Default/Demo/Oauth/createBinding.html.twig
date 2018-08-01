@@ -1,0 +1,41 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create Oauth User Binding</h1>
+    <code>POST /api/oauth/binding</code>
+</div>
+
+<p class="lead">新增綁定使用者的oauth帳號資訊</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">user_id</label>
+            <div class="col-md-5">
+                <input name="user_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">使用者id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">vendor_id</label>
+            <div class="col-md-5">
+                <input name="vendor_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">oauth廠商id, 1: 微博, 2: qq, 3: facebook</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">openid</label>
+            <div class="col-md-5">
+                <input name="openid" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">oauth唯一識別使用者id</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_oauth_create_binding" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,176 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Edit Transcribe Entry</h1>
+    <code>PUT /api/transcribe/entry/{entryId}</code>
+</div>
+
+<p class="lead">修改人工抄錄明細</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/transcribe/entry/</span>
+                    <input data-request-param="entryId" type="text" class="form-control" placeholder="{entryId}">
+                </div>
+            </div>
+            <button id="load-btn" data-request-routing="api_get_transcribe_entry" class="btn btn-default" type="button">Load</button>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{entryId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="amount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">金額，入款請帶正值，出款帶負值</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fee</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="fee" type="text" class="form-control" disabled>
+               </div>
+            </div>
+            <span class="help-block col-md-4">手續費</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">method</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="method" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">入款方式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name_real</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name_real" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">真實姓名</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">location</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="location" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">交易地點</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">booked_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="booked_at" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">登記日期</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_transcribe_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_transcribe_at" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">首次抄錄日期</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">transcribe_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="transcribe_at" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">抄錄日期</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">creator</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="creator" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">抄錄人員</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">recipient_account_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="recipient_account_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">出款帳戶id，出款才需要代值</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">trade_memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="trade_memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">交易異動</span>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_edit_transcribe_entry" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

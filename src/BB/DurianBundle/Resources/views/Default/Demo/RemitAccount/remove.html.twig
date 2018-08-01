@@ -1,0 +1,28 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Remove Remit Account</h1>
+    <code>DELETE /api/remit_account/{remitAccountId}</code>
+</div>
+
+<p class="lead">刪除出入款帳號</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="input-group col-md-6">
+                <span class="input-group-addon">/api/remit_account/</span>
+                <input data-request-param="remitAccountId" type="text" class="form-control" placeholder="{remitAccountId}">
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{remitAccountId}</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_remit_account_remove" data-request-type="DELETE" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

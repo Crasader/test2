@@ -1,0 +1,35 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>ShopUrl Check Connection</h1>
+    <code>GET /api/merchant/{merchantId}/shop_url/check_connection</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">檢查shopUrl連線是否正常</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/merchant/</span>
+                    <input data-request-param="merchantId" type="text" class="form-control" placeholder="{merchantId}">
+                    <span class="input-group-addon">/shop_url/check_connection</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">網址變數{merchantId}輸入商家id</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_merchant_shop_url_check_connection" data-request-type="GET" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

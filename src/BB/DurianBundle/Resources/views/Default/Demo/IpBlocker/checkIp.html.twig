@@ -1,0 +1,41 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Check Ip</h1>
+    <code>GET /api/ip_blocker/check/ip</code>
+</div>
+
+<p class="lead">檢查IP是否可使用</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">ip</label>
+            <div class="col-md-5">
+                <input name="ip" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">ip</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <input name="domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">廳</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">entrance</label>
+            <div class="col-md-5">
+                <input name="entrance" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">廳主限定(1) / 管(2) / 客(3) / API(4)</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_check_ip" data-request-type="GET" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

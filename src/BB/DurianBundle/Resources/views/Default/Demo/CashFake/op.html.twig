@@ -1,0 +1,141 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>CashFake Operation</h1>
+    <code>PUT /api/user/{userId}/cash_fake/op</code>
+</div>
+
+<p class="lead">快開額度交易</p>
+<p>opcode為交易名目，只能指定一個名目.
+<p>例：<code>opcode=10002</code>(BETTING)，<code>amount</code>為金額，大於零表示現金餘額會增加，小於零表示餘額會減少。</p>
+<p>例：<code>{"opcode": "10002", "amount": -1000}</code>表示下注1000元，現金餘額將扣1000元。</p>
+<p>
+    預扣(Transaction)不會自動回復！若要取消此次預扣交易，或預扣後無預期的斷線；請使用
+    <code>/api/cash_fake/transaction/{id}/rollback</code>
+    來取消此次的預扣交易，否則交易金額將會被鎖定在預扣機制中無法使用。
+</p>
+<div class="alert alert-info">
+    只有當交易名目<code>結算</code>或<code>結算修正</code>的類型時，金額方可為0<br>
+</div>
+<div class="alert alert-info">
+    交易金額最大值為<code>10000000000</code>
+</div>
+<div class="alert alert-info">
+    金額最多只計算到小數點<code>後四位</code>
+</div>
+<div class="alert alert-info">
+    memo(備註)的字數限制為<code>100</code>個字，若超過只會保留前100個字
+</div>
+<p>相關錯誤訊息如下：</p>
+<div class="row">
+    {% include 'BBDurianBundle:Default/Doc:cashfake_op_exception_map.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/cash_fake/op</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">opcode</label>
+            <div class="col-md-5">
+                <input name="opcode" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">交易名目</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <input name="amount" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">交易金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ref_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ref_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備查編號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">operator</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="operator" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">操作者username，預設為空</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">auto_commit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="auto_commit" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">自動確認交易</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">force</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="force" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">允許強制扣款。預設為不允許</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">force_copy</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="force_copy" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">允許強制明細編號存入refId。預設為不允許</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_cashFake_operation" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

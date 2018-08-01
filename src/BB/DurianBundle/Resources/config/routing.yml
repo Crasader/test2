@@ -1,0 +1,34 @@
+##  Durian Service Demo ##
+
+durian_api:
+    resource: "@BBDurianBundle/Controller"
+    type:     annotation
+    prefix: /api
+
+monitor:
+    resource: "@BBDurianBundle/Controller/MonitorController.php"
+    type:     annotation
+
+default:
+    resource: "@BBDurianBundle/Controller/DefaultController.php"
+    type:     annotation
+
+demo:
+    resource: "@BBDurianBundle/Controller/DemoController.php"
+    type:     annotation
+
+document:
+    resource: "@BBDurianBundle/Controller/DocController.php"
+    type:     annotation
+
+tools:
+    resource: "@BBDurianBundle/Controller/ToolsController.php"
+    type:     annotation
+
+test:
+    resource: "@BBDurianBundle/Controller/TestController.php"
+    type:     annotation
+
+log:
+    resource: "@BBDurianBundle/Controller/LogOperationController.php"
+    type:     annotation

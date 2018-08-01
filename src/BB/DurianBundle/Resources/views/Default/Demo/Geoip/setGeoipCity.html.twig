@@ -1,0 +1,66 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set Geoip City</h1>
+    <code>PUT /api/geoip/city/{cityId}</code>
+</div>
+
+<p class="lead">修改Geoip城市資料</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/geoip/city/</span>
+                    <input data-request-param="cityId" type="text" class="form-control" placeholder="{cityId}">
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{cityId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">en_name</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="en_name" type="text" class="form-control" value="" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">英文名稱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">zh_tw_name</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="zh_tw_name" type="text" class="form-control" value="" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">繁體中文名稱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">zh_cn_name</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="zh_cn_name" type="text" class="form-control" value="" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">簡體中文名稱</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_geoip_city_set" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

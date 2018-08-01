@@ -1,0 +1,43 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set Merchant Withdraw Private Key</h1>
+    <code>PUT /api/merchant/withdraw/{merchantWithdrawId}/private_key</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">設定出款商家密鑰</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:sensitive_data.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/merchant/withdraw/</span>
+                    <input data-request-param="merchantWithdrawId" type="text" class="form-control" placeholder="{merchantWithdrawId}">
+                    <span class="input-group-addon">/private_key</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">網址變數{merchantWithdrawId}輸入出款商家id</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">private_key</label>
+            <div class="col-md-5">
+                <input name="private_key" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-3">密鑰</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_merchant_withdraw_set_private_key" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

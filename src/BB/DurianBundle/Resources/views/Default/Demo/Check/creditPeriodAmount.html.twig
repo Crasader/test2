@@ -1,0 +1,68 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Check Credit Period Amount</h1>
+    <code>GET /api/check/credit/period_amount</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+    <p class="lead">檢查信用額度交易金額</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:credit_group.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <input name="domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">廳ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">group_num</label>
+            <div class="col-md-5">
+                <input name="group_num" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">群組編號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">period_at</label>
+            <div class="col-md-5">
+                <input name="period_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">下注時間區間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_result</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_result" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁從第幾筆開始</span>
+            <label class="control-label col-md-3">max_results</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁顯示筆數</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_check_credit_period_amount" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

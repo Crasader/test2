@@ -1,0 +1,92 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Relative Name</h1>
+    <code>GET /api/external/relative_name</code>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <p class="lead">回傳外接遊戲使用者帳號</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:external_game_map.html.twig' %}
+</div>
+
+<div class="alert alert-info">
+    使用BBIN帳號查詢請帶入<code>username</code>，外接帳號反查BBIN帳號請帶入<code>external_name</code>及<code>game_code</code>
+</div>
+<div class="alert alert-danger">
+    目前只會撈出<code>啟用會員</code>的使用者資料
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">username</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="username" type="text" class="form-control" value="" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">BBIN帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">external_name</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="external_name" type="text" class="form-control" value="" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">外接遊戲帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">game_code</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="game_code" type="text" class="form-control" value="" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">遊戲平台編號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="domain" type="text" class="form-control" value="" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">查詢指定廳</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">filter</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="filter" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">設0取全部，設1取整合帳號，設2取大球帳號，預設1</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_relative_name" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

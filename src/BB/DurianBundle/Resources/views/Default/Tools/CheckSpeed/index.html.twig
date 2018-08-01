@@ -1,0 +1,18 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block body %}
+    <div class="page-header">
+        <h1>測試執行速度</h1>
+    </div>
+
+    <form name="checkform" method="POST">
+        <button type="submit" class="btn btn-primary">開始測試</button>
+    </form>
+
+    <p>
+        {% if execution_time|length > 0 %}
+        <p>execution_time: {{execution_time}} ms</p>
+        <p>server_name: {{server_name}}</p>
+        {% endif %}
+    </p>
+{% endblock %}

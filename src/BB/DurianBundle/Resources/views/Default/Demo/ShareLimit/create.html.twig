@@ -1,0 +1,106 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create ShareLimit</h1>
+    <code>POST /api/user/{userId}/share_limit/{groupNum}</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+    <p class="lead">新增佔成</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:share_limit_group.html.twig' %}
+</div>
+<div class="alert alert-info">
+    會員不佔成，新增會員的佔成會噴錯
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3"></label>
+            <div class="col-md-10">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/share_limit/</span>
+                    <input data-request-param="groupNum" type="text" class="form-control" placeholder="{groupNum}">
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}, {groupNum}</p>
+        </div>
+        <label class="control-label">sharelimit</label>
+        <div class="form-group">
+            <label class="control-label col-md-3">[upper]</label>
+            <div class="col-md-5">
+                <input name="sharelimit[upper]" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">佔成上限</span>
+            <label class="control-label col-md-3">[lower]</label>
+            <div class="col-md-5">
+                <input name="sharelimit[lower]" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">佔成下限</span>
+            <label class="control-label col-md-3">[parent_upper]</label>
+            <div class="col-md-5">
+                <input name="sharelimit[parent_upper]" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">自身佔成上限</span>
+            <label class="control-label col-md-3">[parent_lower]</label>
+            <div class="col-md-5">
+                <input name="sharelimit[parent_lower]" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">自身佔成下限</span>
+        </div>
+        <label class="control-label">sharelimit_next</label>
+        <div class="form-group">
+            <label class="control-label col-md-3">[upper]</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sharelimit_next[upper]" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">預改佔成上限</span>
+            <label class="control-label col-md-3">[lower]</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sharelimit_next[lower]" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">預改佔成下限</span>
+            <label class="control-label col-md-3">[parent_upper]</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sharelimit_next[parent_upper]" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">預改自身佔成上限</span>
+            <label class="control-label col-md-3">[parent_lower]</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sharelimit_next[parent_lower]" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">預改自身佔成下限</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_shareLimit_create" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

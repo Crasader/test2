@@ -1,0 +1,295 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block javascripts %}
+<script type="text/javascript">
+$(function () {
+
+    function addRowHandlers() {
+        var table = document.getElementById("show");
+        var rows = table.getElementsByTagName("tr");
+
+        {# 取得 domain-ip 相關異常紀錄事件 #}
+        for (i = 1; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClcikHandler = function(row, index) {
+                return function() {
+                    var cellZero = row.getElementsByTagName("td")[0];
+                    var param = "ip_blacklist_id=" + cellZero.innerHTML;
+
+                    {# 初始所有 row 背景顏色 #}
+                    for (j = 1; j < rows.length; j++) {
+                        table.rows[j].style.backgroundColor = '';
+                    }
+
+                    {# 設定所選IP封鎖列表 row 背景為淡藍綠色 #}
+                    row.style.backgroundColor = 'PaleTurquoise';
+
+                    {#  變更計次表格位置 #}
+                    changeRecordPosition();
+
+                    $.ajax({
+                        url: Routing.generate('tools_get_ip_activity_record'),
+                        type: 'GET',
+                        data: param,
+                        dataType: 'json',
+                        success: function(data) {
+                            var showMsg = '';
+
+                            if (data.result === 'error') {
+                                showMsg += '<p>錯誤代碼：' + data.code + '</p>';
+                                showMsg += '<p>錯誤訊息：' + data.msg + '</p>';
+
+                                $('.errorMsg').html(showMsg).addClass('alert alert-danger');
+                            }
+
+                            if (data.result === 'ok') {
+                                showMsg += '<br/><strong>IP封鎖列表id:</strong> ' + data.ip_blacklist_id + '<br/>';
+
+                                showMsg += '<table class="table table-bordered table-hover table-striped">';
+                                showMsg += '<tbody><tr>';
+                                showMsg += '<td><strong>廳:</strong> ' + data.domain + '</td>';
+                                showMsg += '<td><strong>ip:</strong> ' + data.ip + '</td>';
+                                showMsg += '</tr></tbody></table>';
+
+                                showMsg += '<br/><strong>一天內異常紀錄:</strong> 共' + data.reasonTotal + '筆<br/><br/>';
+                                showMsg += '<table class="table table-bordered table-hover table-striped">';
+                                showMsg += '<thead><tr>';
+                                showMsg += '<th width="70%">時間</th>';
+                                showMsg += '<th>計次</th>';
+                                showMsg += '</tr></thead>';
+                                showMsg += '<tbody>';
+
+                                for (var key in data.reasonRecord) {
+                                    showMsg += '<tr><td>' + data.reasonRecord[key].at + '</td>'
+                                    showMsg += '<td>' + data.reasonRecord[key].count + '</td></tr>'
+                                }
+
+                                showMsg += '</tbody></table>';
+
+                                showMsg += '<br/><strong>一周內其他異常紀錄:</strong> 共' + data.otherTotal + '筆<br/><br/>';
+
+                                showMsg += '<table class="table table-bordered table-hover table-striped">';
+                                showMsg += '<thead><tr>';
+                                showMsg += '<th width="70%">時間</th>';
+                                showMsg += '<th>計次</th>';
+                                showMsg += '</tr></thead>';
+                                showMsg += '<tbody>';
+
+                                for (var key in data.otherRecord) {
+                                    showMsg += '<tr><td>' + data.otherRecord[key].at + '</td>'
+                                    showMsg += '<td>' + data.otherRecord[key].count + '</td></tr>'
+                                }
+
+                                showMsg += '</tbody></table>';
+
+                                $('.show').html(showMsg);
+                            }
+                        }
+                    });
+                 };
+            };
+            currentRow.onclick = createClcikHandler(currentRow, i);
+        }
+    }
+
+    window.onload = addRowHandlers();
+
+    $('.btn-change').click(function() {
+        var param = $('form').serialize();
+        window.location.href = "display_ip_blacklist?" + param;
+    });
+
+    $('#btnNext').click(function(){
+        var param = $('form').serialize();
+        var currentPage = parseInt($('#currentPage').html().trim()) + 1;
+        window.location.href = "display_ip_blacklist?" + param + "&page=" + currentPage;
+    });
+
+    $('#btnPrevious').click(function(){
+        var param = $('form').serialize();
+        var currentPage = parseInt($('#currentPage').html().trim()) - 1;
+        window.location.href = "display_ip_blacklist?" + param + "&page=" + currentPage;
+    });
+
+    bindPaginationClickEvent();
+});
+
+    {# 變更計次紀錄資料表格顯示位置 #}
+    function changeRecordPosition() {
+        var div = document.getElementById('dynamic');
+
+        div.style.top = '0px';
+        if (($(window).scrollTop() - 200) >= 0) {
+            div.style.top = ($(window).scrollTop() - 200) + 'px';
+        }
+    }
+
+    {# 建立分頁 #}
+    function createPagination(totalPage, currentPage) {
+        var count = 1;
+        var link = "display_ip_blacklist?" + $('form').serialize() + "&page=";
+
+        $('#currentPage').html(currentPage);
+        $('#pageMenu').children().remove();
+
+        for (count; count <= totalPage; count++) {
+            $('#pageMenu').append('<li><a href=' + link + count + ' class="page"> ' + count + '</a></li>');
+        }
+
+        {# 停用上一頁 #}
+        if (parseInt(currentPage) <= 1) {
+            $('#btnPrevious').prop('disabled', true);
+        } else {
+            $('#btnPrevious').prop('disabled', false);
+        }
+
+        {# 停用下一頁 #}
+        if (parseInt(currentPage) >= totalPage) {
+            $('#btnNext').prop('disabled', true);
+        } else {
+            $('#btnNext').prop('disabled', false);
+        }
+
+        bindPaginationClickEvent();
+    }
+
+    var dropdown = document.getElementById("pageMenu");
+    var rows = dropdown.getElementsByTagName("li");
+
+    window.onload = createPagination(rows.length, parseInt($('#currentPage').html().trim()));
+</script>
+
+{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h1>監控IP封鎖列表資訊頁面</h1>
+    {# 顯示錯誤訊息 #}
+    <div class="form-group col-md-9 errorMsg"></div><br/>
+</div>
+
+
+<div class="col-md-12">
+    <div class="col-md-12">
+        <form class="form-inline">
+            <div class="form-group">
+                <label>ip:</label>
+                <input id="ip" name="ip" type="test" size="12" class="form-control" value="{{ ip }}">
+            </div>
+            <div class="form-group">
+                <label>建立時間(起):</label>
+                <input id="at" name="created_at_start" type="datetime-local" class="form-control" value="{{ start|date("Y-m-d\\TH:i:s") }}">
+            </div>
+            <div class="form-group">
+                <label>(迄):</label>
+                <input id="at" name="created_at_end" type="datetime-local" class="form-control" value="{{ end|date("Y-m-d\\TH:i:s") }}">
+            </div>
+            <button class="btn btn-primary btn-change" type="button">確認</button>
+        </form>
+    </div>
+    <div class="col-md-9">
+        <p><p>
+        <br><br>
+        <strong>時間內已移除的IP封鎖列表: </strong>共 {{ removedTotal }} 筆
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th width="120">原因</th>
+                    <th>廳</th>
+                    <th width="200">廳名</th>
+                    <th width="500">修改時間</th>
+                    <th width="300">ip</th>
+                    <th width="400">操作者</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ip_black in removedIpBlacklist %}
+                    <tr>
+                        <td>{{ ip_black.id }}</td>
+
+                        {% if ip_black.create_user %}
+                            <td>註冊</td>
+                        {% elseif ip_black.login_error %}
+                            <td>登入</td>
+                        {% endif%}
+
+                        <td>{{ ip_black.domain }}</td>
+                        <td>{{ ip_black.name }}</td>
+                        <td>{{ ip_black.modified_at }}</td>
+                        <td>{{ ip_black.ip }}</td>
+                        <td>{{ ip_black.operator }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><p>
+        <form class="form-inline">
+            <div class="form-group">
+                <strong>IP封鎖列表: </strong>共 {{ total }} 筆 (單頁最多顯示50筆資料, 可點擊欄位以顯示統計資料)
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" id="btnPrevious" disabled>上一頁</button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="btnPage">
+                    <span id="currentPage">{{ page }}</span>&nbsp;<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" id="pageMenu">
+                    {% for i in 1..totalPage %}
+                        <li><a href="#" class="page"> {{ i }} </a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" id="btnNext">下一頁</button>
+            </div>
+        </form>
+        <br>
+        <table id="show" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th width="120">原因</th>
+                    <th>廳</th>
+                    <th width="200">廳名</th>
+                    <th width="500">建立時間</th>
+                    <th width="300">ip</th>
+                    <th width="400">來源位址</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ip_black in ipBlacklist %}
+                    <tr>
+                        <td>{{ ip_black.id }}</td>
+
+                        {% if ip_black.create_user %}
+                            <td>註冊</td>
+                        {% elseif ip_black.login_error %}
+                            <td>登入</td>
+                        {% endif%}
+
+                        <td>{{ ip_black.domain }}</td>
+                        <td>{{ ip_black.name }}</td>
+                        <td>{{ ip_black.created_at }}</td>
+                        <td>{{ ip_black.ip }}</td>
+                        <td>{{ ip_black.source }}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="dynamic" class="col-md-3">
+        <div align="right">
+            <br>
+            <a href="/demo/domain/remove_ip_blacklsit" ><code>點擊前往刪除IP封鎖列表API</code></a>
+        </div>
+
+        {# 顯示ip相關紀錄用 #}
+        <div class="show">
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <p class="lead">Related APIs</p>
+        <ul class="nav nav-pills nav-stacked">
+        {% for gkey, group in api %}
+            {% if group.active is defined and group.active %}
+                {% for ikey, sub in group.sub %}
+                    <li class="dropdown{% if sub.active is defined and sub.active %} active{% endif %}">
+                        <a href="{{ path('demo', { 'group': gkey, 'item': ikey }) }}">{{ sub.label }}</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+</div>

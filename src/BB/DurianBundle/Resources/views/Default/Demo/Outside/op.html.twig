@@ -1,0 +1,110 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Outside Operation</h1>
+    <code>PUT /api/user/{userId}/outside/op</code>
+</div>
+
+<p class="lead">外接額度交易</p>
+<p>
+    預扣(Transaction)不會自動回復！若要取消此次預扣交易，或預扣後無預期的斷線；請使用
+    <code>/api/outside/transaction/{id}/rollback</code>
+    來取消此次的預扣交易，否則交易金額將會被鎖定在預扣機制中無法使用。
+</p>
+<div class="alert alert-info">
+    此API header 需要傳送 session-id，會將這邊的<code>session-id</code>帶入header發送
+</div>
+<div class="alert alert-info">
+    <code>session-id</code>僅供DEMO頁使用，實際使用API請在header帶入<code>session-id</code>
+</div>
+<div class="alert alert-info">
+    交易金額最大值為<code>10000000000</code>
+</div>
+<div class="alert alert-info">
+    金額最多只計算到小數點<code>後四位</code>
+</div>
+<div class="alert alert-info">
+    memo(備註)的字數限制為<code>100</code>個字
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/outside/op</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">session-id</label>
+            <div class="col-md-5">
+                <input name="session-id" type="text" class="form-control" data-header-param >
+            </div>
+            <span class="help-block col-md-4">要放入header的session-id</span>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="control-label col-md-3">opcode</label>
+            <div class="col-md-5">
+                <input name="opcode" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">交易名目</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <input name="amount" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">交易金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ref_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ref_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備查編號。預設空字串</span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註。預設空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">auto_commit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="auto_commit" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">自動確認交易。預設自動</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_outside_operation" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

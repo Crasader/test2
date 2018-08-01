@@ -1,0 +1,292 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>User Remit</h1>
+    <code>POST /api/user/{userId}/remit</code>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <p class="lead">新增入款記錄</p>
+        <p>系統支援的入款方式請參考右表</p>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>code</th><th>Methods</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td><td>網銀轉帳</td>
+                </tr>
+                <tr>
+                    <td>2</td><td>ATM自動櫃員機</td>
+                </tr>
+                <tr>
+                    <td>3</td><td>ATM現金入款</td>
+                </tr>
+                <tr>
+                    <td>4</td><td>銀行櫃檯</td>
+                </tr>
+                <tr>
+                    <td>5</td><td>語音轉帳(KRW)</td>
+                </tr>
+                <tr>
+                    <td>6</td><td>支票存款(THB)</td>
+                </tr>
+                <tr>
+                    <td>7</td><td>信用卡(THB)</td>
+                </tr>
+                <tr>
+                    <td>8</td><td>手機銀行轉帳</td>
+                </tr>
+                <tr>
+                    <td>9</td><td>微信支付</td>
+                </tr>
+                <tr>
+                    <td>10</td><td>支付寶</td>
+                </tr>
+                <tr>
+                    <td>11</td><td>QQ錢包</td>
+                </tr>
+                <tr>
+                    <td>12</td><td>財付通</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="input-group col-md-6">
+                <span class="input-group-addon">/api/user/</span>
+                <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                <span class="input-group-addon">/remit</span>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bank_info_id</label>
+            <div class="col-md-5">
+                <input name="bank_info_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">存款人使用銀行</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ancestor_id</label>
+            <div class="col-md-5">
+                <input name="ancestor_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">上層ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">order_number</label>
+            <div class="col-md-5">
+                <input name="order_number" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">訂單號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name_real</label>
+            <div class="col-md-5">
+                <input name="name_real" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">存款人姓名</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">method</label>
+            <div class="col-md-5">
+                <input name="method" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">存款方式(請填入code)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <input name="amount" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="account_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">公司帳號ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">存款時間，請使用ISO-8601格式輸入</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">auto_confirm</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="auto_confirm" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">自動認款，預設為0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">discount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="discount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">存款優惠</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">other_discount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="other_discount" type="text" class="form-control" disabled>
+                </div>
+
+            </div>
+            <span class="help-block col-md-4">其他存款優惠</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">abandon_discount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="abandon_discount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">放棄優惠，預設為0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">branch</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="branch" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">存款分行</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">cellphone</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="cellphone" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">手機號碼</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">trade_number</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="trade_number" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">交易流水號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">payer_card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="payer_card" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">付款人卡號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">transfer_code</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="transfer_code" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">轉帳交易代碼</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">atm_terminal_code</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="atm_terminal_code" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">ATM編碼</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">identity_card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="identity_card" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">身分證號碼</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_user_remit" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

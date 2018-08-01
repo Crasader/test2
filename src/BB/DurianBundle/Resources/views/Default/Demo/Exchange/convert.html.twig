@@ -1,0 +1,66 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Exchange Convert</h1>
+    <code>PUT /api/exchange/convert</code>
+</div>
+
+<p class="lead">匯率兌換</p>
+<div class="alert alert-info">目前只提供試算功能，不會做任何實際兌換動作</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <input name="amount" name="amount" type="text" class="form-control" value="0">
+            </div>
+            <span class="help-block col-md-4">金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">from</label>
+            <div class="col-md-5">
+                <input name="from" name="from" type="text" class="form-control" value="CNY">
+            </div>
+            <span class="help-block col-md-4">原本幣別</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">to</label>
+            <div class="col-md-5">
+                <input name="to" name="to" type="text" class="form-control" value="CNY">
+            </div>
+            <span class="help-block col-md-4">兌換幣別</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">active_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="active_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">查詢時間點。預設現在。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">priview</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox" disabled>
+                    </span>
+                    <input name="priview" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">預設試算。目前只提供試算功能</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_exchange_convert" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

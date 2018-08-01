@@ -1,0 +1,1353 @@
+## YAML Template.
+##User##
+Sub user can not be parent: 子帐号不能为其他使用者的上层
+User disabled can not be parent: 被停用的帐号不能为其他使用者的上层
+Inheritance loop detected: 已是此使用者的某个上层
+Duplicate Credit: 使用者已有此群组的信用额度
+Cash entity for the user already exists: 使用者已有现金
+CashFake for the user already exists: 使用者已有快开额度
+Card entity for the user already exists: 使用者已有租卡
+Duplicate ShareLimit: 使用者已有此群组的占成
+Duplicate ShareLimitNext: 使用者已有此群组的预改占成
+Invalid username length given: 使用者帐号长度不合法
+Invalid username character given: 使用者帐号字元不合法
+Username already exist: 使用者帐号已被使用
+Invalid password length given: 使用者密码长度不合法
+Invalid password character given: 使用者密码字元不合法
+Invalid alias length given: 使用者昵称长度不合法
+Invalid alias character given: 使用者昵称字元不合法
+Can not remove user when user has cash: 使用者现金不为零 不能删除
+Can not remove user when user still anothers parent: 使用者为其他使用者的上层 不能删除
+No parent found: 父层不存在
+Cannot change parent who is not in same level: 不能转移不同阶层体系
+Cannot change same parent: 无法转移至相同父层
+The parent cashFake not exist: 上层快开额度不存在
+If you want to get child from any depth, Set parameter depth = null, thx.: 欲查询所有下层，请将depth设为null
+No such user: 使用者不存在
+No parent_id specified: 未指定parent_id
+No fields specified: 未指定栏位
+Target parents and source childrens cards in the hierarchy would be only one enabled: 转移体系目标上层已开启租卡，同一条体系只能开启一个租卡
+User and its target parent must be in the same domain: 转移体系必须为同站
+Currency can not be null: 币别不可为空值
+Sub user can not change parent: 子帐号无法转移体系
+Can not enable when parent is disable: 上层为停用时无法启用此使用者
+Can not remove user due to unsynchronised cash data: 无法移除使用者：尚有未同步的现金资料
+Can not remove user due to unsynchronised cashfake data: 无法移除使用者：尚有未同步的快开额度资料
+Can not remove user due to unsynchronised credit data: 无法移除使用者：尚有未同步的信用额度资料
+Not a domain: 非厅主
+Sub user can not be disabled: 无法停用子帐号
+Invalid user_id: 指定的ID不合法
+Can not set test off when parent is test user: 上层为测试帐号无法取消测试帐号
+No role specified: 未指定角色
+Domain shall not have parent: 若要新增厅主则不需带入上层Id
+Not a generated user_id: 使用者id尚未产生
+Parent can not be member: 上层不可为会员
+Invalid role: 指定的层级不合法
+Database is busy: 资料库忙碌中
+No start_at specified: 未指定开始建立区间
+No end_at specified: 未指定结束建立区间
+Invalid users: 指定的users不合法
+DisabledPassword user cannot change password: 密码停用的使用者无法修改密码
+No ancestor found: 无此上层
+Invalid login code: 无效的登入代码
+Search field and value did not match: 搜寻栏位与搜寻值不匹配
+Cannot generate user sequence id: 无法产生使用者id
+Cannot get user sequence id: 无法取得使用者id
+Can not disable more than 10000 users: 一次不能停用超过10000个使用者
+User id already exists in the removed user list: 使用者id已存在删除使用者列表
+Cannot create user when ip is in blacklist: IP已在黑名单,无法新增使用者
+Cannot create user when ip is in ip blacklist: IP已在IP封锁列表,无法新增使用者
+No client_ip specified: 未指定操作者ip
+Can not set hidden test off when parent is hidden test user: 上层为隐藏测试帐号无法取消隐藏测试帐号
+No such removed user: 使用者未被移除
+Invalid email given: 无效的信箱
+No removed_at specified: 未指定删除时间
+Invalid removed_at given: 无效的删除时间
+UserEmail not belong to this user: 使用者信箱不属于该使用者
+UserPassword not belong to this user: 使用者密码不属于该使用者
+Cash not belong to this user: 现金资料不属于该使用者
+UserDetail not belong to this user: 使用者详细资料不属于该使用者
+Not enough balance: 余额不足
+No such exchange: 无此汇率
+The parent userPayway not exist: 上层支援的交易方式不存在
+No cash supported: 不支援现金
+No cashFake supported: 不支援假现金
+No credit supported: 不支援信用额度
+Need to set sharelimit groups when parent have: 必须设定上层有的现行占成群组
+Need to set sharelimit_next groups when parent have: 必须设定上层有的预改占成群组
+Can not remove user when user has trans cash: 使用者有交易未完成不能删除
+Can not change parent when cashFake not commit: 有交易未确认不能转移
+The number of test exceeds limitation in the same domain: 同一厅下测试账号超过限制数量
+No domain name specified: 未指定厅名
+User ids must be in the same domain: 使用者id须为同厅
+Can not recover user when its username already used by another: 另有使用者使用该帐号，无法回复使用者
+Can not recover user when its parent not exists: 上层使用者不存在，无法回复使用者
+CashFake not belong to this user: 假现金资料不属於该使用者
+Credit not belong to this user: 信用额度资料不属於该使用者
+Card not belong to this user: 租卡资料不属於该使用者
+Removed credit not belong to this user: 移除的信用额度资料不属於该使用者
+Removed card not belong to this user: 移除的租卡资料不属於该使用者
+No outside supported: 不支援外接额度
+Can not set test on when user is test user: 使用者为测试帐号无法设定测试帐号
+Can not set test off when user is not test user: 使用者非测试帐号无法取消测试帐号
+
+
+##Card##
+Only one card in the hierarchy would be enabled: 体系中仅有一租卡可启用
+Duplicate Card entity detected: 使用者已有租卡
+Card amount must be an integer: 租卡扣點必須為整數
+No card found: 租卡不存在
+This card is disabled: 租卡已停用
+Cannot generate card sequence id: 无法产生租卡明细id
+Not enough card balance: 租卡余额不足
+No card entry found: 租卡明细不存在
+Can not operate card when user is not in card hierarchy: 使用者不是租卡体系无法操作租卡
+No amount specified: 未指定金额
+Invalid ref_id: ref_id格式不合法
+Balance exceeds allowed MAX integer: 余额超出最大许可整数
+No ref_id specified: 未指定参考编号
+
+
+##Cash##
+Amount can not be zero: 金额不可为零
+No cash found: 无现金资料
+Illegal currency: 币别不合法
+Not support this user: 不支援此使用者
+Cannot generate cash sequence id: 无法产生现金明细id
+No cash total balance found: 无现金会员总余额资料
+No memo specified: 没有指定备注
+No cash entry found: 现金明细不存在
+Invalid vendor: 无效的厂商
+User is disabled: 使用者已停用
+User is enabled: 使用者为启用
+Invalid parent_id: 無效的parent_id
+The balance exceeds the MAX amount: 余额超过最大金额上限
+Oversize amount given which exceeds the MAX: 输入金额超过许可的最大范围
+Currency not support: 不支援此币别
+No cashTrans found: 现金交易不存在
+Invalid merchant_id: merchant_id格式不合法
+Invalid remit_account_id: remit_account_id格式不合法
+Invalid group_by: group_by格式不合法
+Invalid order_by: order_by格式不合法
+Can not set ref_id when force_copy is true: ref_id和force_copy不能同时使用
+
+
+##CashFake##
+No cashFake found: 快开额度不存在
+Different currency between child and parent: 上下层不同币别
+Can not transfer cashFake when User not in the hierarchy: 使用者不是同体系无法转移快开额度
+No target user specified: 没有指定目标使用者
+No source user specified: 没有指定来源使用者
+No parent cashFake found: 使用者上层没有快开额度
+CashFake is disabled: 快开额度已停用
+Duplicate ref id: 该ref_id已被写入
+Cannot generate cashfake sequence id: 无法产生快开额度明细id
+No cash fake total balance found: 无快开额度会员总余额资料
+No cash fake entry found: 快开额度明细不存在
+User is bankrupt: 使用者已被停权
+Presub exceeds allowed MAX integer: 预扣额超出最大许可整数
+Preadd exceeds allowed MAX integer: 预存额超出最大许可整数
+No cashFakeTrans found: 快开额度交易不存在
+Transaction already check status: 该笔交易纪录已经确认完毕
+No userId or domain specified: 未指定使用者id或厅
+The input userId or domain should be chosen one: 使用者ID和厅不可同时带入
+No start or end specified: 没有指定搜寻开始时间或搜寻结束时间
+
+
+##Credit##
+No credit found: 信用额度不存在
+Not enough line to be dispensed: 信用额度不足
+TotalLine can not be negative: 下层信用额度总和不可为负的
+Line exceeds the max value: 信用额度超过最大额度上限
+Line still in use can not be withdraw: 使用中的信用额度不可提出
+Amount exceed the MAX value: 金额超过最大金额限制
+Amount of period can not be negative: 时间区间内金额加总为负数
+Invalid line given: 信用额度不合法
+No parent credit found: 上层信用额度不存在
+Invalid group number: 无效的群组
+Credit is disabled: 信用額度已停用
+Line exceeds allowed MAX integer: 信用额度超过最大金额限制
+Total line exceeds allowed MAX integer: 总信用额度超过最大金额限制
+Can not recover credit due to unsynchronised credit data: 无法回收信用额度：尚有未同步的信用额度资料
+Negative balance is illegal (Due to line/total_line changing of self/parent): 额度变动不可导致自身或上层的余额小于零
+Can not recover credit due to none zero amount of children credit: 无法回收信用额度：下层信用额度尚有未注销注单
+Credit is recovering, please try again: 信用额度回收中，请稍后再试
+Credit is transfering, please try again: 信用额度转移中，请稍后再试
+Illegal operation for expired credit period data: 不合法的操作:该信用额度区间资料已过期
+No credit entry found: 信用额度明细不存在
+No group_num specified: 未指定群组编号
+Line is less than sum of children credit: 信用额度低于下层总和
+TotalLine is greater than parent credit: 信用额度总额高于上层
+Amount must be numeric: 金额必须为数字
+The decimal digit of amount exceeds limitation: 金额小数位数超过限制位数
+Oversize line given which exceeds the MAX: 输入额度超过许可的最大范围
+
+
+##Wallet##
+No opcode specified: 未指定opcode
+Invalid opcode: opcode格式不合法
+Illegal payway specified: 付款类别不合法
+Cannot find specified payway: 找不到指定的付款类别
+No userPayway found: 找不到支援的交易方式
+No deposit withdraw found: 使用者存提款纪录不存在
+
+
+##ShareLimit##
+Upper can not be null: 占成上限不能null
+Lower can not be null: 占成下限不能null
+ParentUpper can not be null: 上层的占成上限不能null
+ParentLower can not be null: 上层的占成下限不能null
+Upper can not be set over 100: 占成上限不能超过100
+Upper can not be set below 0: 占成上限不能低于0
+Lower can not be set over 100: 占成下限不能超过100
+Lower can not be set below 0: 占成下限不能低于0
+ParentUpper can not be set over 100: 上层的占成上限不能超过100
+ParentUpper can not be set below 0: 上层的占成上限不能低于0
+ParentLower can not be set over 100: 上层的占成下限不能超过100
+ParentLower can not be set below 0: 上层的占成下限不能低于0
+Lower can not exceed upper: 占成下限不能超过上限
+ParentLower can not exceed parentUpper: 上层的占成下限不能超过上层的占成上限
+Lower can not exceed any child ParentUpper + Lower (min1): 占成下限 不能超过 任一下层设定的上层占成上限＋占成下限 (min1)
+Upper can not below any child ParentUpper (max1): 占成上限 不能低于 任一下层设定的上层自身占成上限 (max1)
+Upper can not below any child ParentLower + Upper (max2): 占成上限 不能低于 任一下层设定的上层自身占成下限＋占成上限 (max2)
+Any child ParentUpper + Lower (min1) can not below parentBelowLower: 任一下层设定的上层自身占成上限＋占成下限 (min1) 不能小于 上层设定占成下限
+Any child ParentUpper (max1) can not exceed parentBelowUpper: 任一下层设定的上层自身占成上限 (max1) 不能大于 上层占成上限
+Any child ParentLower + Upper (max2) can not exceed parentBelowUpper: 任一下层设定的上层自身占成下限＋占成上限 (max2) 不能大于 上层设定占成上限
+Add the ShareLimit with the same group number first: 请先加入相同群组现行占成
+Base user needs to be set: 使用者未设定
+Group number needs to be set: 群组未设定
+No shareLimit found: 占成不存在
+User id or parent id not found: 使用者ID或上层ID未指定
+User id and parent id can not be assigned simultaneously: 不可同时指定使用者ID和上层ID
+User %userId% has no sharelimit of group %groupNum%: 使用者 %userId% 没有群组%groupNum%占成
+User %userId% has no sharelimit_next of group %groupNum%: 使用者 %userId% 没有群组%groupNum%预改占成
+No sharelimit specified: 未指定sharelimit
+Must send timestamp: 必须传入时间戳记
+Wrong type of timestamp: 时间戳记的型别错误
+No parent sharelimit found: 上层占成不存在
+No parent sharelimit_next found: 上层预改占成不存在
+The get sharelimit division action is expired: 取占成分配的动作已过期
+Calculating shareLimit division error: 计算占成分配时出现错误
+Sharelimit can not belong to this role: 此角色不占成
+Cannot perform this during updating sharelimit: 更新占成中,请稍后
+Cannot perform this due to updating sharelimit is not performed for too long time: 请先更新占成再执行此动作
+No share update cron exists: 占成更新排程不存在
+
+
+##UserDetail##
+Name real is null: 真实姓名为空
+Invalid name_real: 真实姓名不合法
+Cannot specify more than one credential fields: 指定的证件栏位不可多于一个
+Invalid user_id: 使用者id不合法
+No username specified: 未指定使用者帐号
+Promotion for the user already exists: 使用者已有推广资料
+No promotion found: 推广资料不存在
+Test user can not edit name_real: 测试帐号不能修改真实姓名
+Invalid email length given: 信箱长度不合法
+Invalid nickname length given: 使用者昵称长度不合法
+Invalid name_real length given: 真实姓名长度不合法
+Invalid name_chinese length given: 中文名称长度不合法
+Invalid name_english length given: 英文名称长度不合法
+Invalid country length given: 国籍长度不合法
+Invalid passport length given: 护照号码长度不合法
+Invalid identity_card length given: 身份证字号长度不合法
+Invalid driver_license length given: 驾照号码长度不合法
+Invalid insurance_card length given: 保险证字号长度不合法
+Invalid health_card length given: 健保卡号码长度不合法
+Invalid telephone length given: 连络电话长度不合法
+Invalid qq_num length given: QQ帐号长度不合法
+Invalid note length given: 备注长度不合法
+Invalid birthday given: 生日格式不合法
+Invalid wechat length given: 微信帐号长度不合法
+
+
+##Maintain##
+No game code exists: 游戏维护设定不存在
+No begin_at specified: 没指定游戏维护开始时间
+No end_at specified: 没指定游戏维护结束时间
+Illgegal game maintain time: 游戏维护时间不合法
+Send message to italking failed: 发送讯息到italking错误
+Send maintain message failed: 发送维护讯息错误
+Illegal game maintain target: 非法的游戏维护组别
+Ip already exists: ip已存在
+No MaintainWhitelist found: 无此分项维护白名单
+Invalid notice_interval: notice_interval格式不合法
+Illegal notice time: 提醒时间不合法
+Send domain message failed: 发送厅主讯息错误
+Send Mobile whitelist message failed: 发送白名单讯息至mobile失败
+Send Mobile whitelist message failed with error response: 发送白名单讯息至mobile回传失败
+No content specified in Mobile whitelist message: 发送至mobile的白名单内容缺失
+Invalid content in Mobile whitelist message: 发送至mobile的白名单内容不合法
+
+
+##Bank##
+This account already been used: 此银行帐号已被使用
+No code specified: 未指定银行代码
+No account specified: 未指定银行帐号
+No Bank found: 无此银行资讯
+Illegal Bank account: 银行帐号不合法
+Invalid bank status: 银行状态不合法
+User does not support non-personal account: 会员不支援使用非本人银行帐号
+BankCurrency not support by level: 此层级不支援此银行币别
+User Can not edit account holder: 会员不能编辑户名
+
+
+##Order##
+Plz chose a pay way: 请选择一种付款方式
+No user_id specified: 未指定user_id
+No orders specified: 未指定orders
+Cannot do card operation while order by transaction(auto_commit=0): 使用交易机制下注时无法进行租卡扣点
+Order count error: 注单笔数错误
+Payway is credit, but none group num specified: 未带入信用额度群组代码
+
+
+##BankInfo##
+No BankInfo found: 无此银行
+Currency of this BankInfo already exists: 银行已支援此币别
+Currency of this BankInfo not exists: 银行不支援此币别
+Currency of this BankInfo is in used: 此币别被使用中
+Not a withdraw bank: 这不是出款银行
+BankInfo is in used: 此银行被使用中
+BankCurrency not support by domain: 此厅不支援此银行币别
+BankCurrency not support by currency: 此币别不支援此银行币别
+
+
+##AccountLog exception##
+No such account log: 出款到Account记录不存在
+Check account status failed: 藉由Account确认状态失败
+
+
+##Tools exception##
+The contents of the file is incorrect: 档案内容不正确
+This user has both cash and cashFake: 该用户同时有现金及快开额度
+The user does not have cash: 该用户没有现金
+Exceeded the permitted execution lines: 超过允许的执行笔数
+The contents of the file is empty: 档案内容为空
+Invalid payway: 交易制度不合法
+Invalid headers: 档案表头不合法
+No name of process, number or enable specified: 没有选择程式名称、未指定执行数量或启用状态
+Invalid number: 执行数量不是整数，或未输入执行数量
+Process number can not be set below 0: 调整后的执行数量不得小于0
+Invalid cash entry id: 现金明细id格式不合法
+Invalid cash entry at: 现金明细建立时间格式不合法
+Invalid cash fake entry id: 快开明细id格式不合法
+Invalid cash fake entry at: 快开明细建立时间格式不合法
+Durian api call failed: Durian API调用失败
+The user does not have cashFake: 该用户没有快开额度
+No shop_url found: 没有购物网网址
+No kue type or status specified: 未指定kue类型或状态
+Invalid range specified: 无效的区间
+Get kue job failed: 取得Kue job错误
+Delete kue job failed: 删除kue job错误
+Redo kue job failed: 重新执行kue job错误
+Otp server connection failure: Otp 伺服器连线失败
+
+
+##Payment exception##
+No Merchant found: 无此商家
+Invalid domain: 指定的domain不合法
+No domain specified: 未指定厅
+Signature verification failed: 签名验证错误
+Payment failure: 支付失败
+Order Amount error: 订单金额错误
+Order Processing: 订单处理中
+Order does not exist: 订单不存在
+Order Id error: 订单ID错误
+Unpaid order: 订单未支付
+Order has been cancelled: 订单已取消
+PaymentVendor is not supported by PaymentGateway: 支付平台不支援此支付厂商
+PaymentGateway does not support order tracking: 支付平台不支援订单查询
+Submit the parameter error: 提交的参数错误
+System error, please try again later or contact customer service: 系统错误，请稍后再尝试，或联络该支付平台客服
+Connection error, please try again later or contact customer service: 连接错误，请稍后再尝试，或联络该支付平台客服
+Order has been refunded: 订单已退款
+Paid time out: 订单支付超时
+Payment tracking failed: 订单查询失败
+PaymentGateway error, Illegal merchant number: 支付平台商号错误
+Illegal Order currency: 不合法的订单币别
+Test mode is enabled, please turn off test mode and try again later: 测试模式启用中，请关闭测试模式并稍后再尝试
+Transaction kind error: 交易种类错误
+PaymentGateway error, Merchant is not exist: 支付平台商户不存在
+PaymentGateway error, Merchant Certificate is not exist: 支付平台商户凭证不存在
+Payment Gateway connection failure: 支付平台连线失败
+Empty Payment Gateway response: 支付平台回应为空
+Rsa private key is empty: rsa私钥为空
+Get rsa private key failure: 取得rsa私钥失败
+Rsa public key is empty: rsa公钥为空
+Get rsa public key failure: 取得rsa公钥失败
+Invalid XML format: XML格式不合法
+Payment tracking error: 订单查询错误
+Withdraw error: 出款错误
+PaymentGateway error, IP have no binding: 支付平台IP验证错误
+PaymentGateway error, Merchant has been expired: 支付平台商户合约过期
+PaymentGateway error, Merchant sign error: 支付平台解密验证错误
+Get pay parameters failed: 取得支付参数失败
+Invalid pay parameters: 无效的支付参数
+Pay error: 支付错误
+PaymentGateway error, Invalid Order date: 支付平台时间格式不合法
+PaymentGateway error, Begin time large than End time: 支付平台起始时间大於结束时间
+PaymentGateway error, No date specified: 支付平台时间不存在
+PaymentGateway error, StartNo large than EndNo: 支付平台起始订单号大於结束订单号
+Get prepay_id failure: 取得prepay_id失败
+No return parameter specified: 未指定返回参数
+No tracking parameter specified: 未指定查询参数
+No tracking return parameter specified: 未指定查询返回参数
+No verify_url specified: 未带入verify_url
+No reopUrl specified: 未带入reopUrl
+No privateKey specified: 未带入私钥
+No merchant extra value specified: 未指定商家设定内容
+Generate signature failure: 产生签名失败
+No pay parameter specified: 未指定支付参数
+Invalid notify_url: 不合法notify_url
+Invalid Username or Password: 不合法使用者名称或密码
+Invalid response: 无效的返回
+Invalid payment_vendor_id: 不合法付款厂商ID
+No user cash specified: 该用户无现金资料
+No shop_url specified: 未指定购物网网址
+Invalid entry_id: 不合法入款明细ID
+Kue connection failure: Kue连线失败
+Kue Job create failure: Kue Job建立失败
+Kue return error message: Kue返回错误讯息
+The App Store could not read the JSON object you provided: App Store商店无法读取提供的JSON数据
+The data in the receipt-data property was malformed or missing: Receipt-Data的数据有异常或是遗失
+The receipt could not be authenticated: Receipt无法通过验证
+The shared secret you provided does not match the shared secret on file for your account: 提供的shared secret不合法
+The receipt server is not currently available: Receipt伺服器目前无法使用
+This receipt is valid but the subscription has expired: Receipt为合法收据但已经过期
+This receipt is from the test environment, but it was sent to the production environment for verification: Receipt为测试环境数据但却发送到正式环境验证
+This receipt is from the production environment, but it was sent to the test environment for verification: Receipt为正式环境数据但却发送到测试环境验证
+The number of return entries exceed the restriction: 支付平台回传笔数超过限制
+PaymentGateway does not support batch order tracking: 支付平台不支援批次订单查询
+DES decrypt failed: DES解密失败
+Ref Id error: 支付平台参考编号错误
+DES encrypt failed: DES加密失败
+No verify_ip specified: 未带入verify_ip
+PaymentGateway error, userid error: 支付平台userid错误
+PaymentGateway error, shopaddr error: 支付平台shopaddr错误
+No authentication return parameter specified: 未指定实名认证返回参数
+Real Name Authentication failure: 实名认证失败
+No authentication parameter specified: 未指定实名认证参数
+Merchant have no need to authenticate: 商家不需要实名认证
+PaymentGateway does not support real name authentication: 支付平台不支援实名认证
+PaymentVendor have no need to authenticate: 付款厂商不需要实名认证
+No pay real name authentication parameter specified: 未指定支付实名认证参数
+MerchantCard have no need to authenticate: 租卡商家不需要实名认证
+Qrcode not support: 不支援扫码
+No withdraw_host specified: 未带入withdraw_host
+BankInfo is not supported by PaymentGateway: 支付平台不支援此出款银行
+No withdraw parameter specified: 未指定出款参数
+Insufficient balance: 余额不足
+Withdraw tracking failed: 出款查询失败
+No withdraw tracking parameter specified: 未指定出款查询参数
+No withdraw tracking return parameter specified: 未指定出款查询返回参数
+Withdraw tracking error: 出款查询错误
+Bitcoin API error: 比特币 API 错误
+Invalid bitcoin payment xPub: 无效的比特币支付公钥
+Parse data error: 解析资料错误
+Illegal failed-from or failed-to: 指定欲处理失败的 job 范围不合法
+Illegal complete-from or complete-to: 指定欲处理成功的 job 范围不合法
+Invalid Private Key: 商户密钥不合法
+No withdraw return parameter specified: 未指定出款返回参数
+Get public key failure: 公钥格式错误
+Get private key failure: 私钥格式错误
+Get captcha error: 取得验证码错误
+Get captcha fail: 取得验证码失败
+No return captcha: 没有回传验证码
+Get deposit params error: 取得支付参数错误
+Get deopsit params fail: 取得支付参数失败
+No return deposit data: 没有回传支付参数
+deposit verify error: 支付验证错误
+deposit verify fail: 支付验证失败
+No return deposit verify data: 没有回传支付验证参数
+
+
+## Geoip exception##
+Cannot find specified country: 找不到指定的国家
+Cannot find specified region: 找不到指定的區域
+Cannot find specified city: 找不到指定的城市
+No country id given: 未给予国家Id
+
+
+## PaymentCharge exception ##
+PaymentCharge has been changed: 线上付款设定已变动
+No PaymentCharge code specified: 未指定线上付款设定代码
+No data specified: 未带入修改的资料
+No name specified: 未带入名称
+Duplicate PaymentCharge: 重覆的线上付款设定
+No rank specified: 未带入排序
+No version specified: 未带入版号
+Cannot find specified PaymentCharge: 找不到指定的线上付款设定
+Cannot find source PaymentCharge: 找不到做为来源的线上付款设置
+Invalid PaymentGatewayFee rate specified: 支付平台手续费费率不合法
+Cannot find specified PaymentWithdrawFee: 找不到指定的出款手续费
+Invalid PaymentWithdrawFee free_period: 重覆出款时数不合法
+Invalid PaymentWithdrawFee free_count: 免收手续费次数不合法
+Invalid PaymentWithdrawFee amount_max: 出款手续费金额上限不合法
+Cannot find specified PaymentWithdrawVerify: 找不到指定的取款审核
+Invalid PaymentWithdrawVerify need_verify: 是否需要審核参数不合法
+Invalid PaymentWithdrawVerify verify_time: 审核所需时数不合法
+Invalid PaymentWithdrawVerify verify_amount: 取款审核的金额设定不合法
+Invalid PaymentWithdrawFee withdraw_max: 出款上限不合法
+Invalid PaymentWithdrawFee withdraw_min: 出款下限不合法
+DepositOnline already exists: 线上存款设定已存在
+DepositCompany already exists: 公司入款设定已存在
+No DepositOnline found: 线上存款设定不存在
+No DepositCompany found: 公司入款设定不存在
+Not support this discount: 不支援此存款优惠
+Invalid PaymentCharge code given: 代码不合法
+Invalid PaymentWithdrawFee amount_percent: 出款手续费金额比例不合法
+Duplicate code parameter: 重复的代码参数
+Can not remove PaymentCharge when LevelCurrency in use: 支付设定已被设定层级币别资料时无法删除
+DepositMobile already exists: 电子钱包设定已存在
+No DepositMobile found: 电子钱包设定不存在
+Invalid PaymentWithdrawFee mobile_free_period: 电子钱包重覆出款时数不合法
+Invalid PaymentWithdrawFee mobile_free_count: 电子钱包免收手续费次数不合法
+Invalid PaymentWithdrawFee mobile_amount_max: 电子钱包出款手续费金额上限不合法
+Invalid PaymentWithdrawFee mobile_amount_percent: 电子钱包出款手续费金额比例不合法
+Invalid PaymentWithdrawFee mobile_withdraw_max: 电子钱包出款上限不合法
+Invalid PaymentWithdrawFee mobile_withdraw_min: 电子钱包出款下限不合法
+Invalid PaymentGatewayFee withdraw_rate specified: 支付平台出款手续费费率不合法
+No DepositBitcoin found: 比特币设定不存在
+DepositMobile already exists: 比特币设定已存在
+Invalid PaymentWithdrawFee bitcoin_free_period: 比特币重覆出款时数不合法
+Invalid PaymentWithdrawFee bitcoin_free_count: 比特币免收手续费次数不合法
+Invalid PaymentWithdrawFee bitcoin_amount_max: 比特币出款手续费金额上限不合法
+Invalid PaymentWithdrawFee bitcoin_amount_percent: 比特币出款手续费金额比例不合法
+Invalid PaymentWithdrawFee bitcoin_withdraw_max: 比特币出款上限不合法
+Invalid PaymentWithdrawFee bitcoin_withdraw_min: 比特币出款下限不合法
+
+
+### Remit exception ###
+No RemitAccount found: 无此帐号
+No name_real specified: 无效的存款人姓名
+Invalid method: 存款方式不合法
+Invalid amount: 存款金额不合法
+Invalid deposit_at: 存款时间不合法
+Invalid status: 状态不合法
+RemitEntry not unconfirm: 公司入款纪录不是未处理的状态
+No RemitEntry found: 无此公司入款纪录
+Can not modify confirmed entry: 不能修改已被确认的记录
+Duplicate order number please try again: 重复的订单号请稍后在试
+No RemitOrder found: 无效的订单号
+No TranscribeEntry found: 无此人工抄录明细
+Invalid transcribe entry id specified: 代入了无效的人工抄录明细id
+RemitAccount is disabled: 入款帐号已被停用
+System is busy please try again: 系统忙碌请稍后在试
+RemitOrder has been used: 无效的订单号
+Invalid discount: 优惠金额不合法
+Invalid other_discount: 其他优惠金额不合法
+Invalid actual_other_discount: 实际其他优惠金额不合法
+Invalid operator specified: 无效的操作者
+Cannot confirm, the transcribe entry is already confirmed: 无法认领，此人工抄录明细已认领
+Cannot confirm, the transcribe entry is withdrawn: 无法认领，此人工抄录明细为出款
+Cannot confirm, the transcribe entry is blank: 无法认领，此人工抄录明细为空资料
+Cannot confirm, the transcribe entry is already deleted: 无法认领，此人工抄录明细已删除
+Discount exceed the MAX value: 存款优惠超过最大金额限制
+Other discount exceed the MAX value: 其他存款优惠超过最大金额限制
+Can not modify status of expired entry: 不能修改过期纪录的状态
+Invalid amount specified: 无效的金额
+Invalid fee specified: 无效的手续费
+TranscribeEntry amount has been changed: 人工抄录明细金额已改变
+TranscribeEntry fee has been changed: 人工抄录明细手续费已改变
+Auto Confirm connection failure: 自动认款连线失败
+No auto confirm return parameter specified: 未指定自动认款返回参数
+Auto Confirm error: 自动认款错误
+Auto Confirm failed: 自动认款失败
+BankInfo is not supported by AutoRemitBankInfo: 公司入款自动认款不支援此银行
+Domain is not supported by AutoConfirm: 自动认款不支援此厅
+No auto RemitAccount found: 无自动认款银行帐号
+No auto RemitAccount available: 无可用的自动认款银行帐号
+No RemitAutoConfirm found: 自动认款相关资料不存在
+RemitAccount is suspended: 入款帐号已被暂停
+AutoRemitAccount not exist: 没有此银行帐户
+Please confirm auto_remit_account in the platform.: 请确认在选择的自动认款平台内是否已加入此银行帐户。
+
+
+## Oauth ##
+Invalid oauth id: 不合法的oauth设定
+No oauth code specified: 未带入oauth code
+Invalid app id: app id不合法
+Invalid app key: app key不合法
+Invalid oauth openid: oauth使用者识别id不合法
+Oauth binding already exist: oauth绑定已存在
+Invalid oauth vendor: oauth厂商不合法
+Invalid authorization code: oauth授权码不合法
+Invalid access token: oauth授权令牌不合法
+Oauth provider connection error: 连线至Oauth厂商发生错误
+Oauth not exist: oauth设定不存在
+Duplicate openid in the same domain: 在同一个厅里有重复的openid
+No user binding found: 使用者綁定不存在
+
+
+## Sensitive ##
+The request not allowed without operation data in header: Request必须在Header中有操作相关资料
+The request not allowed when operation data not define entrance in header: Request必须在Header中定义entrance
+The request not allowed when operation data not define operator_id in header: Request必须在Header中定义操作者ID
+The request not allowed whitout operator_id in header: Request必须在Header中带入操作者ID
+The request not allowed when operator_id is invalid: Request必须在Header中带入合法操作者ID
+The request not allowed when operator is not ancestor: Request必须在Header中带入上层操作者ID
+The request not allowed when operator is not in same domain: Request必须在Header中带入相同厅操作者
+
+
+## Login ##
+Invalid entrance given: 登入端不合法
+Domain and LoginCode are not matching: 厅与登入代码并不相符
+Invalid x_forwarded_for format: X-FORWARDED-FOR格式不合法
+No password specified: 未指定密码
+User has no oauth binding: 使用者没有绑定oauth帐号
+No session_id specified: 未指定session_id
+No ip specified: 未指定ip
+No login code found: 登入代码不存在
+No one-time session found: OTS不存在
+
+
+## Petition ##
+No petition found: 提交单不存在
+This petition has been confirmed: 提交单已通过申请
+This petition has been cancelled: 提交单已被撤销
+Value can not be null: 新资料值不可为空值
+Operator can not be null: 操作人不可为空值
+The value can not be the same as the original value: 新资料值不可与原值相同
+Test user can not create petition: 测试帐号不能申请提交单
+Invalid value length given: 新资料值长度不合法
+Invalid value: 新资料值不合法
+
+
+## Stat ##
+Invalid search given: 搜寻栏位不合法
+No time zone specified: 未指定时区
+Only can choose one time zone: 不可指定多个时区
+Invalid category: 无效的帐目分类
+
+
+## Session ##
+Session not found: 找不到Session
+Session already exists: 使用者已有Session
+Depth and role cannot be chosen at same time: depth和role不可同时带入
+No rd_info specified: 未输入研发资讯
+Invalid lobby_switch length given: 大厅开关资讯长度不合法
+Invalid lobby_switch key value length given: 大厅开关资讯键与值长度不合
+Invalid lobby_switch key given: 大厅开关资讯键不合法
+No lobby_switch value specified: 未输入大厅开关资讯值
+Invalid mem_domain length given: 客端主Domain资讯长度不合法
+No mem_domain specified: 未输入客端主Domain资讯
+Invalid mem_domain given: 客端主Domain资讯格式不合法
+No lobby_switch key specified: 未输入大厅开关资讯键
+
+
+## Domain ##
+No ipBlacklist found: IP封锁列表记录不存在
+Blacklist_id already removed: blacklist_id已被移除
+No blacklist_id specified: 未指定blacklist_id
+No domain config found: 厅的设定不存在
+Domain not support this currency: Domain不支援此币别
+Login code already exists: 登入代码已存在
+Curl getUrlList api failed: 呼叫回传网址列表 API 失败
+Curl getUrlStatus api failed: 呼叫回传网址状态 API 失败
+Curl getUrlSite api failed: 呼叫回传网址站别列表 API 失败
+Invalid name length given: 厅名长度不合法
+Invalid name character given: 厅名字元不合法
+Domain name already exist: 厅名已存在
+Invalid login code character given: 登入代码字元不合法
+Cannot disable merchants when domain enabled: 当厅主启用时不能停用商家
+No outside payway specified: 没有指定外接额度
+No outside payway: 没有外接额度
+
+
+## Deposit ##
+No cash deposit entry found: 入款明细不存在
+Deposit entry has been confirmed: 该笔入纪录已确认入款完毕
+No parameter specified: 没有指定参数
+Offer exceed the MAX value: 优惠金额超过最大金额限制
+Fee exceed the MAX value: 手续费超过最大金额限制
+No notify_url specified: 未指定支付通知网址
+Deposit confirm quota already exists: 使用者已有设定人工入款最大金额
+No deposit confirm quota found: 找不到人工入款最大金额
+Amount exceed DepositConfirmQuota of operator: 金额超过操作者最高金额设定
+This ip is not bind: 此IP没有绑定
+PaymentGateway does not support tracking verify: 支付平台不支援入款查询解密验证
+Audit connection failure: 通知稽核连线失败
+Amount can not be zero or negative: 金额不可为零或是负数
+Email Server connection failure: Email伺服器连线失败
+Send Email failure: Email寄送失败
+Duplicate AbnormalDepositNotifyEmail: 重复的异常入款提醒email
+No AbnormalDepositNotifyEmail found: 找不到异常入款提醒email
+No DepositPayStatusError found: 找不到异常确认入款明细
+DepositPayStatusError has been checked: 异常确认入款明细执行状态已确认
+Amount exceed the amount limit: 支付金额超过单笔最大支付金额
+RemitEntry duplicate deposit error: 公司入款重复入款错误
+CashDepositEntry duplicate deposit error: 线上入款重复入款错误
+CardDepositEntry duplicate deposit error: 租卡入款重复入款错误
+No card deposit entry found: 租卡入款明细不存在
+No RemitEntry found: 公司入款明细不存在
+
+
+## Withdraw ##
+No such withdraw entry: 出款明细不存在
+No status specified: 没有指定状态
+No checked_username specified: 没有指定审核人名称
+Withdraw already check status: 该笔出款纪录已经确认完毕
+User not match: 使用者不符
+Status must be numeric: 状态必须为数字
+Can not confirm the status of account: 无法确认Account状态
+Can not confirm when account status is paying: 当Account出款中还无法确认出款
+Can not reject or cancel when account status is pay_finish: 当Account已出款无法取消或拒绝出款
+Can not confirm cancelled account: 当Account已取消无法再确认出款
+Must send time parameters: 请设定至少一个时间条件以供查询
+Cannot generate cash withdraw sequence id: 无法产生现金出款明细id
+No operator specified: 未指定操作者
+Withdraw status not lock: 出款状态不是锁定
+Invalid operator: 非合法操作者
+Connect to account failure: 连线到account系统失败
+No detail data found: 详细资料不存在
+No BankCurrency found: 无此银行币别资讯
+No merchant_withdraw_id specified: 没有指定出款商家
+MerchantWithdraw is disabled: 出款商家已停用
+MerchantWithdraw is suspended: 出款商家已暂停
+MerchantWithdraw is not approved: 出款商家未核准
+MerchantWithdraw is removed: 出款商家已删除
+MerchantWithdraw is not supported by PaymentGateway: 支付平台不支援出款商家
+Withdraw status not untreated: 出款状态不是未处理
+Domain is not supported by WithdrawAccountConfirm: Account确认出款不支援此厅
+Entry of mobile is not supported by WithdrawAccountConfirm: Account确认出款不支援电子钱包出款明细
+PaymentGateway does not support withdraw tracking: 支付平台不支援出款订单查询
+Can not change status to untreated when status is not process: 当状态不为处理中时不能更改状态为未处理
+Can not cancel when user has entries status as system lock or processing: 此会员尚有未明确的出款操作，無法取消出款
+Withdraw entry has been system_lock: 出款明细已经被系统锁定
+Withdraw status not system lock: 出款明细状态不是系统锁定
+
+
+## Auth ##
+No old_password specified: 未指定旧密码
+No new_password specified: 未指定新密碼
+No confirm_password specified: 未指定确认密码
+No password_expire_at specified: 未指定密码有效时间
+Old password is not correct: 旧密码不正确
+New password cannot be the same as old password: 新密码与旧密码相同
+New password and confirm password are different: 新密码与确认密码不相符
+This email has been confirmed: 信箱已被认证
+No verify code specified: 没有指定信箱认证码
+No emailVerifyCode found: 信箱认证码不存在
+Failed to verify email: 信箱认证失败
+Email can not be null: 信箱不可为空
+
+
+## Captcha ##
+Captcha already exists: 验证码已存在
+No identifier specified: 没有指定识别符
+Invalid length: 长度不合法
+Invalid identifier: 识别符不合法
+Captcha not exists: 验证码不存在
+Verify failed: 验证失败
+
+
+## Check ##
+No period_at specified: 未指定区间日期
+The number of ref_id exceeds the max number: 交易参考编号超过最大数量
+
+
+## Customize ##
+No start_at or end_at or usernames specified: 未指定时间或使用者帐号
+No old_user_id specified: 未指定旧使用者ID
+No new_user_id specified: 未指定新使用者id
+No new_parent_id specified: 未指定新上层使用者id
+No username specified: 未指定使用者帐号
+No source_domain specified: 未指定来源厅主ID
+No target_domain specified: 未指定目标厅主ID
+No role specified: 未指定角色
+Invalid oldUserId: 旧使用者ID不合法
+Invalid newUserId: 新使用者id不合法
+Invalid newParentId: 新上层使用者ID不合法
+Invalid sourceDomain: 来源厅主ID不合法
+Invalid targetDomain: 目标厅主ID不合法
+No preset_level specified: 未指定未分层id
+Invalid date: 指定时间不合法
+
+
+## Exchange ##
+Illegal buy specified: 买入汇率不合法
+Illegal sell specified: 卖出汇率不合法
+Illegal basic specified: 基本汇率不合法
+Can not modified history exchange: 不可变动历史汇率
+The same currency can not convert: 同币别不需转汇
+Exchange at this active_at already exists: 该生效时间点上已有同币别汇率
+No active_at specified: 未指定生效时间
+Illegal active_at specified: 生效时间不合法
+
+
+## Service ##
+Unrecognized payway given: 给了无法识别的付款方式
+
+
+## Validator ##
+Invalid telephone: 联络电话不合法
+String must use utf-8 encoding: 字串必须使用UTF-8编码
+Invalid first_result: 开始笔数不合法
+Invalid max_results: 显示笔数不合法
+Invalid decimal: 数字不合法
+Illegal character: 字元不合法
+
+
+## Level ##
+No alias specified: 未带入别名
+Invalid order_strategy: 顺序参数不合法
+Invalid created_at_start: created_at_start不合法
+Invalid created_at_end: created_at_end不合法
+DepositCount must be an integer: 入款次数必须为整数
+WithdrawCount must be an integer: 出款次数必须为整数
+DepositTotal must be an integer: 入款总额必须为整数
+DepositMax must be an integer: 最大入款额度必须为整数
+WithdrawTotal must be an integer: 出款总额必须为整数
+No domain found: 厅不存在
+Duplicate Level alias: 重复的层级别名
+Can not remove Level when Level has user: 层级人数不为0时无法移除层级
+No target specified: 未带入目标层级
+Source level can not be the same as target level: 来源层级不可与目标层级相同
+No source level found: 来源层级不存在
+No target level found: 目标层级不存在
+Cannot transfer to different domain: 不能转移不同厅
+User Level transferring: 会员层级正在转移
+No source specified: 未带入来源层级
+Enable LevelUrl Already Exist: 启用层级网址已存在
+No url specified: 未带入网址
+No LevelUrl found: 层级网址不存在
+No levels specified: 未指定支付分层
+No level_id specified: 未带入层级id
+No order_id specified: 未带入排序参数
+Level domain not match: 层级厅主不相符
+Level order has been changed: 层级排序设定已改变
+Duplicate Level orderId: 重复的层级排序
+Can not remove when Level is set by PresetLevel: 被设定成预设层级时无法移除层级
+No PresetLevel found: 预设层级不存在
+PresetLevel already exists: 预设层级已存在
+No currency specified: 未带入币别
+No PaymentCharge specified: 未带入支付设定
+No PaymentCharge found: 支付设定不存在
+No LevelCurrency found: 层级币别资料不存在
+The number of level exceeds the max number: 层级的个数超过最大数量
+The deposit_total is out of limitation: 入款总额超过最大金额上限
+The deposit_max is out of limitation: 最大入款额度超过最大金额上限
+The withdraw_total is out of limitation: 出款总额超过最大金额上限
+Can not remove when Level is set by LevelUrl: 被设定成层级网址时无法移除层级
+
+
+## RegisterBonus ##
+Register bonus not support this currency: 注册优惠不支援此币别
+Amount must be an integer: 金额必须为整数
+Multiply must be an integer: 倍数必须为整数
+Amount exceeds the MAX amount: 金额超过最大金额上限
+No RegisterBonus found: 注册优惠不存在
+
+
+## RemitAccount ##
+No RemitAccountLevel found: 层级不存在
+No control tips specified: 无效的控端提示
+Cannot change when RemitAccount deleted: 帐号删除时无法变动
+Cannot change when RemitAccount enabled: 帐号启用时无法变动
+No account type specified: 无效的帐号类别
+Invalid bank_info_id: 银行ID参数不合法
+No UserLevel found: 会员层级不存在
+No qrcode specified: 未带入qrcode
+RemitAccount is not BB Auto Confirm: 此入款帐号非BB自动认款帐号
+Crawler is not enable: 爬虫未启用
+Crawler is being executed: 爬虫正在执行中
+Invalid update-time: 更新时间不合法
+
+
+## RemitAccountLevel ##
+Invalid remit_accounts: 银行卡不合法
+Cannot change when RemitAccount disabled: 银行卡停用时无法变动
+RemitAccount Order has been changed: 银行卡顺序已改变
+Duplicate RemitAccount orderId: 有重复的银行卡排序
+
+
+## RemovePlan ##
+No creator specified: 未指定建立者
+Invalid depth: depth不合法
+No last_login or created_at specified: 没有指定最后登入时间或使用者建立时间
+Invalid last_login: 最後登入时间不合法
+Title can not be null: 计画名称不能为空值
+No removePlanUser found: 申请删除使用者名单不存在
+This plan has been confirmed: 计画已通过申请
+This plan has been cancelled: 计画已被撤销
+No removePlan found: 删除使用者计画不存在
+This user has been cancelled: 使用者已经是撤销删除的状态
+Cannot create plan when untreated plan exists: 存在未处理计画时不能新增删除计画
+Cannot create plan when confirm plan exists: 存在已确认计画时不能新增删除计画
+No such level: 会员层级不存在
+No plan_user_id specified: 未指定删除使用者编号
+This plan has been finished: 计画已完成
+This plan has not been confirmed: 计画尚未通过申请
+This plan queue is not done: 计画伫列尚未产生完成
+Invalid created_at: 使用者建立时间不合法
+Last_login and created_at cannot be specified at same time: 最后登入时间与使用者建立时间不能同时间指定
+
+
+## UserLevel ##
+User has been locked: 使用者已被锁定
+Invalid user_levels: user_levels不合法
+
+
+## MerchantLevel ##
+No Level found: 层级不存在
+No MerchantLevel found: 商家层级设定不存在
+No level_id specified: 未带入层级id
+MerchantLevelMethod is in used: 商家层级付款方式已被使用
+No merchants specified: 未指定商家
+Invalid merchants: 商家不合法
+Merchant Level Order has been changed: 层级内商家顺序已改变
+Duplicate orderId: 重复的商家顺序
+PaymentMethod not support by Merchant: 商号不支援此支付方式
+Can not set MerchantLevelMethod when PaymentMethod in use: 当付款方式被使用时无法设定商家层级付款方式
+Can not remove when MerchantLevelVendor in use: 当商家层级付款厂商被使用时无法移除付款方式
+PaymentVendor not support by Merchant: 商号不支援此支付厂商
+Can not set PaymentVendor when MerchantLevelMethod not in use: 当商家层级付款方式未使用时无法设定付款方式的厂商
+No domain or merchant_id specified: 未指定厅或商家ID
+
+
+## PaymentGateway ##
+Invalid PaymentGateway code: 支付平台代码不合法
+Invalid PaymentGateway name: 支付平台名称不合法
+No PaymentGateway found: 无此支付平台
+PaymentMethod of PaymentVendor not support by PaymentGateway: 支付平台不支援此付款厂商所属的付款方式
+Invalid PaymentGatewayId: 指定的支付平台ID不合法
+Invalid bind ip: 绑定的ip不合法
+PaymentGatewayBindIp not found: 无此支付平台綁定IP
+No PaymentMethod found: 无此付款方式
+PaymentMethod is in used: 付款方式被使用中
+No PaymentVendor found: 无此付款厂商
+PaymentVendor is in used: 付款厂商被使用中
+Cannot delete when MerchantWithdraw suspended: 出款商家暂停时无法删除
+Cannot delete when MerchantWithdraw enabled: 出款商家启用时无法删除
+No PaymentGatewayDescription found: 无此支付平台栏位说明
+Invalid payment_gateway_descriptions: payment_gateway_descriptions不合法
+No value specified: 未带入要修改的值
+
+
+## Merchant ##
+Invalid Merchant alias: 商家别名不合法
+Invalid Merchant number: 商号不合法
+PaymentGateway is removed: 支付平台已删除
+Invalid content length given: 金钥档案内容长度不合法
+Could not create merchant because merchant is updating: 目前无法新增商家因为商家更新中
+No MerchantKey found: 无此商家金钥
+Cannot delete when merchant enabled: 商家启用时无法删除
+Cannot delete when merchant suspended: 商家暂停时无法删除
+No Merchant Extra specified: 未指定其他设定的内容
+Invalid MerchantExtra value: 商号设定内容不合法
+No MerchantExtra found: 无此商号相关设定
+Currency is not support by Payment Gateway: 支付平台不支援此币别
+No IpStrategy found: 无此IP限制设定
+Duplicate MerchantIpStrategy: 重复的商家IP限制
+Duplicate Merchant number: 重复的商号
+Cannot change when merchant disabled: 商家停用时无法变动
+Cannot change when merchant is not approved: 商家未核准时无法变动
+No web_url specified: 未指定购物网网址
+Invalid shopUrl: 购物网网址不合法
+Get payIp error: 取得payIp错误
+Invalid response parameter: 返回参数不合法
+ShopUrl resolve error: 购物网解析错误
+Curl getPayIp api failed: 呼叫回传payIp列表API失败
+Merchant whitelist update failed: 更新商家白名单失败
+Merchant whitelist reset connection failure: 通知重设商家白名单连线失败
+Merchant whitelist reset failed: 重设商家白名单失败
+Get host ip connection failure: 取得域名IP连线失败
+Curl get merchant whitelist failed: 取得商家白名单失败
+Private Key is too long: 密钥长度过长
+Merchant is removed: 商家已删除
+Invalid amount limit: 单笔最大支付金额不合法
+
+
+## PaymentLevel ##
+No UserLevel found: 会员层级不存在
+No payment method id specified: 未指定付款方式ID
+
+
+## Transcribe ##
+Amount cannot be positive: 金额不能为正
+Amount cannot be negative: 金额不能为负
+Cannot remove this transcribe entry: 无法删除此人工抄录明细
+Invalid rank specified: 排序不合法
+The number of ranking entries exceed the restriction: 排序调整笔数超过限制
+No remit account_id specified: 未指定入款帐号ID
+Cannot edit this TranscribeEntry: 此人工抄录明细无法编辑
+Invalid amount range specified: 代入了无效的金额区间
+Cannot force confirm this TranscribeEntry: 无法强制认领此人工抄录明细
+Rank exceed allowed MAX value 32767: 排序超过允许的最大值32767
+
+
+## Blacklist ##
+No such domain: 指定的domain不存在
+Invalid account: 银行帐号格式不符
+Account already exists in blacklist: 银行帐号已在黑名单中
+Identity_card already exists in blacklist: 身分证字号已在黑名单中
+Name_real already exists in blacklist: 真实姓名已在黑名单中
+Telephone already exists in blacklist: 电话已在黑名单中
+Email already exists in blacklist: 信箱已在黑名单中
+IP already exists in blacklist: IP已在黑名单中
+No note specified: 未指定备注修改内容
+No such blacklist: 指定的黑名单不存在
+Blacklist already removed: 黑名单已被移除
+No blacklist fields specified: 未指定黑名单新增栏位
+Cannot specify more than one blacklist fields: 指定的黑名单新增栏位不可多于一个
+This account has been blocked: 银行帐号已被列入黑名单
+This identity_card has been blocked: 身分证字号已被列入黑名单
+This name_real has been blocked: 真实姓名已被列入黑名单
+This telephone has been blocked: 电话已被列入黑名单
+This email has been blocked: 信箱已被列入黑名单
+This ip has been blocked: IP已被已被列入黑名单
+Invalid start_at: start_at格式不合法
+Invalid end_at: end_at格式不合法
+Invalid IP: IP格式不合法
+Creating whole domain blacklist is not allowed: 不可建立全厅黑名单
+Editing blacklist is not allowed: 不可修改黑名单
+Removing blacklist is not allowed: 不可移除黑名单
+
+
+## MerchantCard ##
+Invalid order_id: 不合法的排序编号
+Invalid MerchantCard alias: 租卡商家别名不合法
+Invalid MerchantCard number: 租卡商家号不合法
+Invalid MerchantCardExtra value: 租卡商家设定内容不合法
+No MerchantCardOrder found: 租卡商家排序顺序未设定
+No MerchantCardExtra found: 无此租卡商家相关设定
+No MerchantCardExtra specified: 未指定租卡设定的内容
+No merchant_cards specified: 未指定租卡商家
+Cannot set bankLimit: 无法设定停用金额
+Could not create MerchantCard because MerchantCard is updating: 目前无法新增租卡商家因为商家更新中
+Cannot delete when MerchantCard enabled: 租卡商家启用时无法删除
+Cannot modify when MerchantCard disabled: 租卡商家停用时无法变动
+Cannot delete when MerchantCard suspended: 租卡商家暂停时无法删除
+Cannot modify when MerchantCard is not approved: 租卡商家未核准时无法变动
+Duplicate MerchantCard number: 重复的租卡商家号
+MerchantCardOrder has been changed: 排序设定已改变
+No MerchantCard found: 无此租卡商家
+No MerchantCardKey found: 无此租卡商家金钥
+No payment_gateway_id specified: 未指定支付平台ID
+Currency is not support by PaymentGateway: 支付平台不支援此币别
+Duplicate order_id: 重复的商家顺序
+No domain found: 厅不存在
+PaymentMethod not support by PaymentGateway: 支付平台不支援指定的付款方式
+Illegal PaymentVendor: 付款厂商不合法
+MerchantCard is removed: 租卡商家已删除
+
+
+## CardCharge ##
+No order_strategy specified: 未指定顺序参数
+Invalid deposit_sc_max specified: 大股东最高存款金额不合法
+Invalid deposit_sc_min specified: 大股东最低存款金额不合法
+Invalid deposit_co_max specified: 股东最高存款金额不合法
+Invalid deposit_co_min specified: 股东最低存款金额不合法
+Invalid deposit_sa_max specified: 总代理最高存款金额不合法
+Invalid deposit_sa_min specified: 总代理最低存款金额不合法
+Invalid deposit_ag_max specified: 代理最高存款金额不合法
+Invalid deposit_ag_min specified: 代理最低存款金额不合法
+CardCharge already exists: 租卡线上付款设定已存在
+No CardCharge found: 无此租卡线上付款设定
+No fees specified: 未指定手续费
+Invalid CardPaymentGatewayFee rate specified: 租卡支付平台手续费率不合法
+
+
+## CardDeposit ##
+Payway currency not support: 不支援此付款币别
+No Card found: 租卡不存在
+No operator found: 无此操作者
+CardDepositEntry has been confirmed: 该笔租卡入款纪录已确认入款完毕
+No CardDepositEntry found: 租卡入款明细不存在
+
+
+## MerchantWithdraw ##
+No MerchantWithdraw found: 无此出款商家
+Cannot change when MerchantWithdraw is not approved: 出款商家未核准时无法变动
+Cannot change when MerchantWithdraw disabled: 出款商家停用时无法变动
+Invalid MerchantWithdraw alias: 出款商家別名不合法
+Invalid MerchantWithdraw number: 出款商号不合法
+Could not create MerchantWithdraw because MerchantWithdraw is updating: 目前无法新增出款商家因为出款商家更新中
+Duplicate MerchantWithdraw number: 重复的出款商号
+Cannot delete when MerchantWithdraw enabled: 出款商家启用时无法删除
+Cannot delete when MerchantWithdraw suspended: 出款商家暂停时无法删除
+No MerchantWithdrawExtra found: 无此出款商家相关设定
+No MerchantWithdrawExtra specified: 未指定出款商家其他设定的内容
+No MerchantWithdrawKey found: 无此出款商家金钥
+Invalid MerchantWithdrawExtra value: 出款商家设定内容不合法
+Duplicate MerchantWithdrawIpStrategy: 重复的出款商家IP限制
+
+
+## MerchantWithdrawLevel ##
+No domain or merchant_withdraw_id specified: 未指定厅或出款商家ID
+No MerchantWithdrawLevel found: 出款商家层级设定不存在
+MerchantWithdrawLevelBankInfo is in used: 出款商家层级支援银行资料被使用中
+BankInfo not support by MerchantWithdraw: 出款商家不支援此银行
+Invalid level_id: 不合法的层级ID
+Invalid merchant_withdraws: 出款商家不合法
+No merchant_withdraws specified: 未指定出款商家
+MerchantWithdrawLevel Order has been changed: 层级内出款商家顺序已改变
+
+
+## ChatRoom ##
+No ban_at specified: 未指定禁言时间
+
+
+## Reward ##
+No quantity specified: 未指定数量
+Invalid amount given: 无效的金额
+Invalid quantity given: 无效的数量
+No min_amount or max_amount specified: 未指定最大或最小金额
+Invalid min_amount given: 无效的最小金额
+Invalid max_amount given: 无效的最大金额
+No begin_at or end_at specified: 未指定开始或结束时间
+Invalid begin_at or end_at given: 无效的开始或结束时间
+Domain not support cash: 厅不支援现金
+No such reward: 活动不存在
+Not in active time: 不在活动时间
+Reward entry not created: 红包尚未产生
+User has attended reward: 使用者已经参加过此活动
+There is no reward entry: 没有剩余红包
+User_id and reward_id must be integer: 使用者与活动编号必须为整数
+Cannot generate reward sequence id: 无法产生红包明细id
+Reward has been cancelled: 活动已取消
+No reward entry found: 红包明细不存在
+Illegal begin_at: 开始时间不合法
+Can not cancel when reward start: 活动已开始不能取消
+No reward_id specified: 未指定活动编号
+No such reward or not in active time: 活动不存在或不在活动时间
+Invalid name length given: 活动名称长度不合法
+Invalid memo length given: 备注长度不合法
+Cannot create reward because amount is not enough: 总金额不足，不能建立活动
+Cannot create reward because amount is too much: 总金额太大，不能建立活动
+Past reward cannot be cancelled: 结束的活动不能取消
+Reward entry not sync: 红包明细未同步
+Session not belong to this user: Session不属于该使用者
+Time is up: 活动已结束
+
+
+## RemovePlanUser ##
+No removePlanUser status specified: 未指定删除使用者状态
+
+
+## Slide ##
+No app_id specified: 未指定装置识别ID
+No slide_password specified: 未指定手势密码
+No binding_token specified: 未指定绑定标记
+No access_token specified: 未指定存取标记
+The binding token not found: 绑定标记不存在
+The device has already been bound: 装置已绑定
+The device has not been bound: 装置未绑定
+No device_name specified: 未指定装置名称
+A device can only bind to a password: 一个装置只能绑定一组手势密码
+The device is disabled: 装置已停用手势登入功能
+The device has not been verified: 装置未验证
+
+
+## Otp ##
+No otp_token specified: 未指定otp_token
+This user does not need to verify otp: 使用者不须验证 otp
+Global ip already exists: 全域IP已存在
+No such global ip: 全域IP不存在
+
+
+## Oauth2 ##
+No redirect_uri specified: 未指定导向网址
+Redirect_uri not match: 导向网址比对错误
+No client found: client 不存在
+Unsupported response_type: 不支援的回覆方式
+No state specified: 未指定内部状态
+No client_id specified: 未指定 client id
+No session-id specified: 未指定 session id
+Invalid grant_type: 无效的授权方式
+Invalid Authorization: 无效的基本认证字串
+Invalid Authorization format: 无效的基本认证字串格式
+ClientSecret not match: Client 密码比对错误
+No code specified: 未指定授权码
+Unauthorized client: 非授权的 client
+Access token is already given: 存取码已经提供
+No refresh_token specified: 未指定更新码
+No such refresh_token: 更新码不存在
+Domain not match: 厅比对错误
+Access token not match: 存取码比对錯誤
+
+
+## Outside ##
+No outside entry found: 外接额度明细不存在
+No outsideTrans found: 外接额度交易不存在
+No token specified: 未指定token
+No token found: 找不到token
+Currency not supported: 不支援此币别
+No bodog opcode found: 博狗opcode不存在
+No bodogTrans found: 博狗交易不存在
+Bodog timeout: 博狗回传逾时
+No header session-id specified: 未指定header session-id
+No suncity opcode found: 太阳城opcode不存在
+No suncityTrans found: 太阳城交易不存在
+Suncity timeout: 太阳城回传逾时
+Currency error: 币别错误
+Curl Suncity error: 呼叫太阳城API错误
+Response is empty: 回传为空
+
+
+## Bridge ##
+Invalid pay_way: 不合法的付款方式
+
+
+##  External  ##
+Source and target can not be the same: 来源和目标不能相同
+Invalid game_code: 不合法的游戏代码
+Invalid type: 不合法的型态
+Invalid trans_id: 不合法的交易编号
+Invalid start: 不合法的开始时间
+Invalid end: 不合法的结束时间
+No lost balance found: 未发现额度遗失
+Transaction not found: 交易不存在
+Amount can not less than 1000: 金额不能小于1000
+Amount can not be float: 金额不能为浮点数
+Game switch status is closed: 游戏开关状态已关闭
+Platform not support: 平台不支援
+Invalid username or external_name: 不合法的使用者名称或外接帐号
+Username and external_name must not set up at the same time: 使用者名称与外接帐号不能同时设置
+Game_code and external_name must set up at the same time: 游戏代码与外接帐号必须同时设定
+Game switch api error occurred: 游戏开关API发生错误
+It's maintaining: 维护中
+Balance is negative: 余额不足
+Decimals can not be recycled: 无法回收小数点
+User already exist: 使用者已经存在
+Invalid response format: 不合法的回传格式
+Status unknow: 未知的状态
+Entry not found: 交易明细不存在
+Test hierarchy user is not support: 不支援测试体系使用者
+Please check the user already exists or not: 请检查用户是否已经存在
+Get Balance failed: 取得余额失败
+Get transfer status failed: 获取转帐状态失败
+Check transfer status failed: 确认转帐状态失败
+Transaction still in process: 交易仍在进行中
+Entry transfer status failed: 转帐交易状态失败
+Reset password failed: 重设密码失败
+User is created failed: 使用者建立失败
+OG account is not exist: OG帐号不存在
+No such gns user: 找不到GNS使用者
+No such sg user: 找不到SG使用者
+Gns is not allow to create user: GNS不允许建立使用者
+HB user is not exist: HB使用者不存在
+Get domain failed: 取得厅主失败
+Transaction failed: 交易失败
+Transaction not finished: 交易尚未结束
+No external transaction record found: 交易纪录不存在
+Get authorization failed: 取得授权失败
+Duplicated transaction id: 交易代码重复
+Can not get external user data: 无法取得外接使用者资料
+Change mg user password api error occurred: 修改MG使用者密码失败
+Invalid external transaction record format: 不合法的交易纪录回传格式
+No such vr user: 找不到VR使用者
+Get upper balance failed: 取得上层余额失败
+Incorrect return values: 测试连线回传非预期格式
+External transfer time out: 外接游戏转移额度超时
+Platform is not allow to create user: 平台不支援建立使用者
+Get balance failed: 取得余额失败
+Upper balance not enough: 上层代理余额不足
+Platform return failed: 平台回传失败
+
+
+## AutoConfirm ##
+No login code parameter given: 未给予登入代码
+No account parameter given: 未给予银行帐号
+Crawler is not enabled: 爬虫未启用
+Web bank password error: 网路银行密码错误
+No data parameter given: 未给予汇款明细
+No entry amount parameter given: 未给予汇款明细金额
+No entry fee parameter given: 未给予汇款明细手续费
+No entry balance parameter given: 未给予汇款明细余额
+No entry account parameter given: 未给予汇款明细银行帐号
+No entry name parameter given: 未给予汇款明细姓名
+No entry time parameter given: 未给予汇款明细时间
+No entry memo parameter given: 未给予汇款明细备注
+No entry message parameter given: 未给予汇款明细收支信息
+No entry method parameter given: 未给予汇款明细汇款方式
+Fee must be numeric: 手续费必须为数字
+Balance must be numeric: 余额必须为数字
+No AutoConfirmEntry found: 汇款明细不存在
+Invalid order number specified: 无效的订单号
+AutoConfirmEntry was confirmed: 汇款明细已被确认
+RemitEntry was confirmed: 公司入款纪录已被确认
+RemitEntry was cancelled: 公司入款纪录已取消
+Not Auto Confirm Order: 非自动认款订单
+Not BB Auto Confirm Order: 非BB自动认款订单
+Order RemitAccount error: 订单收款卡号错误
+Invalid time given: 无效的汇款时间
+No balance parameter given: 未给予汇款余额
+No entry ref_id parameter given: 未给予汇款明细外部订单ID
+AutoConfirmEntry already exists: 汇款明细已存在
+
+
+## Werp ##
+No contact specified: 未指定联络人
+Connection failure: 連線失敗
+
+
+## AutoRemit ##
+No AutoRemit found: 无此自动认款平台
+Invalid label: 档名不合法
+Invalid name: 名称不合法
+Can not remove AutoRemit when AutoRemit has BankInfo: 自动认款平台拥有支援的银行不能删除
+AutoRemit is removed: 自动认款平台已删除
+Can not remove AutoRemit when DoaminAutoRemit has AutoRemit: 自动认款平台拥有厅的设定不能删除
+Invalid auto_remit_id: 自动认款平台ID不合法
+Can not remove DomainAutoRemit when AutoRemit is in used: 自动认款平台厅的设定正在使用不能删除
+No DomainAutoRemit found: 无此自动认款平台厅的设定
+
+
+## BitcoinWallet ##
+No wallet_code specified: 没有指定的比特币钱包登入代码
+No api_code specified: 没有指定的比特币api密码
+No such bitcoin wallet: 比特币钱包不存在
+FeePerByte must be an integer: 手续费率必须为整数
+
+
+## BitcoinAdreess ##
+No wallet_id specified: 没有指定比特币钱包id
+
+
+## Bitcoin ##
+No PaymentWithdrawFee found: 出款手续费不存在
+
+
+## Bitcoin ##
+No bitcoin_amount specified: 没有指定的比特币支付金额
+No bitcoin_rate specified: 没有指定的比特币汇率
+No rate_difference specified: 沒有指定的比特币汇差
+Invalid bitcoin_amount: 无效的比特币支付金额
+Invalid bitcoin_rate: 无效的比特币汇率
+Invalid rate_difference: 无效的比特币汇差
+No BitcoinWallet found: 比特币钱包不存在
+No BitcoinAddress found: 比特币入款位址不存在
+BitcoinDepositEntry has been cancelled: 比特币入款记录已被撤销
+BitcoinDepositEntry has been confirmed: 比特币入款记录已确认入款完毕
+No bitcoin deposit entry found: 比特币入款记录不存在
+Cannot generate bitcoin deposit sequence id: 无法产生比特币入款明细id
+Cannot generate bitcoin withdraw sequence id: 无法产生比特币出款明细id
+No withdraw_address specified: 没有指定的比特币出款位址
+No bitcoin withdraw entry found: 比特币出款记录不存在
+BitcoinWithdrawEntry has been cancelled: 比特币出款记录已被撤销
+BitcoinWithdrawEntry has been confirmed: 比特币出款记录已确认入款完毕
+BitcoinWithdrawEntry should be locked first: 比特币出款记录須先锁定
+BitcoinWithdrawEntry has been locked: 比特币出款记录已被锁定
+BitcoinWithdrawEntry already unlock: 比特币出款记录已未锁定
+No control specified: 没有指定的控端
+Withdraw xpub of BitcoinWallet does not exist: 比特币钱包不存在出款公钥
+Illegal bitcoin amount: 不合法的比特币金额
+
+## Test ##
+Invalid Redis Name: 无效的Redis名称
+Invalid Database Name: 无效的资料库名称
+
+## FreeTransferWallet ##
+Invalid domain wallet status: 不合法的厅主钱包设定
+Domain free transfer wallet is not enabled: 厅主未启用免转钱包功能
+No game code specified: 未指定游戏平台编号
+No such game code: 找不到此游戏平台编号
+Domain is not allow user to set free transfer wallet: 厅主未开放会员自选钱包状态
+Curl get external list api failed: 呼叫取得外接游戏列表 API 失败
+The user has two kinds of payway: 使用者同时有两种交易机制
+Curl get external list api failed with error response: 呼叫取得外接游戏列表 API 回传错误
+
+
+##For Test 下面那行必定是本檔案最後一行，新東西請別加在我後面##
+Check over, everything is fine: 检查结束，一切正常

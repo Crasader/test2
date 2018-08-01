@@ -1,0 +1,183 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Deposit Pay Status Error List</h1>
+    <code>GET /api/deposit/pay_status_error_list</code>
+</div>
+
+<p class="lead">取得異常確認入款明細列表</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">checked</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="checked" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">狀態是否確認，預設0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                        <input name="domain" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">廳主ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否為線上支付</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="card" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否為租卡入款</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">remit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="remit" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否為公司入款</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">duplicate_error</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="duplicate_error" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否為重複入款</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">auto_remit_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="auto_remit_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">自動認款平台ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">payment_gateway_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                        <input name="payment_gateway_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">支付平台ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">confirm_start</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="confirm_start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋確認入款開始時間。ISO-8601格式</span>
+            <label class="control-label col-md-3">confirm_end</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="confirm_end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋確認入款結束時間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">checked_start</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="checked_start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋處理開始時間。ISO-8601格式</span>
+            <label class="control-label col-md-3">checked_end</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="checked_end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋處理結束時間。ISO-8601格式</span>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_result</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_result" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁從第幾筆開始</span>
+            <label class="control-label col-md-3">max_results</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁顯示筆數</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_deposit_pay_status_error_list" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

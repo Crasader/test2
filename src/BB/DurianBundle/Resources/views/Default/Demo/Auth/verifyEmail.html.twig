@@ -1,0 +1,27 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Verify Email</h1>
+    <code>PUT /api/user/email/verify</code>
+</div>
+
+<p class="lead">使用者email認證</p>
+
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="control-label col-md-3">code</label>
+        <div class="col-md-5">
+            <input name="code" type="text" class="form-control">
+        </div>
+        <span class="help-block col-md-4">email 認證碼 (必帶)</span>
+    </div>
+    <fieldset>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-10">
+                <button data-request-routing="api_auth_email_verify" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

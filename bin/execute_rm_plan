@@ -1,0 +1,32 @@
+#!/bin/sh
+
+MAX=$1
+BIN=$(cd $(dirname "$0"); pwd)
+PHP=`which php`
+
+# 最大同時跑的數量預設為1個
+if [ -z "$MAX" ]
+then
+    MAX=1
+fi
+
+limit='500'
+batchSize='500'
+nowHour=$( date +"%H" )
+if [ $nowHour -gt 2 -a $nowHour -lt 8 ]; then
+    limit='700'
+    batchSize='700'
+fi
+
+if [ $MAX -gt "`ps aux | grep durian:execute-rm-plan | grep console | grep -v grep | wc -l`" ]
+then
+    $PHP -d memory_limit=512M $BIN/../app/console durian:execute-rm-plan --env=prod --limit="${limit}" --batch-size="${batchSize}" >> $BIN/../app/logs/prod.execute_rm_plan.log 2>&1;
+fi
+
+sleep 10;
+
+if [ $MAX -gt "`ps aux | grep durian:execute-rm-plan | grep console | grep -v grep | wc -l`" ]
+then
+    $PHP -d memory_limit=512M $BIN/../app/console durian:execute-rm-plan --env=prod --limit="${limit}" --batch-size="${batchSize}" >> $BIN/../app/logs/prod.execute_rm_plan.log 2>&1;
+fi
+

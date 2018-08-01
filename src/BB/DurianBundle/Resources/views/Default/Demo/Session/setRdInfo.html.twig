@@ -1,0 +1,73 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set Rd Info</h1>
+    <code>PUT /api/session/{sessionId}/rd_info</code>
+</div>
+
+<p class="lead">新增Session的研發資訊</p>
+<div class="alert alert-info">帶入的資訊會轉換為json格式</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/session/</span>
+                    <input data-request-param="sessionId" type="text" placeholder="{sessionId}" class="form-control">
+                    <span class="input-group-addon">/rd_info</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入 Session 編號{sessionId}</p>
+        </div>
+        <div class="form-group">
+        <div class="template">
+            <label class="control-label col-md-4">rd_info[mem_domain]</label>
+            <div class="col-md-4">
+                <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                    <input name="rd_info[mem_domain]" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">設定客端主Domain欄位</span>
+        </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-4">rd_info[lobby_switch][key][]</label>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="rd_info[lobby_switch][key][]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">設定大廳開關key。可輸入多個</span>
+                <label class="control-label col-md-4">rd_info[lobby_switch][value][]</label>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="rd_info[lobby_switch][value][]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">設定大廳開關value。可輸入多個</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_session_set_rd_info" data-request-type="PUT"
+                        class="btn btn-primary" type="button" data-loading-text="loading...">Request
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get ShareLimit By UserId</h1>
+    <code>GET /api/user/{userId}/share_limit/{groupNum}</code>
+</div>
+
+<p class="lead">回傳佔成的資訊</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/share_limit/</span>
+                    <input data-request-param="groupNum" type="text" class="form-control" placeholder="{groupNum}">
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId},{groupNum}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">next</label>
+            <div class="col-md-6">
+                <input name="next" type="text" class="form-control" value="0">
+            </div>
+            <span class="help-block col-md-4">現行:0，預改:1</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_by_user_id" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get ShareLimit Activated Time</h1>
+    <code>GET /api/share_limit/{groupNum}/activated_time</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+    <p class="lead">回傳預改佔成生效時間</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:share_limit_group.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/share_limit/</span>
+                    <input data-request-param="groupNum" type="text" class="form-control" placeholder="{groupNum}">
+                    <span class="input-group-addon">/activated_time</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{groupNum}</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_shareLimit_activated_time" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

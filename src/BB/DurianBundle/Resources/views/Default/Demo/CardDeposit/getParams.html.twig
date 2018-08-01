@@ -1,0 +1,88 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Card Deposit Params</h1>
+    <code>GET /api/card/deposit/{entryId}/params</code>
+</div>
+
+<p class="lead">取得租卡入款加密參數</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class = "col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/card/deposit/</span>
+                    <input data-request-param="entryId" type="text" class="form-control" placeholder="{entryId}">
+                    <span class="input-group-addon">/params</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{entryId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">notify_url</label>
+            <div class="col-md-5">
+                <input name="notify_url" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">支付通知網址</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ip</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ip" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者IP</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">lang</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="lang" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">語系</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="checkbox">real_name_auth[0]</label>
+                <label class="control-label col-md-3">[name]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="real_name_auth[0][name]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">實名認證設定名稱</span>
+                <label class="control-label col-md-3">[value]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="real_name_auth[0][value]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">實名認證設定值</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_card_deposit_params" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

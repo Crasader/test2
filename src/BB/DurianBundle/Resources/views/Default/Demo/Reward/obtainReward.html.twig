@@ -1,0 +1,38 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Obtain Reward</h1>
+    <code>PUT /api/reward/obtain</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">使用者搶紅包</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">user_id</label>
+            <div class="col-md-5">
+                <input id="user_id" name="user_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">使用者id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">reward_id</label>
+            <div class="col-md-5">
+                <input id="reward_id" name="reward_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">紅包活動編號</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_reward_obtain" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

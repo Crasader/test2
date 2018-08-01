@@ -1,0 +1,31 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Outside Transaction Commit</h1>
+    <code>PUT /api/outside/transaction/{id}/commit</code>
+</div>
+
+<p class="lead">確認外接額度交易</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/outside/transaction/</span>
+                    <input data-request-param="id" type="text" class="form-control" placeholder="{id}">
+                    <span class="input-group-addon">/commit</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">網址變數{id}輸入交易id</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_outside_transaction_commit" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Test Connect</h1>
+    <code>POST /api/test/connection</code>
+</div>
+
+<p class="lead">測試資料庫與Redis連線</p>
+<p>資料庫會新增、修改、刪除測試資料來檢查是否正常</p>
+<p>Redis會新增、刪除測試資料來檢查是否正常</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_test_connection" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

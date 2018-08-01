@@ -1,0 +1,114 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Payment Vendor By User</h1>
+    <code>GET /api/user/{userId}/payment_vendor</code>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <p class="lead">回傳使用者可用付款廠商</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:deposit_payway.html.twig' %}
+</div>
+
+<div class="alert alert-info">PC網頁端，請帶入參數 <code>web</code> = 1</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/payment_vendor</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">payway</label>
+            <div class="col-md-5">
+                <input name="payway" type="text" class="form-control" value="1">
+            </div>
+            <span class="help-block col-md-4">支付種類</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ip</label>
+            <div class="col-md-5">
+                <input name="ip" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">使用者IP</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">currency</label>
+            <div class="col-md-5">
+                <input name="currency" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">幣別</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">payment_method_id</label>
+            <div class="col-md-5">
+                <input name="payment_method_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">付款方式ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="amount" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">金額，預設為0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bundleID</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bundleID" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">IOS BundleID，預設為空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">applyID</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="applyID" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">Andorid應用包名，預設為空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">web</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="web" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否支援網頁端，預設為0</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_user_get_payment_vendor" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

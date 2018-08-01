@@ -1,0 +1,74 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Domain PaymentCharge</h1>
+    <code>GET /api/domain/{domain}/payment_charge</code>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <p class="lead">取得指定廳的線上支付設定</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:deposit_payway.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/domain/</span>
+                    <input data-request-param="domain" type="text" class="form-control" placeholder="{domain}">
+                    <span class="input-group-addon">/payment_charge</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{domain}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">payway</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="payway" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">支付種類</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">sort[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                        <input name="sort[]" type="text" class="form-control" value="id" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">排序欄位</span>
+                <label class="control-label col-md-3">order[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                        <input name="order[]" type="text" class="form-control" value="asc" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">升冪或降冪。可設定asc或desc</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_domain_payment_charge" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

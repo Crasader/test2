@@ -1,0 +1,225 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block javascripts %}
+<script type="text/javascript">
+
+$(function () {
+    // 判斷是否需要修正(預設不須修正)
+    var doCorrect = 0;
+
+    $.ajax({
+        url: Routing.generate('tools_show_entry'),
+        type: 'GET',
+        data: 'entry_type=cash',
+        dataType: 'json',
+        success: function(data) {
+            $('.cash_label span').text(data.diff_num);
+            cashFakeAjax();
+            if (data.contents.length == 0) {
+                return true;
+            }
+            showEntry(data);
+        }
+    });
+
+    $('select').change(function() {
+        var param = $('form').serialize();
+
+        $.ajax({
+            url: Routing.generate('tools_show_entry'),
+            type: 'GET',
+            data: param,
+            dataType: 'json',
+            success: function(data) {
+                doCorrect = 0;
+                if (data.contents.length != 0) {
+                    doCorrect = 1;
+                }
+                showEntry(data);
+            }
+        });
+    });
+
+    $('.btn_repair').click(function() {
+        var param = $('form').serialize();
+
+        // 不須修正則顯示提示視窗，不執行ajax
+        if (doCorrect == 0) {
+            $('.content thead').html('');
+            $('.content tbody').html('<tr><td>沒有明細,不需修正!!</td></tr>');
+            $('.content').addClass('alert alert-info');
+            $('table').removeClass('table table-striped');
+            return true;
+        }
+
+        $.ajax({
+            url: Routing.generate('tools_execute_repair_entry'),
+            type: 'PUT',
+            data: param,
+            dataType: 'json',
+            success: function(data) {
+                $('table').removeClass('table table-striped');
+
+                var log = '';
+                $.each(data.logs, function(index, value){
+                    log += '<tr><td>' + value + '</td></tr>';
+                });
+
+                //設定顯示視窗的結果狀態
+                $('.content').addClass('alert alert-success');
+                if (data.status != 0) {
+                    $('.content').addClass('alert alert-danger');
+                }
+                $('.content thead').html('');
+                $('.content tbody').html(log);
+
+                // 更新待修正的明細數量
+                $('.cash_label span').text(data.diff_num.cash);
+                $('.cash_Fake_label span').text(data.diff_num.cashFake);
+
+                // 如果command執行成功，則修正重設
+                if (data.status == 0) {
+                    doCorrect = 0;
+                }
+            }
+        });
+    });
+
+    function cashFakeAjax() {
+        $.ajax({
+            url: Routing.generate('tools_show_entry'),
+            type: 'GET',
+            data: 'entry_type=cashFake',
+            dataType: 'json',
+            success: function(data) {
+                $('.cash_Fake_label span').text(data.diff_num);
+                selectOption();
+                if (data.contents.length == 0) {
+                    return true;
+                }
+                showEntry(data);
+            }
+        });
+    }
+
+    function selectOption() {
+        if ($('.cash_label span').text() != 0) {
+            $('option').eq(1).attr("selected", true);
+            doCorrect = 1;
+        }
+        if ($('.cash_Fake_label span').text() != 0) {
+            $('option').eq(2).attr("selected", true);
+            doCorrect = 1;
+        }
+    }
+
+    function showEntry(data) {
+        // 清除顯示視窗的結果狀態
+        $('table').addClass('table table-striped');
+        $('.content').removeClass('alert alert-info');
+        $('.content').removeClass('alert alert-success');
+        $('.content').removeClass('alert alert-danger');
+        $('.content thead').html('');
+        $('.content tbody').html('');
+
+        // 顯示欄位名稱
+        var showMsg = '';
+        if (data.entry_type == 'cash') {
+            showMsg += '<tr>';
+            showMsg += '<td>id</td>';
+            showMsg += '<td>cashId</td>';
+            showMsg += '<td>userId</td>';
+            showMsg += '<td>currency</td>';
+            showMsg += '<td>opcode</td>';
+            showMsg += '<td>createdAt</td>';
+            showMsg += '<td>amount</td>';
+            showMsg += '<td>memo</td>';
+            showMsg += '<td>refId</td>';
+            showMsg += '<td>balance</td>';
+            showMsg += '<td>at</td>';
+            showMsg += '</tr>';
+            $('.content thead').html(showMsg);
+        }
+
+        if (data.entry_type == 'cashFake') {
+            showMsg += '<tr>';
+            showMsg += '<td>id</td>';
+            showMsg += '<td>cashFakeId</td>';
+            showMsg += '<td>userId</td>';
+            showMsg += '<td>currency</td>';
+            showMsg += '<td>opcode</td>';
+            showMsg += '<td>createdAt</td>';
+            showMsg += '<td>amount</td>';
+            showMsg += '<td>balance</td>';
+            showMsg += '<td>refId</td>';
+            showMsg += '<td>memo</td>';
+            showMsg += '<td>at</td>';
+            showMsg += '</tr>';
+            $('.content thead').html(showMsg);
+        }
+
+        // 顯示明細內容
+        showMsg = '';
+        $.each(data.contents, function(index, content){
+            showMsg += '<tr>';
+            $.each(content, function(index, value){
+                showMsg += '<td>' + value + '</td>';
+            });
+            showMsg += '</tr>';
+        });
+        $('.content tbody').html(showMsg);
+    }
+});
+
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="form-group col-md-12">
+    <div class="page-header">
+        <h1>修正差異明細</h1>
+    </div>
+    <p class="alert alert-info">
+        請選擇明細列表，若有需修復的明細會列在下方，如欲修復請按修正明細按鈕，修復後會顯示修復結果
+    </p>
+    <div class="col-md-1">
+        <label class="control-label">須修正</label>
+    </div>
+    <div class="col-md-2">
+        <label class="control-label cash_label">
+            現金明細: <span>0</span>
+        </label>
+        <p/>
+        <label class="control-label cash_Fake_label">
+            假現金明細: <span>0</span>
+        </label>
+    </div>
+    <div class="col-md-9"></div>
+</div>
+<form class="form-horizontal col-md-12" role="form">
+    <div class="col-md-1">
+        <label class="control-label">明細類型</label>
+    </div>
+    <div class="form-group col-md-2">
+        <select class="form-control" name="entry_type">
+            <option value="null" selected>--</option>
+            <option value="cash">現金</option>
+            <option value="cashFake">假現金</option>
+        </select>
+    </div>
+    <div class="form-group col-md-1"></div>
+    <div class="form-group col-md-8">
+        <button class="btn btn-primary btn_repair" type="button">修正明細</button>
+    </div>
+    <div class="col-md-12">
+        <code>深色欄位為現行明細，淺色欄位為歷史明細</code>
+    </div>
+    <div class="form-group"></div>
+    <div class="col-md-12 content">
+        <table class="table table-striped">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</form>
+{% endblock %}

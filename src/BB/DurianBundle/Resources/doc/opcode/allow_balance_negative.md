@@ -1,0 +1,813 @@
+## Allow Balance Negative Opcode ##
+
+| Game         | Code Range    |
+| ------------ | -------------:|
+| Durian       |  0000- 9999   |
+| SK           | 10000-19999   |
+| BALL         | 20000-29999   |
+| LOTTERY      | 30000-39999   |
+| LIVE         | 40000-49999   |
+| PROBABILITY  | 50000-59999   |
+| TPB          | 60000-69999   |
+| FISHING GAME | 70000-79999   |
+| 一元奪寶     | 80000-89999   |
+| 賭神廳       | 90000-99999   |
+| SABAH        | 110000-119999 |
+| BC體育       | 120000-129999 |
+| IN體育       | 130000-139999 |
+| PTⅡ電子       | 140000-149999 |
+
+
+### Durian ###
+
+-   **1010**      DEPOSIT-MANUAL-IN 人工存入
+-   **1013**      WITHDRAWAL-MANUAL-MULTI 重複出款
+-   **1014**      WITHDRAWAL-MANUAL-COMPANY_MISDEPOSIT 公司入款誤存
+-   **1017**      WITHDRAWAL-MANUAL-ILLEGAL_BET_RETRIVE 扣除非法下注派彩
+-   **1018**      WITHDRAWAL-MANUAL-FORFEIT_DEPOSIT_OFFER_IN 放棄存款優惠
+-   **1019**      WITHDRAWAL-MANUAL-OTHER 其他人工提出
+-   **1029**      WITHDRAWAL-1-MANUAL 球類沖銷
+-   **1030**      WITHDRAWAL-2-MANUAL KENO沖銷
+-   **1031**      WITHDRAWAL-3-MANUAL 視訊沖銷
+-   **1032**      WITHDRAWAL-4-MANUAL 體育沖銷
+-   **1033**      WITHDRAWAL-5-MANUAL 機率沖銷
+-   **1044**      DEPOSIT-MANUAL-IN_4 人工存入-體育投注-存入
+-   **1045**      DEPOSIT-MANUAL-TRANSFER_4 人工存入-體育投注-轉移
+-   **1046**      WITHDRAWAL-MANUAL-TRANSFER_4 人工提出-體育投注-轉移
+-   **1047**      WITHDRAWAL-MANUAL-OUT_4 人工提出-體育投注-提出
+-   **1049**      WITHDRAWAL-12-MANUAL 彩票沖銷
+-   **1051**      WITHDRAWAL-13-MANUAL BBplay沖銷
+-   **1052**      WITHDRAWAL-MANUAL_PAYOFF_MULTI 重複派彩扣回
+-   **1056**      WITHDRAWAL-3_0-MANUAL BB視訊沖銷
+-   **1058**      WITHDRAWAL-3_1-MANUAL TT視訊沖銷
+-   **1060**      WITHDRAWAL-3_2-MANUAL 金臂視訊沖銷
+-   **1062**      WITHDRAWAL-3_3-MANUAL 新埔京視訊沖銷
+-   **1064**      WITHDRAWAL-3_4-MANUAL 盈豐視訊沖銷
+-   **1066**      WITHDRAWAL-15-MANUAL 3D廳沖銷
+-   **1068**      WITHDRAWAL-16-MANUAL 對戰沖銷
+-   **1070**      WITHDRAWAL-17-MANUAL 虛擬賽事沖銷
+-   **1072**      WITHDRAWAL-3_5-MANUAL VIP視訊沖銷
+-   **1076**      DEPOSIT-MANUAL-IN_19 人工存入-AG視訊-存入
+-   **1077**      DEPOSIT-MANUAL-TRANSFER_19 人工存入-AG視訊-轉移
+-   **1078**      WITHDRAWAL-MANUAL-TRANSFER_19 人工提出-AG視訊-轉移
+-   **1079**      WITHDRAWAL-MANUAL-OUT_19 人工提出-AG視訊-提出
+-   **1083**      WITHDRAWAL-19-MANUAL AG視訊沖銷
+-   **1087**      DEPOSIT-MANUAL-IN_20 人工存入-PT-存入
+-   **1088**      DEPOSIT-MANUAL-TRANSFER_20 人工存入-PT-轉移
+-   **1089**      WITHDRAWAL-MANUAL-TRANSFER_20 人工提出-PT-轉移
+-   **1090**      WITHDRAWAL-MANUAL-OUT_20 人工提出-PT-提出
+-   **1092**      WITHDRAWAL-20-MANUAL PT沖銷
+-   **1094**      WITHDRAWAL-21-MANUAL LT沖銷
+-   **1097**      WITHDRAWAL-3_6-MANUAL 競咪視訊沖銷
+-   **1104**      DEPOSIT-MANUAL-IN_22 人工存入-歐博視訊-存入
+-   **1105**      DEPOSIT-MANUAL-TRANSFER_22 人工存入-歐博視訊-轉移
+-   **1106**      WITHDRAWAL-MANUAL-TRANSFER_22 人工提出-歐博視訊-轉移
+-   **1107**      WITHDRAWAL-MANUAL-OUT_22 人工提出-歐博視訊-提出
+-   **1109**      WITHDRAWAL-22-MANUAL 歐博視訊沖銷
+-   **1112**      DEPOSIT-MANUAL-IN_23 人工存入-MG電子-存入
+-   **1113**      DEPOSIT-MANUAL-TRANSFER_23 人工存入-MG電子-轉移
+-   **1114**      WITHDRAWAL-MANUAL-TRANSFER_23 人工提出-MG電子-轉移
+-   **1115**      WITHDRAWAL-MANUAL-OUT_23 人工提出-MG電子-提出
+-   **1117**      WITHDRAWAL-23-MANUAL MG電子沖銷
+-   **1120**      DEPOSIT-MANUAL-IN_24 人工存入-東方視訊-存入
+-   **1121**      DEPOSIT-MANUAL-TRANSFER_24 人工存入-東方視訊-轉移
+-   **1122**      WITHDRAWAL-MANUAL-TRANSFER_24 人工提出-東方視訊-轉移
+-   **1123**      WITHDRAWAL-MANUAL-OUT_24 人工提出-東方視訊-提出
+-   **1125**      WITHDRAWAL-24-MANUAL 東方視訊沖銷
+-   <strike>**1131**      DEPOSIT-MANUAL-IN_25 人工存入-SB體育-存入</strike>
+-   <strike>**1132**      DEPOSIT-MANUAL-TRANSFER_25 人工存入-SB體育-轉移</strike>
+-   <strike>**1133**      WITHDRAWAL-MANUAL-TRANSFER_25 人工提出-SB體育-轉移</strike>
+-   <strike>**1134**      WITHDRAWAL-MANUAL-OUT_25 人工提出-SB體育-提出</strike>
+-   <strike>**1136**      WITHDRAWAL-25-MANUAL SB體育沖銷</strike>
+-   **1140**      DEPOSIT-MANUAL-TRANSFER_27 人工存入-GD視訊-轉移
+-   **1141**      WITHDRAWAL-MANUAL-TRANSFER_27 人工提出-GD視訊-轉移
+-   **1142**      WITHDRAWAL-MANUAL-OUT_27 人工提出-GD視訊-提出
+-   **1144**      WITHDRAWAL-27-MANUAL GD視訊沖銷
+-   **1148**      DEPOSIT-MANUAL-IN_27 人工存入-GD視訊-存入
+-   <strike>**1151**      DEPOSIT-MANUAL-IN_26 人工存入-沙龍視訊-存入</strike>
+-   <strike>**1152**      DEPOSIT-MANUAL-TRANSFER_26 人工存入-沙龍視訊-轉移</strike>
+-   <strike>**1153**      WITHDRAWAL-MANUAL-TRANSFER_26 人工提出-沙龍視訊-轉移</strike>
+-   <strike>**1154**      WITHDRAWAL-MANUAL-OUT_26 人工提出-沙龍視訊-提出</strike>
+-   <strike>**1156**      WITHDRAWAL-26-MANUAL 沙龍視訊沖銷</strike>
+-   **1161**      DEPOSIT-MANUAL-IN_28 人工存入-Gns機率-存入
+-   **1162**      DEPOSIT-MANUAL-TRANSFER_28 人工存入-Gns機率-轉移
+-   **1163**      WITHDRAWAL-MANUAL-TRANSFER_28 人工提出-Gns機率-轉移
+-   **1164**      WITHDRAWAL-MANUAL-OUT_28 人工提出-Gns機率-提出
+-   **1166**      WITHDRAWAL-28-MANUAL Gns機率沖銷
+-   **1173**      WITHDRAWAL-23_1-MANUAL MG累積彩池沖銷
+-   **1174**      WITHDRAWAL-23_2-MANUAL MG老虎機沖銷
+-   **1175**      WITHDRAWAL-23_3-MANUAL MG特色遊戲沖銷
+-   **1176**      WITHDRAWAL-23_4-MANUAL MG桌上遊戲沖銷
+-   **1177**      WITHDRAWAL-23_14-MANUAL MG手機遊戲沖銷
+-   **1181**      DEPOSIT-MANUAL-IN_29 人工存入-ISB電子-存入
+-   **1182**      DEPOSIT-MANUAL-TRANSFER_29 人工存入-ISB電子-轉移
+-   **1183**      WITHDRAWAL-MANUAL-TRANSFER_29 人工提出-ISB電子-轉移
+-   **1184**      WITHDRAWAL-MANUAL-OUT_29 人工提出-ISB電子-提出
+-   **1186**      WITHDRAWAL-29-MANUAL ISB電子沖銷
+-   **1190**      WITHDRAWAL-30-MANUAL BB捕魚達人沖銷
+-   **1192**      WITHDRAWAL-31-MANUAL BC體育沖銷
+-   **1198**      WITHDRAWAL-5_3-MANUAL BB老虎機沖銷
+-   **1199**      WITHDRAWAL-5_5-MANUAL BB桌上遊戲沖銷
+-   **1200**      WITHDRAWAL-5_82-MANUAL BB大型機台沖銷
+-   **1201**      WITHDRAWAL-5_83-MANUAL BB刮刮樂沖銷
+-   **1202**      WITHDRAWAL-5_85-MANUAL BB特色遊戲沖銷
+-   **1204**      WITHDRAWAL-34-MANUAL 一元奪寶沖銷
+-   **1209**      WITHDRAWAL-29_3-MANUAL ISB老虎機沖銷
+-   **1210**      WITHDRAWAL-29_5-MANUAL ISB桌上遊戲沖銷
+-   **1211**      WITHDRAWAL-29_81-MANUAL ISB累積彩池沖銷
+-   **1212**      WITHDRAWAL-29_92-MANUAL ISB視訊撲克沖銷
+-   **1216**      DEPOSIT-MANUAL-IN_33 人工存入-888捕魚-存入
+-   **1217**      DEPOSIT-MANUAL-TRANSFER_33 人工存入-888捕魚-轉移
+-   **1218**      WITHDRAWAL-MANUAL-TRANSFER_33 人工提出-888捕魚-轉移
+-   **1219**      WITHDRAWAL-MANUAL-OUT_33 人工提出-888捕魚-提出
+-   **1221**      WITHDRAWAL-33-MANUAL 888捕魚沖銷
+-   **1230**      WITHDRAWAL-20_3-MANUAL PT老虎機沖銷
+-   **1231**      WITHDRAWAL-20_5-MANUAL PT桌上遊戲沖銷
+-   **1232**      WITHDRAWAL-20_81-MANUAL PT累積彩池沖銷
+-   **1233**      WITHDRAWAL-20_82-MANUAL PT大型機台沖銷
+-   **1234**      WITHDRAWAL-20_83-MANUAL PT刮刮樂沖銷
+-   **1235**      WITHDRAWAL-20_92-MANUAL PT視訊撲克沖銷
+-   **1237**      WITHDRAWAL-20_0-MANUAL PT未分類沖銷
+-   **1239**      WITHDRAWAL-35-MANUAL 賭神廳沖銷
+-   **1246**      WITHDRAWAL-12_1-MANUAL 一般彩票沖銷
+-   **1247**      WITHDRAWAL-12_2-MANUAL BB快開沖銷
+-   **1248**      WITHDRAWAL-12_3-MANUAL PK&11選5沖銷
+-   **1249**      WITHDRAWAL-12_4-MANUAL 時時彩&快3沖銷
+-   **1250**      WITHDRAWAL-12_5-MANUAL Keno沖銷
+-   **1251**      WITHDRAWAL-12_6-MANUAL 十分彩沖銷
+-   **1254**      DEPOSIT-MANUAL-IN_32 人工存入-HB電子-存入
+-   **1255**      DEPOSIT-MANUAL-TRANSFER_32 人工存入-HB電子-轉移
+-   **1256**      WITHDRAWAL-MANUAL-TRANSFER_32 人工提出-HB電子-轉移
+-   **1257**      WITHDRAWAL-MANUAL-OUT_32 人工提出-HB電子-提出
+-   **1263**      WITHDRAWAL-32_3-MANUAL HB老虎機沖銷
+-   **1264**      WITHDRAWAL-32_5-MANUAL HB桌上遊戲沖銷
+-   **1265**      WITHDRAWAL-32_92-MANUAL HB視訊撲克沖銷
+-   **1268**      DEPOSIT-MANUAL-IN_36 人工存入-BG視訊-存入
+-   **1269**      DEPOSIT-MANUAL-TRANSFER_36 人工存入-BG視訊-轉移
+-   **1270**      WITHDRAWAL-MANUAL-TRANSFER_36 人工提出-BG視訊-轉移
+-   **1271**      WITHDRAWAL-MANUAL-OUT_36 人工提出-BG視訊-提出
+-   **1275**      WITHDRAWAL-36-MANUAL BG視訊沖銷
+-   **1278**      DEPOSIT-MANUAL-IN_37 人工存入-PP電子-存入
+-   **1279**      DEPOSIT-MANUAL-TRANSFER_37 人工存入-PP電子-轉移
+-   **1280**      WITHDRAWAL-MANUAL-TRANSFER_37 人工提出-PP電子-轉移
+-   **1281**      WITHDRAWAL-MANUAL-OUT_37 人工提出-PP電子-提出
+-   **1285**      WITHDRAWAL-38-MANUAL BB捕魚大師沖銷
+-   **1290**      WITHDRAWAL-37_3-MANUAL PP老虎機沖銷
+-   **1291**      WITHDRAWAL-37_5-MANUAL PP桌上遊戲沖銷
+-   **1292**      WITHDRAWAL-37_81-MANUAL PP累積彩池沖銷
+-   **1293**      WITHDRAWAL-37_85-MANUAL PP特色遊戲沖銷
+-   **1296**      DEPOSIT-MANUAL-IN_39 人工存入-JDB電子-存入
+-   **1297**      DEPOSIT-MANUAL-TRANSFER_39 人工存入-JDB電子-轉移
+-   **1298**      WITHDRAWAL-MANUAL-TRANSFER_39 人工提出-JDB電子-轉移
+-   **1299**      WITHDRAWAL-MANUAL-OUT_39 人工提出-JDB電子-提出
+-   **1304**      DEPOSIT-MANUAL-IN_40 人工存入-AG電子-存入
+-   **1305**      DEPOSIT-MANUAL-TRANSFER_40 人工存入-AG電子-轉移
+-   **1306**      WITHDRAWAL-MANUAL-TRANSFER_40 人工提出-AG電子-轉移
+-   **1307**      WITHDRAWAL-MANUAL-OUT_40 人工提出-AG電子-提出
+-   **1312**      DEPOSIT-MANUAL-IN_41 人工存入-MW電子-存入
+-   **1313**      DEPOSIT-MANUAL-TRANSFER_41 人工存入-MW電子-轉移
+-   **1314**      WITHDRAWAL-MANUAL-TRANSFER_41 人工提出-MW電子-轉移
+-   **1315**      WITHDRAWAL-MANUAL-OUT_41 人工提出-MW電子-提出
+-   **1319**      WITHDRAWAL-20_91-MANUAL PT捕魚機沖銷
+-   **1321**      WITHDRAWAL-28_3-MANUAL GNS老虎機沖銷
+-   **1323**      WITHDRAWAL-28_91-MANUAL GNS捕魚機沖銷
+-   **1327**      WITHDRAWAL-39_3-MANUAL JDB老虎機沖銷
+-   **1328**      WITHDRAWAL-39_82-MANUAL JDB大型機台沖銷
+-   **1329**      WITHDRAWAL-39_91-MANUAL JDB捕魚機沖銷
+-   **1335**      WITHDRAWAL-40_3-MANUAL AG老虎機沖銷
+-   **1336**      WITHDRAWAL-40_5-MANUAL AG桌上遊戲沖銷
+-   **1337**      WITHDRAWAL-40_81-MANUAL AG累積彩池沖銷
+-   **1338**      WITHDRAWAL-40_91-MANUAL AG捕魚機沖銷
+-   **1339**      WITHDRAWAL-40_92-MANUAL AG視頻撲克沖銷
+-   **1347**      WITHDRAWAL-41_3-MANUAL MW老虎機沖銷
+-   **1348**      WITHDRAWAL-41_5-MANUAL MW桌上遊戲沖銷
+-   **1349**      WITHDRAWAL-41_82-MANUAL MW大型機台沖銷
+-   **1350**      WITHDRAWAL-41_91-MANUAL MW捕鱼機沖銷
+-   **1353**      WITHDRAWAL-43-MANUAL IN體育沖銷
+-   **1356**      DEPOSIT-MANUAL-IN_42 人工存入-RT電子-存入
+-   **1357**      DEPOSIT-MANUAL-TRANSFER_42 人工存入-RT電子-轉移
+-   **1358**      WITHDRAWAL-MANUAL-TRANSFER_42 人工提出-RT電子-轉移
+-   **1359**      WITHDRAWAL-MANUAL-OUT_42 人工提出-RT電子-提出
+-   **1364**      DEPOSIT-MANUAL-IN_44 人工存入-SG電子-存入
+-   **1365**      DEPOSIT-MANUAL-TRANSFER_44 人工存入-SG電子-轉移
+-   **1366**      WITHDRAWAL-MANUAL-TRANSFER_44 人工提出-SG電子-轉移
+-   **1367**      WITHDRAWAL-MANUAL-OUT_44 人工提出-SG電子-提出
+-   **1373**      DEPOSIT-MANUAL-IN_45 人工存入-VR彩票-存入
+-   **1374**      DEPOSIT-MANUAL-TRANSFER_45 人工存入-VR彩票-轉移
+-   **1375**      WITHDRAWAL-MANUAL-TRANSFER_45 人工提出-VR彩票-轉移
+-   **1376**      WITHDRAWAL-MANUAL-OUT_45 人工提出-VR彩票-提出
+-   **1381**      WITHDRAWAL-42_3-MANUAL RT老虎機沖銷
+-   **1382**      WITHDRAWAL-42_5-MANUAL RT桌上遊戲沖銷
+-   **1387**      WITHDRAWAL-44_3-MANUAL SG老虎機沖銷
+-   **1388**      WITHDRAWAL-44_5-MANUAL SG桌上遊戲沖銷
+-   **1389**      WITHDRAWAL-44_81-MANUAL SG累積彩池沖銷
+-   **1390**      WITHDRAWAL-44_82-MANUAL SG大型機台沖銷
+-   **1394**      WITHDRAWAL-45_1-MANUAL VR真人彩沖銷
+-   **1395**      WITHDRAWAL-45_2-MANUAL VR國家彩沖銷
+-   **1396**      WITHDRAWAL-45_3-MANUAL VR六合彩沖銷
+-   **1399**      DEPOSIT-MANUAL-IN_47 人工存入-EVO視訊-存入
+-   **1400**      DEPOSIT-MANUAL-TRANSFER_47 人工存入-EVO視訊-轉移
+-   **1401**      WITHDRAWAL-MANUAL-TRANSFER_47 人工提出-EVO視訊-轉移
+-   **1402**      WITHDRAWAL-MANUAL-OUT_47 人工提出-EVO視訊-提出
+-   **1407**      DEPOSIT-MANUAL-IN_48 人工存入-BNG電子-存入
+-   **1408**      DEPOSIT-MANUAL-TRANSFER_48 人工存入-BNG電子-轉移
+-   **1409**      WITHDRAWAL-MANUAL-TRANSFER_48 人工提出-BNG電子-轉移
+-   **1410**      WITHDRAWAL-MANUAL-OUT_48 人工提出-BNG電子-提出
+-   **1415**      DEPOSIT-MANUAL-IN_46 人工存入-PTⅡ電子-存入
+-   **1416**      DEPOSIT-MANUAL-TRANSFER_46 人工存入-PTⅡ電子-轉移
+-   **1417**      WITHDRAWAL-MANUAL-TRANSFER_46 人工提出-PTⅡ電子-轉移
+-   **1418**      WITHDRAWAL-MANUAL-OUT_46 人工提出-PTⅡ電子-提出
+-   **1424**      WITHDRAWAL-46_3-MANUAL PTⅡ老虎機沖銷
+-   **1425**      WITHDRAWAL-46_81-MANUAL PTⅡ累積彩池沖銷
+-   **1426**      WITHDRAWAL-46_91-MANUAL PTⅡ捕魚機沖銷
+-   **1429**      WITHDRAWAL-46_5-MANUAL PTⅡ桌上遊戲沖銷
+-   <strike>**1430**      WITHDRAWAL-46_85-MANUAL PTⅡ特色遊戲沖銷</strike>
+-   **1432**      WITHDRAWAL-48_3-MANUAL BNG老虎機沖銷
+-   **1435**      WITHDRAWAL-47-MANUAL EVO視訊沖銷
+-   **1437**      WITHDRAWAL-28_81-MANUAL GNS累積彩池沖銷
+-   **1440**      DEPOSIT-MANUAL-IN_49 人工存入-開元 棋牌-存入
+-   **1441**      DEPOSIT-MANUAL-TRANSFER_49 人工存入-開元 棋牌-轉移
+-   **1442**      WITHDRAWAL-MANUAL-TRANSFER_49 人工提出-開元 棋牌-轉移
+-   **1443**      WITHDRAWAL-MANUAL-OUT_49 人工提出-開元 棋牌-提出
+-   **1447**      WITHDRAWAL-28_85-MANUAL GNS特色遊戲沖銷
+-   **1449**      WITHDRAWAL-49-MANUAL 開元棋牌沖銷
+-   **1451**      WITHDRAWAL-28_5-MANUAL GNS桌上遊戲沖銷
+-   **1454**      DEPOSIT-MANUAL-IN_50 人工存入-WM電子-存入
+-   **1455**      DEPOSIT-MANUAL-TRANSFER_50 人工存入-WM電子-轉移
+-   **1456**      WITHDRAWAL-MANUAL-TRANSFER_50 人工提出-WM電子-轉移
+-   **1457**      WITHDRAWAL-MANUAL-OUT_50 人工提出-WM電子-提出
+-   **9897**      MIGRATION-BALL
+-   **9898**      MIGRATION-BB
+-   **9899**      MIGRATION-SK
+
+
+### SK ###
+
+-   **10003**     RE_PAYOFF 結算修正-SK
+-   **10004**     CANCEL 註銷
+-   **10005**     UNCANCEL 回復註銷
+-   **10006**     REMOVE 刪單
+-   **10007**     RECOVER 回復刪單
+-   **10008**     WITHDRAWAL-12-MANUAL_PAYOFF_MULTI 重複派彩扣回-彩票
+-   **10009**     BETTING-FAIL-12 下注失敗-彩票
+
+
+### BALL ###
+
+-   **20003**     RE_PAYOFF-1 結算修正-BALL
+-   **20004**     CANCEL-1-NORMAL 一般註銷
+-   **20005**     UNCANCEL-1 註銷回復-BALL
+-   **20006**     CANCEL-1-SYSTEM 系統註銷
+-   **20007**     CANCEL-1-ILLEGAL_BET 非法下注
+-   **20009**     MOVE-1-PLUS 移賽事(補入 回復額度)
+-   **20010**     MOVE-1-MINUS 移賽事(扣除 實際扣除)
+-   **20011**     WITHDRAWAL-1-MANUAL_PAYOFF_MULTI 重複派彩扣回-BB體育
+-   **20012**     CANCEL-1-DANGEROUS 危險球註銷
+-   **21004**     CANCEL-13-CANCELPAYOUT 一般註銷-BBplay
+-   **21005**     CANCEL-13-CANCEL 未接受-BBplay
+-   **21006**     WITHDRAWAL-13-MANUAL_PAYOFF_MULTI 重複派彩扣回-BBplay
+
+
+### LOTTERY ###
+
+-   <strike>**30003**     RE_PAYOFF-2 結算修正-LOTTERY</strike>
+-   <strike>**30004**     CANCEL-2-NORMAL 一般註銷-LOTTERY</strike>
+-   <strike>**30005**     UNCANCEL-2 註銷回復-LOTTERY</strike>
+-   <strike>**30006**     CANCEL-2-SYSTEM 系統註銷-LOTTERY</strike>
+-   <strike>**30007**     CANCEL-2-ILLEGAL_BET 非法下注-LOTTERY</strike>
+-   <strike>**30009**     WITHDRAWAL-2-MANUAL_PAYOFF_MULTI 重複派彩扣回-KENO</strike>
+-   **30103**     RE_PAYOFF 結算修正-中國雙龍寶
+-   **30104**     CANCEL 註銷-中國雙龍寶
+-   **30105**     UNCANCEL 回復註銷-中國雙龍寶
+-   **30106**     REMOVE 刪單-中國雙龍寶
+-   **30107**     RECOVER 回復刪單-中國雙龍寶
+-   **30108**     WITHDRAWAL-21-MANUAL_PAYOFF_MULTI 重複派彩扣回-中國雙龍寶
+-   **30109**     BETTING-FAIL-21 下注失敗-中國雙龍寶
+
+
+### LIVE ###
+
+-   **40002**     RE_PAYOFF-3-3001 結算修正-視訊-百家樂
+-   **40003**     CANCEL-3-3001 註銷-視訊-百家樂
+-   **40007**     CANCEL-3-3002 註銷-視訊-二八槓
+-   **40006**     RE_PAYOFF-3-3002 結算修正-視訊-二八槓
+-   **40010**     RE_PAYOFF-3-3003 結算修正-視訊-龍虎鬥
+-   **40011**     CANCEL-3-3003 註銷-視訊-龍虎鬥
+-   **40014**     RE_PAYOFF-3-3005 結算修正-視訊-三公
+-   **40015**     CANCEL-3-3005 註銷-視訊-三公
+-   **40018**     RE_PAYOFF-3-3006 結算修正-視訊-溫州牌九
+-   **40019**     CANCEL-3-3006 註銷-視訊-溫州牌九
+-   **40022**     RE_PAYOFF-3-3007 結算修正-視訊-輪盤
+-   **40023**     CANCEL-3-3007 註銷-視訊-輪盤
+-   **40026**     RE_PAYOFF-3-3008 結算修正-視訊-骰寶
+-   **40027**     CANCEL-3-3008 註銷-視訊-骰寶
+-   **40030**     RE_PAYOFF-3-JP 結算修正-視訊-百家樂JP
+-   **40031**     CANCEL-3-JP 註銷-視訊-百家樂JP
+-   **40032**     FAIL-3 下注失敗-視訊
+-   **40035**     RE_PAYOFF-3-3010 結算修正-視訊-德州撲克
+-   **40036**     CANCEL-3-3010 註銷-視訊-德州撲克
+-   **40039**     RE_PAYOFF-3-3011 結算修正-視訊-色碟
+-   **40040**     CANCEL-3-3011 註銷-視訊-色碟
+-   **40043**     RE_PAYOFF-3-3012 結算修正-視訊-牛牛
+-   **40044**     CANCEL-3-3012 註銷-視訊-牛牛
+-   **40047**     RE_PAYOFF-3-3013 結算修正-視訊-賽本引
+-   **40048**     CANCEL-3-3013 註銷-視訊-賽本引
+-   **40051**     RE_PAYOFF-3-3014 結算修正-視訊-無限21點
+-   **40052**     CANCEL-3-3014 註銷-視訊-無限21點
+-   **40055**     RE_PAYOFF-3-3015 結算修正-視訊-番攤
+-   **40056**     CANCEL-3-3015 註銷-視訊-番攤
+-   **40059**     RE_PAYOFF-3-3016 結算修正-視訊-魚蝦蟹
+-   **40060**     CANCEL-3-3016 註銷-視訊-魚蝦蟹
+-   **40063**     RE_PAYOFF-3-3017 結算修正-視訊-保險百家樂
+-   **40064**     CANCEL-3-3017 註銷-視訊-保險百家樂
+-   **40067**     RE_PAYOFF-3-3018 結算修正-視訊-炸金花
+-   **40068**     CANCEL-3-3018 註銷-視訊-炸金花
+-   **49995**     WITHDRAWAL-3-MANUAL_PAYOFF_MULTI 重複派彩扣回-視訊
+-   **49998**     RE_PAYOFF-3 結算修正-視訊
+-   **49999**     CANCEL-3 註銷-視訊
+
+
+### PROBABILITY ###
+
+-   **50002**     RE_PAYOFF-5-5001 結算修正-機率-水果拉霸
+-   **50003**     CANCEL-5-5001 註銷-機率-水果拉霸
+-   **50006**     RE_PAYOFF-5-5002 結算修正-機率-撲克拉霸
+-   **50007**     CANCEL-5-5002 註銷-機率-撲克拉霸
+-   **50010**     RE_PAYOFF-5-5003 結算修正-機率-筒子拉霸
+-   **50011**     CANCEL-5-5003 註銷-機率-筒子拉霸
+-   **50014**     RE_PAYOFF-5-5004 結算修正-機率-足球拉霸
+-   **50015**     CANCEL-5-5004 註銷-機率-足球拉霸
+-   **50018**     RE_PAYOFF-5-5011 結算修正-機率-西遊記
+-   **50019**     CANCEL-5-5011 註銷-機率-西遊記
+-   **50022**     RE_PAYOFF-5-5012 結算修正-機率-外星爭霸
+-   **50023**     CANCEL-5-5012 註銷-機率-外星爭霸
+-   **50026**     RE_PAYOFF-5-5013 結算修正-機率-傳統
+-   **50027**     CANCEL-5-5013 註銷-機率-傳統
+-   **50030**     RE_PAYOFF-5-5014 結算修正-機率-叢林
+-   **50031**     CANCEL-5-5014 註銷-機率-叢林
+-   **50034**     RE_PAYOFF-5-5015 結算修正-機率-FIFA2010
+-   **50035**     CANCEL-5-5015 註銷-機率-FIFA2010
+-   **50038**     RE_PAYOFF-5-5021 結算修正-機率-7PK
+-   **50039**     CANCEL-5-5021 註銷-機率-7PK
+-   **50042**     RE_PAYOFF-5-5031 結算修正-機率-王牌撲克
+-   **50043**     CANCEL-5-5031 註銷-機率-王牌撲克
+-   **50046**     RE_PAYOFF-5-5032 結算修正-機率-百搭二王
+-   **50047**     CANCEL-5-5032 註銷-機率-百搭二王
+-   **50050**     RE_PAYOFF-5-5033 結算修正-機率-花牌撲克
+-   **50051**     CANCEL-5-5033 註銷-機率-花牌撲克
+-   **50054**     RE_PAYOFF-5-5036 結算修正-機率-四線王牌撲克
+-   **50055**     CANCEL-5-5036 註銷-機率-四線王牌撲克
+-   **50058**     RE_PAYOFF-5-5037 結算修正-機率-四線百搭二王
+-   **50059**     CANCEL-5-5037 註銷-機率-四線百搭二王
+-   **50062**     RE_PAYOFF-5-5038 結算修正-機率-四線花牌撲克
+-   **50063**     CANCEL-5-5038 註銷-機率-四線花牌撲克
+-   **50066**     RE_PAYOFF-5-5053 結算修正-機率-動物奇觀五
+-   **50067**     CANCEL-5-5053 註銷-機率-動物奇觀五
+-   **50070**     RE_PAYOFF-5-5055 結算修正-機率-瘋狂水果盤
+-   **50071**     CANCEL-5-5055 註銷-機率-瘋狂水果盤
+-   **50074**     RE_PAYOFF-5-5056 結算修正-機率-馬戲團
+-   **50075**     CANCEL-5-5056 註銷-機率-馬戲團
+-   **50078**     RE_PAYOFF-5-5071 結算修正-機率-幸運水果盤
+-   **50079**     CANCEL-5-5071 註銷-機率-幸運水果盤
+-   **50082**     RE_PAYOFF-5-5072 結算修正-機率-數字大轉輪
+-   **50083**     CANCEL-5-5072 註銷-機率-數字大轉輪
+-   **50086**     RE_PAYOFF-5-5074 結算修正-機率-鑽石列車
+-   **50087**     CANCEL-5-5074 註銷-機率-鑽石列車
+-   **50090**     RE_PAYOFF-5-5075 結算修正-機率-聖獸傳說
+-   **50091**     CANCEL-5-5075 註銷-機率-聖獸傳說
+-   **50094**     RE_PAYOFF-5-5081 結算修正-機率-鬥大
+-   **50095**     CANCEL-5-5081 註銷-機率-鬥大
+-   **50098**     RE_PAYOFF-5-5082 結算修正-機率-紅狗
+-   **50099**     CANCEL-5-5082 註銷-機率-紅狗
+-   **50102**     RE_PAYOFF-5-5091 結算修正-機率-三國拉霸
+-   **50103**     CANCEL-5-5091 註銷-機率-三國拉霸
+-   **50106**     RE_PAYOFF-5-5101 結算修正-機率-歐式輪盤
+-   **50107**     CANCEL-5-5101 註銷-機率-歐式輪盤
+-   **50110**     RE_PAYOFF-5-5102 結算修正-機率-美式輪盤
+-   **50111**     CANCEL-5-5102 註銷-機率-美式輪盤
+-   **50114**     RE_PAYOFF-5-5103 結算修正-機率-彩金輪盤
+-   **50115**     CANCEL-5-5103 註銷-機率-彩金輪盤
+-   **50118**     RE_PAYOFF-5-5104 結算修正-機率-法式輪盤
+-   **50119**     CANCEL-5-5104 註銷-機率-法式輪盤
+-   **50122**     RE_PAYOFF-5-5016 結算修正-機率-史前叢林冒險
+-   **50123**     CANCEL-5-5016 註銷-機率-史前叢林冒險
+-   **50126**     RE_PAYOFF-5-5017 結算修正-機率-星際大戰
+-   **50127**     CANCEL-5-5017 註銷-機率-星際大戰
+-   **50130**     RE_PAYOFF-5-5018 結算修正-機率-齊天大聖
+-   **50131**     CANCEL-5-5018 註銷-機率-齊天大聖
+-   **50134**     RE_PAYOFF-5-5019 結算修正-機率-水果樂園
+-   **50135**     CANCEL-5-5019 註銷-機率-水果樂園
+-   **50138**     RE_PAYOFF-5-5057 結算修正-機率-明星97
+-   **50139**     CANCEL-5-5057 註銷-機率-明星97
+-   **50142**     RE_PAYOFF-5-5115 結算修正-機率-經典21點
+-   **50143**     CANCEL-5-5115 註銷-機率-經典21點
+-   **50146**     RE_PAYOFF-5-5116 結算修正-機率-西班牙21點
+-   **50147**     CANCEL-5-5116 註銷-機率-西班牙21點
+-   **50150**     RE_PAYOFF-5-5117 結算修正-機率-維加斯21點
+-   **50151**     CANCEL-5-5117 註銷-機率-維加斯21點
+-   **50154**     RE_PAYOFF-5-5118 結算修正-機率-獎金21點
+-   **50155**     CANCEL-5-5118 註銷-機率-獎金21點
+-   **50158**     RE_PAYOFF-5-5092 結算修正-機率-封神榜
+-   **50159**     CANCEL-5-5092 註銷-機率-封神榜
+-   **50162**     RE_PAYOFF-5-5020 結算修正-機率-熱帶風情
+-   **50163**     CANCEL-5-5020 註銷-機率-熱帶風情
+-   **50166**     RE_PAYOFF-5-5093 結算修正-機率-金瓶梅
+-   **50167**     CANCEL-5-5093 註銷-機率-金瓶梅
+-   **50170**     RE_PAYOFF-5-5023 結算修正-機率-7靶射擊
+-   **50171**     CANCEL-5-5023 註銷-機率-7靶射擊
+-   **50174**     RE_PAYOFF-5-5879 結算修正-機率-柏青哥
+-   **50175**     CANCEL-5-5879 註銷-機率-柏青哥
+-   **50178**     RE_PAYOFF-5-5024 結算修正-機率-2012 歐錦賽
+-   **50179**     CANCEL-5-5024 註銷-機率-2012 歐錦賽
+-   **50182**     RE_PAYOFF-5-5025 結算修正-機率-法海鬥白蛇
+-   **50183**     CANCEL-5-5025 註銷-機率-法海鬥白蛇
+-   **50186**     RE_PAYOFF-5-5058 結算修正-機率-瘋狂水果盤
+-   **50187**     CANCEL-5-5058 註銷-機率-瘋狂水果盤
+-   **50190**     RE_PAYOFF-5-5059 結算修正-機率-馬戲團
+-   **50191**     CANCEL-5-5059 註銷-機率-馬戲團
+-   **50194**     RE_PAYOFF-5-5060 結算修正-機率-動物奇觀五
+-   **50195**     CANCEL-5-5060 註銷-機率-動物奇觀五
+-   **50198**     RE_PAYOFF-5-5076 結算修正-機率-數字大轉輪
+-   **50199**     CANCEL-5-5076 註銷-機率-數字大轉輪
+-   **50202**     RE_PAYOFF-5-5077 結算修正-機率-水果大轉輪
+-   **50203**     CANCEL-5-5077 註銷-機率-水果大轉輪
+-   **50206**     RE_PAYOFF-5-5026 結算修正-機率-2012倫敦奧運
+-   **50207**     CANCEL-5-5026 註銷-機率-2012倫敦奧運
+-   **50210**     RE_PAYOFF-5-5801 結算修正-海豚世界
+-   **50211**     CANCEL-5-5801 註銷-機率-海豚世界
+-   **50214**     RE_PAYOFF-5-5028 結算修正-機率-中秋月光派對
+-   **50215**     CANCEL-5-5028 註銷-機率-中秋月光派對
+-   **50218**     RE_PAYOFF-5-5027 結算修正-機率-功夫龍
+-   **50219**     CANCEL-5-5027 註銷-機率-功夫龍
+-   **50222**     RE_PAYOFF-5-5802 結算修正-機率-阿基里斯
+-   **50223**     CANCEL-5-5802 註銷-機率-阿基里斯
+-   **50226**     RE_PAYOFF-5-5803 結算修正-機率-阿兹特克寶藏
+-   **50227**     CANCEL-5-5803 註銷-機率-阿兹特克寶藏
+-   **50230**     RE_PAYOFF-5-5804 結算修正-機率-大明星
+-   **50231**     CANCEL-5-5804 註銷-機率-大明星
+-   **50234**     RE_PAYOFF-5-5805 結算修正-機率-凱薩帝國
+-   **50235**     CANCEL-5-5805 註銷-機率-凱薩帝國
+-   **50238**     RE_PAYOFF-5-5806 結算修正-機率-奇幻花園
+-   **50239**     CANCEL-5-5806 註銷-機率-奇幻花園
+-   **50242**     RE_PAYOFF-5-5807 結算修正-機率-東方魅力
+-   **50243**     CANCEL-5-5807 註銷-機率-東方魅力
+-   **50246**     RE_PAYOFF-5-5808 結算修正-機率-浪人武士
+-   **50247**     CANCEL-5-5808 註銷-機率-浪人武士
+-   **50250**     RE_PAYOFF-5-5809 結算修正-機率-空戰英豪
+-   **50251**     CANCEL-5-5809 註銷-機率-空戰英豪
+-   **50254**     RE_PAYOFF-5-5810 結算修正-機率-航海時代
+-   **50255**     CANCEL-5-5810 註銷-機率-航海時代
+-   **50258**     RE_PAYOFF-5-5811 結算修正-機率-狂歡夜
+-   **50259**     CANCEL-5-5811 註銷-機率-狂歡夜
+-   **50262**     RE_PAYOFF-5-5821 結算修正-機率-國際足球
+-   **50263**     CANCEL-5-5821 註銷-機率-國際足球
+-   **50266**     RE_PAYOFF-5-5822 結算修正-機率-兔女郎
+-   **50267**     CANCEL-5-5822 註銷-機率-兔女郎
+-   **50270**     RE_PAYOFF-5-5823 結算修正-機率-發大財
+-   **50271**     CANCEL-5-5823 註銷-機率-發大財
+-   **50274**     RE_PAYOFF-5-5824 結算修正-機率-惡龍傳說
+-   **50275**     CANCEL-5-5824 註銷-機率-惡龍傳說
+-   **50278**     RE_PAYOFF-5-5825 結算修正-機率-金蓮
+-   **50279**     CANCEL-5-5825 註銷-機率-金蓮
+-   **50282**     RE_PAYOFF-5-5826 結算修正-機率-金礦工
+-   **50283**     CANCEL-5-5826 註銷-機率-金礦工
+-   **50286**     RE_PAYOFF-5-5827 結算修正-機率-老船長
+-   **50287**     CANCEL-5-5827 註銷-機率-老船長
+-   **50290**     RE_PAYOFF-5-5828 結算修正-機率-霸王龍
+-   **50291**     CANCEL-5-5828 註銷-機率-霸王龍
+-   **50294**     RE_PAYOFF-5-5831 結算修正-機率-高球之旅
+-   **50295**     CANCEL-5-5831 註銷-機率-高球之旅
+-   **50298**     RE_PAYOFF-5-5832 結算修正-機率-高速卡車
+-   **50299**     CANCEL-5-5832 註銷-機率-高速卡車
+-   **50302**     RE_PAYOFF-5-5833 結算修正-機率-沉默武士
+-   **50303**     CANCEL-5-5833 註銷-機率-沉默武士
+-   **50306**     RE_PAYOFF-5-5834 結算修正-機率-異國之夜
+-   **50307**     CANCEL-5-5834 註銷-機率-異國之夜
+-   **50310**     RE_PAYOFF-5-5835 結算修正-機率-喜福牛年
+-   **50311**     CANCEL-5-5835 註銷-機率-喜福牛年
+-   **50314**     RE_PAYOFF-5-5836 結算修正-機率-超級颶風
+-   **50315**     CANCEL-5-5836 註銷-機率-超級颶風
+-   **50322**     RE_PAYOFF-5-5029 結算修正-機率-聖誕派對
+-   **50323**     CANCEL-5-5029 註銷-機率-聖誕派對
+-   **50326**     RE_PAYOFF-5-5030 結算修正-機率-幸運財神
+-   **50327**     CANCEL-5-5030 註銷-機率-幸運財神
+-   **50330**     RE_PAYOFF-5-5049 結算修正-機率-玉蒲團
+-   **50331**     CANCEL-5-5049 註銷-機率-玉蒲團
+-   **50334**     RE_PAYOFF-5-5078 結算修正-機率-象棋大轉輪
+-   **50335**     CANCEL-5-5078 註銷-機率-象棋大轉輪
+-   **50338**     RE_PAYOFF-5-5079 結算修正-機率-3D數字大轉輪
+-   **50339**     CANCEL-5-5079 註銷-機率-3D數字大轉輪
+-   **50342**     RE_PAYOFF-5-5048 結算修正-機率-特務危機
+-   **50343**     CANCEL-5-5048 註銷-機率-特務危機
+-   **50346**     RE_PAYOFF-5-5061 結算修正-機率-超級七
+-   **50347**     CANCEL-5-5061 註銷-機率-超級七
+-   **50350**     RE_PAYOFF-5-5047 結算修正-機率-屍樂園
+-   **50351**     CANCEL-5-5047 註銷-機率-屍樂園
+-   **50354**     RE_PAYOFF-5-5131 結算修正-機率-皇家德州撲克
+-   **50355**     CANCEL-5-5131 註銷-機率-皇家德州撲克
+-   **50358**     RE_PAYOFF-5-5201 結算修正-機率-火燄山
+-   **50359**     CANCEL-5-5201 註銷-機率-火燄山
+-   **50362**     RE_PAYOFF-5-5202 結算修正-機率-月光寶盒
+-   **50363**     CANCEL-5-5202 註銷-機率-月光寶盒
+-   **50366**     RE_PAYOFF-5-5203 結算修正-機率-愛你一萬年
+-   **50367**     CANCEL-5-5203 註銷-機率-愛你一萬年
+-   **50370**     RE_PAYOFF-5-5050 結算修正-機率-戰火佳人
+-   **50371**     CANCEL-5-5050 註銷-機率-戰火佳人
+-   **50374**     RE_PAYOFF-5-5034 結算修正-機率-王牌5PK
+-   **50375**     CANCEL-5-5034 註銷-機率-王牌5PK
+-   **50378**     RE_PAYOFF-5-5094 結算修正-機率-金瓶梅2
+-   **50379**     CANCEL-5-5094 註銷-機率-金瓶梅2
+-   **50382**     RE_PAYOFF-5-5401 結算修正-機率-天山俠侶
+-   **50383**     CANCEL-5-5401 註銷-機率-天山俠侶
+-   **50386**     RE_PAYOFF-5-5062 結算修正-機率-龍在囧途
+-   **50387**     CANCEL-5-5062 註銷-機率-龍在囧途
+-   **50390**     RE_PAYOFF-5-5035 結算修正-機率-加勒比樸克
+-   **50391**     CANCEL-5-5035 註銷-機率-加勒比樸克
+-   **50394**     RE_PAYOFF-5-5402 結算修正-機率-夜市人生
+-   **50395**     CANCEL-5-5402 註銷-機率-夜市人生
+-   **50398**     RE_PAYOFF-5-5080 結算修正-機率-樂透轉輪
+-   **50399**     CANCEL-5-5080 註銷-機率-樂透轉輪
+-   **50402**     RE_PAYOFF-5-5083 結算修正-機率-鑽石列車
+-   **50403**     CANCEL-5-5083 註銷-機率-鑽石列車
+-   **50406**     RE_PAYOFF-5-5084 結算修正-機率-聖獸傳說
+-   **50407**     CANCEL-5-5084 註銷-機率-聖獸傳說
+-   **50410**     RE_PAYOFF-5-5088 結算修正-機率-鬥大
+-   **50411**     CANCEL-5-5088 註銷-機率-鬥大
+-   **50414**     RE_PAYOFF-5-5089 結算修正-機率-紅狗
+-   **50415**     CANCEL-5-5089 註銷-機率-紅狗
+-   **50418**     RE_PAYOFF-5-5095 結算修正-機率-鬥雞
+-   **50419**     CANCEL-5-5095 註銷-機率-鬥雞
+-   **50422**     RE_PAYOFF-5-5403 結算修正-機率-七劍傳說
+-   **50423**     CANCEL-5-5403 註銷-機率-七劍傳說
+-   **50426**     RE_PAYOFF-5-5070 結算修正-機率-黃金大轉輪
+-   **50427**     CANCEL-5-5070 註銷-機率-黃金大轉輪
+-   **50430**     RE_PAYOFF-5-5039 結算修正-機率-魚蝦蟹
+-   **50431**     CANCEL-5-5039 註銷-機率-魚蝦蟹
+-   **50434**     RE_PAYOFF-5-5204 結算修正-機率-2014 FIFA
+-   **50435**     CANCEL-5-5204 註銷-機率-2014 FIFA
+-   **50438**     RE_PAYOFF-5-5404 結算修正-機率-沙灘排球
+-   **50439**     CANCEL-5-5404 註銷-機率-沙灘排球
+-   **50442**     RE_PAYOFF-5-5901 結算修正-機率-連環奪寶
+-   **50443**     CANCEL-5-5901 註銷-機率-連環奪寶
+-   **50446**     RE_PAYOFF-5-5902 結算修正-機率-糖果派對
+-   **50447**     CANCEL-5-5902 註銷-機率-糖果派對
+-   **50450**     RE_PAYOFF-5-5040 結算修正-機率-百搭二王
+-   **50451**     CANCEL-5-5040 註銷-機率-百搭二王
+-   **50454**     RE_PAYOFF-5-5701 結算修正-機率-連連看
+-   **50455**     CANCEL-5-5701 註銷-機率-連連看
+-   **50458**     RE_PAYOFF-5-5041 結算修正-機率-7PK
+-   **50459**     CANCEL-5-5041 註銷-機率-7PK
+-   **50462**     RE_PAYOFF-5-5073 結算修正-機率-百家樂大轉輪
+-   **50463**     CANCEL-5-5073 註銷-機率-百家樂大轉輪
+-   **50466**     RE_PAYOFF-5-5405 結算修正-機率-暗器之王
+-   **50467**     CANCEL-5-5405 註銷-機率-暗器之王
+-   **50470**     RE_PAYOFF-5-5085 結算修正-機率-激情雙重大轉輪
+-   **50471**     CANCEL-5-5085 註銷-機率-激情雙重大轉輪
+-   **50474**     RE_PAYOFF-5-5406 結算修正-機率-神舟27
+-   **50475**     CANCEL-5-5406 註銷-機率-神舟27
+-   **50478**     RE_PAYOFF-5-5702 結算修正-機率-環遊世界
+-   **50479**     CANCEL-5-5702 註銷-機率-環遊世界
+-   **50482**     RE_PAYOFF-5-5903 結算修正-機率-秦皇祕寶
+-   **50483**     CANCEL-5-5903 註銷-機率-秦皇祕寶
+-   **50486**     RE_PAYOFF-5-5703 結算修正-機率-發達囉
+-   **50487**     CANCEL-5-5703 註銷-機率-發達囉
+-   **50490**     RE_PAYOFF-5-5704 結算修正-機率-鬥牛
+-   **50491**     CANCEL-5-5704 註銷-機率-鬥牛
+-   **50494**     RE_PAYOFF-5-5705 結算修正-機率-聚寶盆
+-   **50495**     CANCEL-5-5705 註銷-機率-聚寶盆
+-   **50498**     RE_PAYOFF-5-5407 結算修正-機率-大紅帽與小野狼
+-   **50499**     CANCEL-5-5407 註銷-機率-大紅帽與小野狼
+-   **50502**     RE_PAYOFF-5-5706 結算修正-機率-濃情巧克力
+-   **50503**     CANCEL-5-5706 註銷-機率-濃情巧克力
+-   **50506**     RE_PAYOFF-5-5601 結算修正-機率-祕境冒險
+-   **50507**     CANCEL-5-5601 註銷-機率-祕境冒險
+-   **50510**     RE_PAYOFF-5-5106 結算修正-機率-三國
+-   **50511**     CANCEL-5-5106 註銷-機率-三國
+-   **50514**     RE_PAYOFF-5-5707 結算修正-機率-金錢豹
+-   **50515**     CANCEL-5-5707 註銷-機率-金錢豹
+-   **50518**     RE_PAYOFF-5-5086 結算修正-機率-海底派對
+-   **50519**     CANCEL-5-5086 註銷-機率-海底派對
+-   **50522**     RE_PAYOFF-5-5042 結算修正-機率-異星戰場
+-   **50523**     CANCEL-5-5042 註銷-機率-異星戰場
+-   **50526**     RE_PAYOFF-5-5837 結算修正-機率-喜福猴年
+-   **50527**     CANCEL-5-5837 註銷-機率-喜福猴年
+-   **50530**     RE_PAYOFF-5-5708 結算修正-機率-粽情端午
+-   **50531**     CANCEL-5-5708 註銷-機率-粽情端午
+-   **50534**     RE_PAYOFF-5-5005 結算修正-機率-星際大戰
+-   **50535**     CANCEL-5-5005 註銷-機率-星際大戰
+-   **50538**     RE_PAYOFF-5-5006 結算修正-機率-Starburst
+-   **50539**     CANCEL-5-5006 註銷-機率-Starburst
+-   **50542**     RE_PAYOFF-5-5007 結算修正-機率-激爆水果盤
+-   **50543**     CANCEL-5-5007 註銷-機率-激爆水果盤
+-   **50546**     RE_PAYOFF-5-5008 結算修正-機率-猴子爬樹
+-   **50547**     CANCEL-5-5008 註銷-機率-猴子爬樹
+-   **50550**     RE_PAYOFF-5-5009 結算修正-機率-金剛爬樓
+-   **50551**     CANCEL-5-5009 註銷-機率-金剛爬樓
+-   **50554**     RE_PAYOFF-5-5105 結算修正-機率-歐式輪盤
+-   **50555**     CANCEL-5-5105 註銷-機率-歐式輪盤
+-   **50558**     RE_PAYOFF-5-5107 結算修正-機率-美式輪盤
+-   **50559**     CANCEL-5-5107 註銷-機率-美式輪盤
+-   **50562**     RE_PAYOFF-5-5108 結算修正-機率-彩金輪盤
+-   **50563**     CANCEL-5-5108 註銷-機率-彩金輪盤
+-   **50566**     RE_PAYOFF-5-5109 結算修正-機率-法式輪盤
+-   **50567**     CANCEL-5-5109 註銷-機率-法式輪盤
+-   **50574**     RE_PAYOFF-5-5838 結算修正-機率-海底世界
+-   **50575**     CANCEL-5-5838 註銷-機率-海底世界
+-   **50578**     RE_PAYOFF-5-5839 結算修正-機率-經典高球
+-   **50579**     CANCEL-5-5839 註銷-機率-經典高球
+-   **50582**     RE_PAYOFF-5-5840 結算修正-機率-極限越野車
+-   **50583**     CANCEL-5-5840 註銷-機率-極限越野車
+-   **50586**     RE_PAYOFF-5-5063 結算修正-機率-水果拉霸
+-   **50587**     CANCEL-5-5063 註銷-機率-水果拉霸
+-   **50590**     RE_PAYOFF-5-5064 結算修正-機率-撲克拉霸
+-   **50591**     CANCEL-5-5064 註銷-機率-撲克拉霸
+-   **50594**     RE_PAYOFF-5-5065 結算修正-機率-筒子拉霸
+-   **50595**     CANCEL-5-5065 註銷-機率-筒子拉霸
+-   **50598**     RE_PAYOFF-5-5066 結算修正-機率-足球拉霸
+-   **50599**     CANCEL-5-5066 註銷-機率-足球拉霸
+-   **50602**     RE_PAYOFF-5-5087 結算修正-機率-海底派對
+-   **50603**     CANCEL-5-5087 註銷-機率-海底派對
+-   **50606**     RE_PAYOFF-5-5904 結算修正-機率-蒸氣炸彈
+-   **50607**     CANCEL-5-5904 註銷-機率-蒸氣炸彈
+-   **50610**     RE_PAYOFF-5-5905 結算修正-機率-麻將連環寶
+-   **50611**     CANCEL-5-5905 註銷-機率-麻將連環寶
+-   **50614**     RE_PAYOFF-5-5043 結算修正-機率-鑽石水果盤
+-   **50615**     CANCEL-5-5043 註銷-機率-鑽石水果盤
+-   **50618**     RE_PAYOFF-5-5044 結算修正-機率-明星97II
+-   **50619**     CANCEL-5-5044 註銷-機率-明星97II
+-   **50622**     RE_PAYOFF-5-5010 結算修正-機率-外星戰記
+-   **50623**     CANCEL-5-5010 註銷-機率-外星戰記
+-   **50626**     RE_PAYOFF-5-5067 結算修正-機率-大話西遊
+-   **50627**     CANCEL-5-5067 註銷-機率-大話西遊
+-   **50630**     RE_PAYOFF-5-5068 結算修正-機率-酷搜馬戲團
+-   **50631**     CANCEL-5-5068 註銷-機率-酷搜馬戲團
+-   **50634**     RE_PAYOFF-5-5069 結算修正-機率-水果擂台
+-   **50635**     CANCEL-5-5069 註銷-機率-水果擂台
+-   **50638**     RE_PAYOFF-5-5054 結算修正-機率-爆骰
+-   **50639**     CANCEL-5-5054 註銷-機率-爆骰
+-   **50642**     RE_PAYOFF-5-5906 結算修正-機率-小e奪寶
+-   **50643**     CANCEL-5-5906 註銷-機率-小e奪寶
+-   **50646**     RE_PAYOFF-5-5907 結算修正-機率-趣味台球
+-   **50647**     CANCEL-5-5907 註銷-機率-趣味台球
+-   **50650**     RE_PAYOFF-5-5090 結算修正-機率-金雞報喜
+-   **50651**     CANCEL-5-5090 註銷-機率-金雞報喜
+-   **50654**     RE_PAYOFF-5-5096 結算修正-機率-五行
+-   **50655**     CANCEL-5-5096 註銷-機率-五行
+-   **50658**     RE_PAYOFF-5-5908 結算修正-機率-糖果派對2
+-   **50659**     CANCEL-5-5908 註銷-機率-糖果派對2
+-   **50662**     RE_PAYOFF-5-5909 結算修正-機率-開心消消樂
+-   **50663**     CANCEL-5-5909 註銷-機率-開心消消樂
+-   **50666**     RE_PAYOFF-5-5097 結算修正-機率-海底世界
+-   **50667**     CANCEL-5-5097 註銷-機率-海底世界
+-   **50670**     RE_PAYOFF-5-5910 結算修正-機率-魔法元素
+-   **50671**     CANCEL-5-5910 註銷-機率-魔法元素
+-   **50674**     RE_PAYOFF-5-5098 結算修正-機率-五福臨門
+-   **50675**     CANCEL-5-5098 註銷-機率-五福臨門
+-   **50678**     RE_PAYOFF-5-5911 結算修正-機率-寶石派對
+-   **50679**     CANCEL-5-5911 註銷-機率-寶石派對
+-   **50682**     RE_PAYOFF-5-5099 結算修正-機率-金狗旺歲
+-   **50683**     CANCEL-5-5099 註銷-機率-金狗旺歲
+-   **50686**     RE_PAYOFF-5-5912 結算修正-機率-連環奪寶2
+-   **50687**     CANCEL-5-5912 註銷-機率-連環奪寶2
+-   **50690**     RE_PAYOFF-5-5045 結算修正-機率-森林舞會
+-   **50691**     CANCEL-5-5045 註銷-機率-森林舞會
+-   **50694**     RE_PAYOFF-5-5046 結算修正-機率-鬥魂
+-   **50695**     CANCEL-5-5046 註銷-機率-鬥魂
+-   **50698**     RE_PAYOFF-5-5100 結算修正-機率-七夕
+-   **50699**     CANCEL-5-5100 註銷-機率-七夕
+-   **50702**     RE_PAYOFF-5-5110 結算修正-機率-夜上海
+-   **50703**     CANCEL-5-5110 註銷-機率-夜上海
+-   **50706**     RE_PAYOFF-5-5119 結算修正-機率-神秘島
+-   **50707**     CANCEL-5-5119 註銷-機率-神秘島
+-   **59992**     WITHDRAWAL-5-MANUAL_PAYOFF_MULTI 重複派彩扣回-機率
+-   **59994**     FAIL-5 下注失敗-機率
+-   **59998**     RE_PAYOFF-5 結算修正-機率
+-   **59999**     CANCEL-5 註銷-機率
+
+
+### TPB ###
+
+-   **60002**     RE_PAYOFF-14-FORTUNA 結算修正-猛龍棋盤
+-   **60003**     CANCEL-14-FORTUNA 註銷-猛龍棋盤
+-   **60212**     RE_PAYOFF-15-15021 結算修正-機率-全民狗仔
+-   **60213**     CANCEL-15-15021 註銷-機率-全民狗仔
+-   **60222**     RE_PAYOFF-16-16022 結算修正-對戰-怒火領空
+-   **60223**     CANCEL-16-16022 註銷-對戰-怒火領空
+-   **60232**     RE_PAYOFF-15-15023 結算修正-機率-連連看
+-   **60233**     CANCEL-15-15023 註銷-機率-連連看
+-   **60242**     RE_PAYOFF-15-15024 結算修正-機率-2014世足賽
+-   **60243**     CANCEL-15-15024 註銷-機率-2014世足賽
+-   **60262**     RE_PAYOFF-15-15026 結算修正-機率-環遊世界
+-   **60263**     CANCEL-15-15026 註銷-機率-環遊世界
+-   **60272**     RE_PAYOFF-15-15027 結算修正-機率-神舟27
+-   **60273**     CANCEL-15-15027 註銷-機率-神舟27
+-   **60282**     RE_PAYOFF-15-15028 結算修正-機率-秦皇祕寶
+-   **60283**     CANCEL-15-15028 註銷-機率-秦皇祕寶
+-   **60292**     RE_PAYOFF-15-15029 結算修正-機率-激情大轉輪
+-   **60293**     CANCEL-15-15029 註銷-機率-激情大轉輪
+-   **60302**     RE_PAYOFF-15-15030 結算修正-機率-捕魚達人
+-   **60303**     CANCEL-15-15030 註銷-機率-捕魚達人
+-   **60990**     BETTINGFAIL-15 開分失敗-機率
+-   **60991**     PAYOFFFAIL-15 洗分失敗-機率
+-   **60602**     RE_PAYOFF-15-15006 結算修正-機率-3D玉蒲團
+-   **60603**     CANCEL-15-15006 註銷-機率-3D玉蒲團
+-   **61602**     RE_PAYOFF-15-15016 結算修正-機率-廚王爭霸
+-   **61603**     CANCEL-15-15016 註銷-機率-廚王爭霸
+-   **61702**     RE_PAYOFF-15-15017 結算修正-機率-奪寶
+-   **61703**     CANCEL-15-15017 註銷-機率-奪寶
+-   **61802**     RE_PAYOFF-15-15018 結算修正-機率-激情243
+-   **61803**     CANCEL-15-15018 註銷-機率-激情243
+-   **61902**     RE_PAYOFF-15-15019 結算修正-機率-倩女幽魂
+-   **61903**     CANCEL-15-15019 註銷-機率-倩女幽魂
+-   **62002**     RE_PAYOFF-15-15020 結算修正-機率-基諾
+-   **62003**     CANCEL-15-15020 註銷-機率-基諾
+-   **64202**     RE_PAYOFF-16-16002 結算修正-對戰-德州撲克
+-   **64203**     CANCEL-16-16002 註銷-對戰-德州撲克
+-   **64990**     BETTINGFAIL-16 買入失敗-對戰
+-   **64991**     PAYOFFFAIL-16 結算失敗-對戰
+-   **67252**     RE_PAYOFF-17-17025 結算修正-運動-賽車
+-   **67253**     CANCEL-17-17025 註銷-運動-賽車
+-   **67302**     RE_PAYOFF-17-17003 結算修正-運動-賽馬
+-   **67303**     CANCEL-17-17003 註銷-運動-賽馬
+-   **67990**     BETTINGFAIL-17 下注失敗-運動
+-   **67991**     PAYOFFFAIL-17 結算失敗-運動
+-   <strike>**68003**     RE_PAYOFF-15-30101 結算修正-機率-捕魚傳奇</strike>
+-   <strike>**68004**     CANCEL-15-30101 註銷-機率-捕魚傳奇</strike>
+
+
+### FISHING GAME ###
+
+-   **70003**     RE_PAYOFF-30-30101 結算修正-機率-捕魚傳奇
+-   **70004**     CANCEL-30-30101 註銷-機率-捕魚傳奇
+-   **70007**     RE_PAYOFF-30-30599 結算修正-捕魚-捕魚達人
+-   **70008**     CANCEL-30-30599 註銷-捕魚-捕魚達人
+-   <strike>**70011**     RE_PAYOFF-30-30102 結算修正-捕魚-BB捕魚大師</strike>
+-   <strike>**70012**     CANCEL-30-30102 註銷-捕魚-BB捕魚大師</strike>
+-   **70015**     RE_PAYOFF-38-38001 結算修正-捕魚-BB捕魚大師
+-   **70016**     CANCEL-38-38001 註銷-捕魚-BB捕魚大師
+-   **79997**     BETTING-30-CREDITFAIL 開分失敗-捕魚
+-   **79998**     RE_PAYOFF-30 結算修正-捕魚
+-   **79999**     CANCEL-30 註銷-捕魚
+
+
+### 一元奪寶 ###
+
+-   **80003**     RE_PAYOFF 結算修正-一元奪寶
+-   **80004**     CANCEL 註銷-一元奪寶
+-   **80005**     UNCANCEL 回復註銷-一元奪寶
+-   **80006**     REMOVE 刪單-一元奪寶
+-   **80007**     RECOVER 回復刪單-一元奪寶
+-   **80008**     WITHDRAWAL-34-MANUAL_PAYOFF_MULTI 重複派彩扣回-一元奪寶
+-   **80009**     BETTING-FAIL-34 下注失敗-一元奪寶
+
+
+### 賭神廳 ###
+
+-   **90003**    RETRUN-35-35101 退賽-視訊-賭神廳
+-   **90006**    RE_PAYOFF-35-35101 結算修正-視訊-賭神廳
+-   **90007**    CANCEL-35-35101 註銷-視訊-賭神廳
+-   **90008**    SIGNUP-FAIL-35-35101 報名失敗-視訊-賭神廳
+
+
+### SABAH ###
+
+-   **110003**    RE_PAYOFF-4 結算修正
+-   **110004**    CANCEL-4-NORMAL 一般註銷
+-   **110005**    UNCANCEL-4 註銷回復
+-   **110006**    CANCEL-4-SYSTEM 系統註銷
+-   **110007**    CANCEL-4-ILLEGAL_BET 非法下注
+-   **110009**    MOVE-4-PLUS 移賽事(補入 回復額度)
+-   **110010**    MOVE-4-MINUS 移賽事(扣除 實際扣除)
+-   **110011**    WITHDRAWAL-4-MANUAL_PAYOFF_MULTI 重複派彩扣回-體育投注
+-   **110012**    CANCEL-4-DANGEROUS 危險球註銷
+
+
+### BC體育 ###
+
+-   **120003**    RE_PAYOFF 結算修正-BC體育
+-   **120005**    CANCEL-NORMAL 一般註銷-BC體育
+-   **120006**    CANCEL-SYSTEM 系統註銷-BC體育
+-   **120007**    CANCEL-ILLEGAL_BET 非法下注-BC體育
+-   **120008**    CANCEL-DANGEROUS 危險球註銷-BC體育
+-   **120009**    UNCANCEL 註銷回復-BC體育
+-   **120010**    MOVE-PLUS 移賽事(補入 回復額度)-BC體育
+-   **120011**    MOVE-MINUS 移賽事(扣除 實際扣除)-BC體育
+-   **120012**    WITHDRAWAL-MANUAL_PAYOFF_MULTI 重複派彩扣回-BC體育
+
+
+### IN體育 ###
+
+-   **130003**    RE_PAYOFF 結算修正-IN體育
+-   **130004**    CANCEL-NORMAL 一般註銷-IN體育
+-   **130005**    CANCEL-SYSTEM 系統註銷-IN體育
+-   **130006**    CANCEL-ILLEGAL_BET 非法下注-IN體育
+-   **130007**    CANCEL-DANGEROUS 危險球註銷-IN體育
+-   **130008**    UNCANCEL 註銷回復-IN體育
+-   **130009**    MOVE-PLUS 移賽事(補入)-IN體育
+-   **130010**    MOVE-MINUS 移賽事(扣除)-IN體育
+-   **130011**    WITHDRAWAL-MANUAL_PAYOFF_MULTI 重複派彩扣回-IN體育
+
+
+### PTⅡ電子 ###
+
+-   **140003**    CANCEL 註銷-PTⅡ電子

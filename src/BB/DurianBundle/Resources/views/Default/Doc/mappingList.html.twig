@@ -1,0 +1,6 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block body %}
+    <h1> {{ title }} </h1>
+    {% include 'BBDurianBundle:Default/Doc:' ~ txt ~ '.html.twig' %}
+{% endblock %}

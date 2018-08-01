@@ -1,0 +1,78 @@
+<?php
+
+namespace Application\Migrations;
+
+use Doctrine\DBAL\Migrations\AbstractMigration,
+    Doctrine\DBAL\Schema\Schema;
+
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+class Version20130907114244 extends AbstractMigration
+{
+    public function up(Schema $schema)
+    {
+        // this up() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() != "mysql", "Migration can only be executed safely on 'mysql'.");
+        $this->addSql("UPDATE acc_param SET currency_name = (CASE currency_name WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency_name END)");
+        $this->addSql("UPDATE bank_currency SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE cash SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE cash_total_balance SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE cash_fake SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE cash_fake_total_balance SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE exchange SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE exchange_record SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE merchant SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE payment_gateway_currency SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE removed_user SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE removed_cash SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+        $this->addSql("UPDATE user SET currency = (CASE currency WHEN 'CNY' THEN 156 WHEN 'EUR' THEN 978 WHEN 'GBP' THEN 826 WHEN 'HKD' THEN 344 WHEN 'IDR' THEN 360 WHEN 'JPY' THEN 392 WHEN 'KRW' THEN 410 WHEN 'MYR' THEN 458 WHEN 'SGD' THEN 702 WHEN 'THB' THEN 764 WHEN 'TWD' THEN 901 WHEN 'USD' THEN 840 WHEN 'VND' THEN 704 WHEN 'DGC' THEN 905 ELSE currency END)");
+
+        $this->addSql("ALTER TABLE removed_user CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE cash_fake_total_balance CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE payment_gateway_currency CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE bank_currency CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE acc_param CHANGE currency_name currency_name SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE user CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE removed_cash CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE exchange CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE cash_total_balance CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE cash_fake CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE merchant CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE exchange_record CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+        $this->addSql("ALTER TABLE cash CHANGE currency currency SMALLINT UNSIGNED NOT NULL");
+    }
+
+    public function down(Schema $schema)
+    {
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() != "mysql", "Migration can only be executed safely on 'mysql'.");
+        $this->addSql("ALTER TABLE acc_param CHANGE currency_name currency_name VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE bank_currency CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE cash CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE cash_fake CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE cash_fake_total_balance CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE cash_total_balance CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE exchange CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE exchange_record CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE merchant CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE payment_gateway_currency CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE removed_cash CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE removed_user CHANGE currency currency VARCHAR(3) NOT NULL");
+        $this->addSql("ALTER TABLE user CHANGE currency currency VARCHAR(3) NOT NULL");
+
+        $this->addSql("UPDATE user SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE removed_cash SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE removed_user SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE payment_gateway_currency SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE merchant SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE exchange_record SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE exchange SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE cash_fake_total_balance SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE cash_fake SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE cash_total_balance SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE cash SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE bank_currency SET currency = (CASE currency WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency END)");
+        $this->addSql("UPDATE acc_param SET currency_name = (CASE currency_name WHEN 156 THEN 'CNY' WHEN 978 THEN 'EUR' WHEN 826 THEN 'GBP' WHEN 344 THEN 'HKD' WHEN 360 THEN 'IDR' WHEN 392 THEN 'JPY'WHEN 410 THEN 'KRW' WHEN 458 THEN 'MYR' WHEN 702 THEN 'SGD' WHEN 764 THEN 'THB' WHEN 901 THEN 'TWD' WHEN 840 THEN 'USD' WHEN 704 THEN 'VND' WHEN 905 THEN 'DGC' ELSE currency_name END)");
+    }
+}

@@ -1,0 +1,43 @@
+#!/bin/bash
+date
+BIN=$(cd $(dirname "$0"); pwd)
+
+## change to working directory
+cd $BIN/../app/logs/geoip_block
+
+if [ -f GeoLiteCity-*.tar.xz ]; then
+
+    echo "unzipping"
+
+    ## unzip to current directory
+    tar -xJf GeoLiteCity-*.tar.xz --strip=1
+
+    echo "file accessing"
+
+    ##轉檔
+    tail -n +3 ./GeoLiteCity-Blocks.csv   | iconv -f iso-8859-1 -t UTF-8 > ip.txt
+    tail -n +3 ./GeoLiteCity-Location.csv | iconv -f iso-8859-1 -t UTF-8 > loc.txt
+
+    echo "sed loc to loc.tmp"
+
+    sed 's/\"//g' loc.txt > loc.tmp
+
+    echo "awk loc.tmp to loc.final"
+
+    cat loc.tmp | awk '{FS=","} ($2 == "CN" ||  $2 == "TW" || $2 == "HK" || $2 == "MO" || $2 == "JP" || $2 == "MY" || $2 == "KM" || $2 == "VN" || $2 == "ID") {print $0}' > loc.final
+
+    echo "fgrep ip.txt to ip.final"
+
+    awk -F"," '{print ",\"" $1 "\""}' loc.final > loc.id
+    fgrep -f loc.id ip.txt -h > ip.final
+
+    $BIN/../app/console durian:cronjob:update-geo-ip
+
+    rm -f ./*
+
+else
+
+    echo "Cannot find file data source file"
+
+fi
+

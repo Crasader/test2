@@ -1,0 +1,32 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Contnection Test</h1>
+    <code>GET /api/external/connection_test</code>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <p class="lead">測試連線</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:external_game_map.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">game_code</label>
+            <div class="col-md-5">
+                <input name="game_code" type="text" class="form-control" value="1">
+            </div>
+            <span class="help-block col-md-4">遊戲平台編號</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_connection_test" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,54 @@
+#!/bin/bash
+# 使用跳板機的Durian原始碼與各WEB機器做比對
+#
+# 目的: 測試正式站程式及設定檔是否遭到修改
+# 檢查以下目錄: src/ config/ web/
+#
+# Usage  : ./check_file ip target env
+# ip     : 目標主機的ip
+# target : 目標主機的類型 目前有(bb, tv, sk, ipl2)
+# env    : 目標主機的環境 目前有(prod, qa, dev, pa, gli, sqlmap)
+
+if [ $# -lt 3 ];
+then
+    echo "Usage: ./check_file ip target env"
+    exit 1
+fi
+
+target=$2
+ip=$1
+env=$3
+error=0
+
+if [ "$env" == "prod" ]; then
+    path="/home/durian/$target.durian/current"
+else
+    if [ "$target" == "tv" ]; then
+        echo "dev and qa don't support tv"
+        exit 1
+    fi
+    path="/home/durian/$target.$env.d2/current"
+fi
+
+if [ ! -d "$path" ]; then
+    echo "There is no such directory: $path"
+    exit 1
+fi
+
+echo "$ip"
+echo "---------------------"
+change=$(rsync -rcvn --delete $path/src/ durian@$ip:$path/src/ | grep BB)
+config=$(rsync -rlcvn --delete $path/app/config/ durian@$ip:$path/app/config/ | awk '{if(NR>=2 && !/sent/ && !/^$/ && !/total/){print $0}}')
+web=$(rsync -rlcvn --delete $path/web/ durian@$ip:$path/web/ | awk '{if(NR>=2 && !/sent/ && !/^$/ && !/total/){print $0}}')
+
+if [ -n "$change" ] || [ -n "$config" ] || [ -n "$web" ];
+then
+    echo "There are some changes of the following files:"
+    echo "$change"
+    echo "$config"
+    echo "$web"
+    exit 1
+else
+    echo "Everything looks good"
+    exit 0
+fi

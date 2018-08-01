@@ -1,0 +1,41 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get User Remit Discount</h1>
+    <code>GET /user/{userId}/remit/discount</code>
+</div>
+
+<p class="lead">取得會員匯款優惠金額</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="input-group col-md-6">
+                <span class="input-group-addon">/api/user/</span>
+                <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                <span class="input-group-addon">/remit/discount</span>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">start</label>
+            <div class="col-md-5">
+                <input name="start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">搜尋開始時間。ISO-8601格式</span>
+            <label class="control-label col-md-3">end</label>
+            <div class="col-md-5">
+                <input name="end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">搜尋結束時間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_get_user_remit_discount" data-request-type="GET" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

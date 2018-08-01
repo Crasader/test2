@@ -1,0 +1,74 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Check Outside Count Entries</h1>
+    <code>GET /api/check/outside/count_entries</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">檢查外接額度明細筆數</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:outside_group_map.html.twig' %}
+</div>
+
+<p>回傳資料會依明細的<code>ref_id</code>做group by，只會回傳同一筆<code>ref_id</code>下明細數量小於<code>2</code>的資料</p>
+<div class="alert alert-warning">
+    <code>ref_id</code>最多只能帶150個
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">ref_id[]</label>
+                <div class="col-md-5">
+                    <input name="ref_id[]" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">查詢參考編號。用陣列輸入多個</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">opcode[]</label>
+                <div class="col-md-5">
+                    <input name="opcode[]" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">查詢Opcode。用陣列輸入多個</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">start</label>
+            <div class="col-md-5">
+                <input name="start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">搜尋開始時間。ISO-8601格式</span>
+            <label class="control-label col-md-3">end</label>
+            <div class="col-md-5">
+                <input name="end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">搜尋結束時間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">group</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="group" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">外接額度群組編號</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_check_outside_count_entries" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set Level Withdraw Bank Currency</h1>
+    <code>PUT /api/level/{levelId}/withdraw/bank_currency</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">設定層級支援的出款銀行幣別</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/level/</span>
+                    <input data-request-param="levelId" type="text" class="form-control" placeholder="{levelId}">
+                    <span class="input-group-addon">/withdraw/bank_currency</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">填入網址變數{levelId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">currency</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                        <input name="currency" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">幣別</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">bank_currency[]</label>
+                <div class="col-md-5">
+                    <input name="bank_currency[]" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">銀行幣別編號</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_level_set_withdraw_bank_currency" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

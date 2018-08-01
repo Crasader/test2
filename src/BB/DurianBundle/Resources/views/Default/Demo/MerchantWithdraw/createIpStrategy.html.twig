@@ -1,0 +1,62 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create Ip Strategy</h1>
+    <code>POST /api/merchant/withdraw/{merchantWithdrawId}/ip_strategy</code>
+</div>
+
+<p class="lead">新增出款商家ip限制</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/merchant/withdraw/</span>
+                    <input data-request-param="merchantWithdrawId" type="text" class="form-control" placeholder="{merchantWithdrawId}">
+                    <span class="input-group-addon">/ip_strategy</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{merchantWithdrawId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">country_id</label>
+            <div class="col-md-5">
+                <input id="countryId" name="country_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">國家Id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">region_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="region_id" type="text" class="form-control" value="" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">區域Id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">city_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="city_id" type="text" class="form-control" value="" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">城市Id</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_create_merchant_withdraw_ip_strategy" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

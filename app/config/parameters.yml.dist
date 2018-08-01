@@ -1,0 +1,237 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_master_host: ~
+    database_slave_host: ~
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+
+    database_his_driver:   pdo_mysql
+    database_his_host:     127.0.0.1
+    database_his_master_host: ~
+    database_his_slave_host: ~
+    database_his_port:     ~
+    database_his_name:     symfony_his
+    database_his_user:     root
+    database_his_password: ~
+
+    database_entry_driver:   pdo_mysql
+    database_entry_master_host: ~
+    database_entry_slave_host: ~
+    database_entry_port:     ~
+    database_entry_name:     symfony
+    database_entry_user:     root
+    database_entry_password: ~
+
+    database_share_driver:   pdo_mysql
+    database_share_master_host: ~
+    database_share_slave_host: ~
+    database_share_port:     ~
+    database_share_name:     symfony
+    database_share_user:     root
+    database_share_password: ~
+
+    database_outside_driver:   pdo_mysql
+    database_outside_master_host: ~
+    database_outside_slave_host: ~
+    database_outside_port:     ~
+    database_outside_name:     symfony
+    database_outside_user:     root
+    database_outside_password: ~
+
+    database_ip_blocker_driver:   pdo_mysql
+    database_ip_blocker_master_host: ~
+    database_ip_blocker_slave_host: ~
+    database_ip_blocker_port:     ~
+    database_ip_blocker_name:     symfony
+    database_ip_blocker_user:     root
+    database_ip_blocker_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            en
+    trusted_proxies:   ~
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    redis_host:        localhost
+    redis_port:        6379
+
+    # ATTENTION:
+    # 1. This parameter is used for redis cluster. It should be an array() type
+    #    by using [ ] or - (dash).
+    # 2. If you use one redis server for running tests, please setup another
+    #    hostname, such as: 127.0.0.1 -> localhost
+    redis_clusters:
+        - redis://127.0.0.1:6379/2
+        - redis://localhost:6379/3
+    redis_sequence: redis://localhost:6379/4
+    redis_reward: redis://localhost:6379/6
+    redis_map:
+        - redis://localhost:6379/7
+        - redis://localhost:6379/8
+        - redis://localhost:6379/9
+    redis_wallet1: redis://localhost:6379/10
+    redis_wallet2: redis://localhost:6379/11
+    redis_wallet3: redis://localhost:6379/12
+    redis_wallet4: redis://localhost:6379/13
+    redis_kue: redis://localhost:6379/12
+    redis_slide: redis://localhost:6379/14
+    redis_oauth2: redis://localhost:6379/2
+    redis_bodog: redis://localhost:6379/3
+    redis_external: redis://localhost:6379/4
+    redis_total_balance: redis://localhost:6379/5
+    redis_suncity: redis://localhost:6379/6
+    redis_ip_blocker:
+        - redis://localhost:6379/7
+        - redis://localhost:6379/8
+        - redis://localhost:6379/9
+
+    cluster_name:  symfony
+    sequence_name: symfony
+    map_name: symfony
+
+    reward_name: symfony
+
+    kue_name: symfony
+
+    slide_name: symfony
+    bodog_name: symfony
+    external_name: symfony
+    total_balance_name: symfony
+    suncity_name: symfony
+    ip_blocker_name: symfony
+
+    account_domain:    ~
+    account_ip:        ~
+
+    italking_domain:      ~
+    italking_ip:          ~
+    italking_url:         ~
+    italking_method:      ~
+    italking_user:        ~
+    italking_password:    ~
+    italking_gm_code:     ~
+    italking_esball_code: ~
+    italking_bet9_code:   ~
+    italking_kresball_code: ~
+    italking_esball_global_code: ~
+    italking_eslot_code: ~
+
+    maintain_1_domain: ~
+    maintain_1_ip:     ~
+    maintain_1_url:    ~
+    maintain_1_method: ~
+
+    maintain_3_domain: ~
+    maintain_3_ip:     ~
+    maintain_3_url:    ~
+    maintain_3_method: ~
+
+    maintain_mobile_domain: ~
+    maintain_mobile_ip:     ~
+    maintain_mobile_url:    ~
+    whitelist_mobile_url:    ~
+    whitelist_mobile_key:    ~
+
+    maintain_domain_domain: ~
+    maintain_domain_ip:     ~
+    maintain_domain_url:    ~
+
+    shopweb_ip: ~
+
+    audit_domain: ~
+    audit_ip:     ~
+
+    oauth_redirect_ip: ~
+
+    rd1_domain:  ~
+    rd1_ip:      ~
+    rd1_api_key: ~
+
+    rd1_ball_domain:  ~
+    rd1_ball_ip:      ~
+    rd1_ball_api_key: ~
+
+    rd1_maintain_domain: ~
+    rd1_maintain_ip:     ~
+
+    rd2_domain: ~
+    rd2_ip:     ~
+
+    rd3_domain: ~
+    rd3_ip:     ~
+
+    rd5_domain: ~
+    rd5_ip:     ~
+
+    kiwi_host: ~
+    kiwi_ip: ~
+    kiwi_api_key: ~
+    kiwi_port: ~
+
+    site:       ~
+    kue_domain: ~
+    kue_ip:     ~
+
+    pdo_attr_timeout: ~
+
+    xhprof_location_config: /usr/local/lib/php/xhprof_lib/config.php
+    xhprof_location_lib:    /usr/local/lib/php/xhprof_lib/utils/xhprof_lib.php
+    xhprof_location_runs:   /usr/local/lib/php/xhprof_lib/utils/xhprof_runs.php
+    xhprof_location_web:    http://xhprof.local
+
+    payment_ip: ~
+
+    merchant_white_list_user: ~
+    merchant_white_list_password: ~
+    merchant_white_list_ip: ~
+    merchant_white_list_host: ~
+
+    whitelist_f5_ip: ~
+
+    rd1_copy_user_domain: ~
+    rd1_copy_user_ip:     ~
+
+    rd2_copy_user_domain: ~
+    rd2_copy_user_ip:     ~
+
+    rd3_copy_user_domain: ~
+    rd3_copy_user_ip:     ~
+
+    rd5_payment_ip_list: ~
+
+    rd1_mail_server_ip: ~
+
+    otp_server_ip: ~
+    otp_secret: ~
+    static_otp_username: ~
+    static_otp_password: ~
+
+    ttl_binding_token: 300
+    ttl_access_token: 7200
+
+    oauth2_prefix: "symfony:oauth2:"
+
+    remit_auto_confirm_host: ~
+    auto_confirm_bbv2_host: ~
+    auto_confirm_bbv2_token: ~
+
+    rd5_external_code: []
+
+    payment_bind_ip: ~
+    pay_ip_bind_token: ~
+
+    suncity_agent: []
+
+    external_host: ~
+    external_ip: ~
+    external_port: ~
+
+    pink_ip: ~
+    pink_host: ~
+    trade_token: ~

@@ -1,0 +1,57 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set Remit Level Order</h1>
+    <code>PUT /api/remit/domain/{domain}/remit_level_order</code>
+</div>
+
+<p class="lead">設定該廳指定層級「依照使用次數分配銀行卡」的設定</p>
+
+<form class="form-horizontal" role="form">
+    <form class="form-horizontal" role="form">
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-md-2"></label>
+                <div class="input-group col-md-6">
+                    <span class="input-group-addon">/api/remit/domain/</span>
+                    <input data-request-param="domain" type="text" class="form-control" placeholder="{domain}">
+                    <span class="input-group-addon">/remit_level_order</span>
+                </div>
+                <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{domain}</p>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">by_count</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="by_count" type="text" class="form-control" value="1" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">是否優先分配次數少的銀行卡。預設 1</span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default action-more" type="button">複製參數</button>
+                <div class="template">
+                    <label class="control-label col-md-3">level_ids[]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="level_ids[]" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">層級ID</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-6">
+                    <button data-request-routing="api_remit_set_remit_level_order" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+                </div>
+            </div>
+        </fieldset>
+</form>
+{% endblock %}

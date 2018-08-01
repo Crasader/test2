@@ -1,0 +1,41 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Add PaymentGateway Bind Ip</h1>
+    <code>POST /api/payment_gateway/{paymentGatewayId}/bind_ip</code>
+</div>
+
+<p class="lead">新增支付平台綁定IP</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/payment_gateway/</span>
+                    <input data-request-param="paymentGatewayId" type="text" class="form-control" placeholder="{paymentGatewayId}">
+                    <span class="input-group-addon">/bind_ip</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">網址變數{paymentGatewayId} 輸入支付平台id</p>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">ips[]</label>
+                <div class="col-md-5">
+                    <input name="ips[]" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">ip</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_add_payment_gateway_bind_ip" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

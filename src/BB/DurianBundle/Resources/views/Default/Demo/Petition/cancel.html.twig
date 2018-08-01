@@ -1,0 +1,29 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Cancel Petition</h1>
+    <code>PUT /api/petition/{petitionId}/cancel</code>
+</div>
+<p class="lead">撤銷提交單</p>
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/petition/</span>
+                    <input data-request-param="petitionId" type="text" class="form-control" placeholder="{petitionId}">
+                    <span class="input-group-addon">/cancel</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入提交單編號{petitionId}</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_petition_cancel" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

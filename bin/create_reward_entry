@@ -1,0 +1,16 @@
+#!/bin/sh
+
+MAX=$1
+BIN=$(cd $(dirname "$0"); pwd)
+
+# 最大同時跑的數量預設為1個
+if [ -z "$MAX" ]
+then
+    MAX=1
+fi
+
+if [ $MAX -gt "`ps aux | grep create-reward-entry | grep console | grep -v grep | wc -l`" ]
+then
+    $BIN/../app/console durian:create-reward-entry --env=prod >> $BIN/../app/logs/prod.create_reward_entry.log 2>&1 &
+fi
+

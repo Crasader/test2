@@ -1,0 +1,338 @@
+services:
+    durian.exception_listener:
+        class: BB\DurianBundle\EventListener\ExceptionListener
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            - { name: kernel.event_listener, event: console.exception, method: onConsoleException }
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+    durian.op:
+        class: BB\DurianBundle\Service\OpService
+        calls:
+            - [ setCashHelper, [ '@durian.cash_helper' ] ]
+            - [ setDoctrine, [ '@doctrine' ] ]
+            - [ setContainer, [ '@service_container' ] ]
+    # User
+    durian.ancestor_manager:
+        class: BB\DurianBundle\User\AncestorManager
+        calls:
+            - [ setDoctrine, [ '@doctrine' ] ]
+            - [ setContainer, [ '@service_container' ] ]
+    durian.user_manager:
+        class: BB\DurianBundle\User\UserManager
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    durian.user_validator:
+        class: BB\DurianBundle\User\Validator
+        calls:
+            - [ setDoctrine, [ '@doctrine' ] ]
+    durian.user_id_generator:
+        class: BB\DurianBundle\User\IdGenerator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # UserDetail
+    durian.userdetail_generator:
+        class: BB\DurianBundle\UserDetail\Generator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    durian.user_detail_validator:
+        class: BB\DurianBundle\UserDetail\Validator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Domain
+    durian.domain_id_generator:
+        class: BB\DurianBundle\Domain\IdGenerator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    durian.domain_validator:
+        class: BB\DurianBundle\Domain\Validator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Share
+    durian.share_mocker:
+        class: BB\DurianBundle\Share\Mocker
+    durian.share_dealer:
+        class: BB\DurianBundle\Share\Dealer
+        calls:
+            - [ setValidator, [ '@durian.share_validator' ] ]
+    durian.share_option_generator:
+        class: BB\DurianBundle\Share\OptionGenerator
+    durian.share_scheduled_for_update:
+        class: BB\DurianBundle\Share\ScheduledForUpdate
+        calls:
+            - [ setDoctrine, [ '@doctrine' ] ]
+    durian.share_validator:
+        class: BB\DurianBundle\Share\Validator
+        calls:
+            - [ setScheduler, [ '@durian.share_scheduled_for_update' ] ]
+    # CashFake
+    durian.cashfake_op:
+        class: BB\DurianBundle\CashFake\CashFakeOperator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    durian.cash_fake_helper:
+        class: BB\DurianBundle\Cash\Helper
+        calls:
+            - [ setDoctrine, [ '@doctrine' ] ]
+            - [ setCashEntryIdGenerator, [ '@durian.cash_entry_id_generator' ] ]
+            - [ setCashFakeEntryIdGenerator, [ '@durian.cash_fake_entry_id_generator' ] ]
+            - [ setOpService, [ '@durian.op' ] ]
+    durian.cash_fake_entry_id_generator:
+        class: BB\DurianBundle\CashFake\Entry\IdGenerator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Cash
+    durian.cash_helper:
+        class: BB\DurianBundle\Cash\Helper
+        calls:
+            - [ setDoctrine, [ '@doctrine' ] ]
+            - [ setCashEntryIdGenerator, [ '@durian.cash_entry_id_generator' ] ]
+            - [ setCashFakeEntryIdGenerator, [ '@durian.cash_fake_entry_id_generator' ] ]
+            - [ setOpService, [ '@durian.op' ] ]
+    durian.cash_entry_id_generator:
+        class: BB\DurianBundle\Cash\Entry\IdGenerator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    durian.deposit_entry_id_generator:
+        class: BB\DurianBundle\Deposit\Entry\IdGenerator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    durian.withdraw_entry_id_generator:
+        class: BB\DurianBundle\Withdraw\Entry\IdGenerator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Credit OpService
+    durian.credit_op:
+        class: BB\DurianBundle\Credit\CreditOperator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Card
+    durian.card_operator:
+        class: BB\DurianBundle\Card\Operator
+        calls:
+            - [ setDoctrine, [ '@doctrine' ] ]
+            - [ setContainer, [ '@service_container' ] ]
+    durian.card_entry_id_generator:
+        class: BB\DurianBundle\Card\Entry\IdGenerator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Currency
+    durian.currency:
+        class: BB\DurianBundle\Currency
+    # Deposit
+    durian.deposit_operator:
+        class: BB\DurianBundle\Deposit\Operator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Withdraw
+    durian.withdraw_helper:
+        class: BB\DurianBundle\Withdraw\Helper
+        arguments: ['@service_container']
+    # Share
+    durian.activate_sl_next:
+        class: BB\DurianBundle\Share\ActivateSLNext
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Monitor
+    durian.monitor.background:
+        class: BB\DurianBundle\Monitor\Background
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Payment
+    durian.payment_operator:
+        class: BB\DurianBundle\Payment\Operator
+        calls:
+            - [ setDoctrine, [ '@doctrine' ] ]
+            - [ setContainer, [ '@service_container' ] ]
+    durian.payment_logger:
+        class: BB\DurianBundle\Logger\Payment
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Parameter handler
+    durian.parameter_handler:
+        class: BB\DurianBundle\ParameterHandler
+    # iTalking operator
+    durian.italking_operator:
+        class: BB\DurianBundle\Message\ITalkingOperator
+        arguments: ['@service_container']
+    # Validator
+    durian.validator:
+        class: BB\DurianBundle\Validator
+    # Sensitive Logger
+    durian.sensitive_logger:
+        class: BB\DurianBundle\Logger\Sensitive
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Operation Logger
+    durian.operation_logger:
+        class: BB\DurianBundle\Logger\Operation
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Maintain operator
+    durian.maintain_operator:
+        class: BB\DurianBundle\Maintain\MaintainOperator
+        arguments: ['@service_container']
+    # Domain message
+    durian.domain_msg:
+        class: BB\DurianBundle\Maintain\DomainMsg
+        arguments: ['@service_container']
+    # Loggger Manager
+    durian.logger_manager:
+        class: BB\DurianBundle\Logger\LoggerManager
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Oauth
+    durian.oauth_generator:
+        class: BB\DurianBundle\Oauth\OauthGenerator
+    # exchange
+    durian.exchange:
+        class: BB\DurianBundle\Exchange\Exchange
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # SQL Logger
+    durian.logger_sql:
+        class: BB\DurianBundle\Logger\SQL
+        arguments: ['@logger']
+    # BatchOpService
+    durian.batch_op:
+        class: BB\DurianBundle\BatchOperation
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # User Payway
+    durian.user_payway:
+        class: BB\DurianBundle\User\Payway
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Remit
+    durian.remit_order_generator:
+        class: BB\DurianBundle\Remit\OrderNumberGenerator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    durian.remit_helper:
+        class: BB\DurianBundle\Remit\Helper
+        calls:
+            - [ setDoctrine, [ '@doctrine' ] ]
+            - [ setContainer, [ '@service_container' ] ]
+    durian.remit_auto_confirm_logger:
+        class: BB\DurianBundle\Logger\RemitAutoConfirm
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Session
+    durian.session_broker:
+        class: BB\DurianBundle\Session\Broker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Captcha
+    durian.captcha_genie:
+        class: BB\DurianBundle\Captcha\Genie
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Http curl worker
+    durian.http_curl_worker:
+        class: BB\DurianBundle\Message\HttpCurlWorker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # ITalking worker
+    durian.italking_worker:
+        class: BB\DurianBundle\Message\ITalkingWorker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # RD1 worker
+    durian.rd1_operator:
+        class: BB\DurianBundle\Message\RD1Worker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # RD1 maintain worker
+    durian.rd1_maintain_worker:
+        class: BB\DurianBundle\Message\RD1MaintainWorker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # RD1 whitelist worker
+    durian.rd1_whitelist_worker:
+        class: BB\DurianBundle\Message\RD1WhitelistWorker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # RD2 worker
+    durian.rd2_operator:
+        class: BB\DurianBundle\Message\RD2Worker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # RD3 worker
+    durian.rd3_operator:
+        class: BB\DurianBundle\Message\RD3Worker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # RD3 maintain worker
+    durian.rd3_maintain_worker:
+        class: BB\DurianBundle\Message\RD3MaintainWorker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Mobile whitelist worker
+    durian.mobile_whitelist_worker:
+        class: BB\DurianBundle\Message\MobileWhitelistWorker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Blacklist
+    durian.blacklist_validator:
+        class: BB\DurianBundle\Blacklist\Validator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Kue
+    durian.kue_manager:
+        class: BB\DurianBundle\Kue\KueManager
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    # Login
+    durian.login_validator:
+        class: BB\DurianBundle\Login\Validator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+
+    # OTP
+    durian.otp_worker:
+        class: BB\DurianBundle\Otp\Worker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+
+    # Oauth2 Server
+    durian.oauth2_server:
+        class: BB\DurianBundle\Oauth2\Server
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+
+    # AutoConfirm Match Maker
+    durian.auto_confirm_match_maker:
+        class: BB\DurianBundle\AutoConfirm\MatchMaker
+        calls:
+            - [ setDoctrine, [ '@doctrine' ] ]
+            - [ setContainer, [ '@service_container' ] ]
+
+    # Auto Remit Maker
+    durian.auto_remit_maker:
+        class: BB\DurianBundle\Remit\AutoRemitMaker
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+
+    # Auto Remit Checker
+    durian.auto_remit_checker:
+        class: BB\DurianBundle\Remit\AutoRemitChecker
+        calls:
+            - [ setDoctrine, [ '@doctrine' ] ]
+            - [ setContainer, [ '@service_container' ] ]
+
+    # Bitcoin
+    durian.block_chain:
+        class: BB\DurianBundle\Payment\BlockChain
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    durian.bitcoin_deposit_entry_id_generator:
+        class: BB\DurianBundle\Bitcoin\Deposit\Entry\IdGenerator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
+    durian.bitcoin_withdraw_entry_id_generator:
+        class: BB\DurianBundle\Bitcoin\Withdraw\Entry\IdGenerator
+        calls:
+            - [ setContainer, [ '@service_container' ] ]

@@ -1,0 +1,144 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set CardCharge</h1>
+    <code>PUT /api/card_charge/{cardChargeId}</code>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <p class="lead">修改租卡線上支付設定</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:order_strategy.html.twig' %}
+</div>
+
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/card_charge/</span>
+                    <input data-request-param="cardChargeId" type="text" class="form-control" placeholder="{cardChargeId}">
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{cardChargeId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">order_strategy</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="order_strategy" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">排序設定</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sc_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_sc_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">大股東最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sc_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_sc_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">大股東最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_co_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_co_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">股東最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_co_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_co_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">股東最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sa_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_sa_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">總代理最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sa_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_sa_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">總代理最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_ag_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_ag_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">代理最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_ag_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_ag_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">代理最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_set_card_charge" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

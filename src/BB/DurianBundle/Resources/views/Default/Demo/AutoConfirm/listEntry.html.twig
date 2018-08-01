@@ -1,0 +1,371 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>List Auto Confirm Entry</h1>
+    <code>GET /api/auto_confirm/entry/list</code>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <p class="lead">匯款記錄列表</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">ref_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ref_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">外部訂單ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">confirm</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="confirm" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否確認入款 0:否 1:是</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">manual</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="manual" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否人工匹配 0:否 1:是</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">remit_account_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="remit_account_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">BB自動認款帳號id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">remit_entry_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="remit_entry_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">BB自動認款訂單號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">method</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="method" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">匯款方式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="account" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">匯款帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">匯款人姓名</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">trade_memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="trade_memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">匯款附言</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">message</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="message" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">收支信息</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="amount_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">匯款金額下限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="amount_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">匯款金額上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fee_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="fee_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">匯款手續費下限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fee_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="fee_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">匯款手續費上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">balance_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="balance_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">匯款餘額下限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">balance_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="balance_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">匯款餘額上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">trade_start</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="trade_start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋匯款記錄的起始時間，請使用ISO-8601格式輸入</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">trade_end</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="trade_end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋匯款記錄的結束時間，請使用ISO-8601格式輸入</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">created_start</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="created_start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋建立匯款記錄起始時間，請使用ISO-8601格式輸入</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">created_end</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="created_end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋建立匯款記錄結束時間，請使用ISO-8601格式輸入</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">confirm_start</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="confirm_start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋確認入款記錄的起始時間，請使用ISO-8601格式輸入</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">confirm_end</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="confirm_end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋確認入款記錄的結束時間，請使用ISO-8601格式輸入</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">sort[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="sort[]" type="text" class="form-control" value="id" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">排序欄位</span>
+                <label class="control-label col-md-3">order[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="order[]" type="text" class="form-control" value="asc" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">升冪或降冪。可設定asc或desc</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_result</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_result" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁從第幾筆開始</span>
+            <label class="control-label col-md-3">max_results</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁顯示筆數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">sub_total</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sub_total" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否回傳小計。預設0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">total</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="total" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否回傳總計。預設0</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_auto_confirm_entry_list" data-request-type="GET" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

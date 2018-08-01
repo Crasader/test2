@@ -1,0 +1,226 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Multi Order</h1>
+    <code>PUT /api/orders</code>
+</div>
+
+<p class="lead">多重下注</p>
+<div class="alert alert-danger">
+    注意！此API專門設計給下注使用，如有需要使用在非下注請找開發人員討論
+</div>
+<div class="alert alert-info">
+    注意！此API 的<code>pay_way</code> 若為<code>outside</code>必須全部<code>一致</code>，不能混雜其他交易機制
+</div>
+<div class="alert alert-info">
+    注意！此API 的<code>pay_way</code>為<code>outside</code>時，<code>session_id 必填</code>
+</div>
+<div class="alert alert-info">
+    memo(備註)的字數限制為<code>100</code>個字，若超過只會保留前100個字
+</div>
+<p>下注專用API的主要目的為簡化下注流程，將所有需要的動作及變數集中於同一個API中，以減少呼叫其他API的次數。說明如下：</p>
+<ul>
+    <li>付款種類可帶入現金<code>cash</code>, 快開額度<code>cash_fake</code>, 信用額度<code>credit</code>, 外接額度<code>outside</code> 其中一種</li>
+    <li>投注金額<code>amount</code>、租卡<code>card_amount</code>帶入負數作扣款的邏輯</li>
+    <li>現金或快開額度下注應填欄位：備查編號<code>ref_id</code>、自動確認交易<code>auto_commit</code></li>
+    <li>信用額度下注應填欄位：信用額度群組代碼<code>credit_group_num</code>、信用額度日期<code>credit_at</code></li>
+    <li>回傳佔成分配必需將佔成分配群組代碼<code>sharelimit_group_num</code>及佔成日期<code>at</code>輸入，並不得為空值</li>
+    <li>若該使用者非租卡體系，則將不會回傳任何租卡相關資訊</li>
+</ul>
+<br>
+<p>金額支援型態參考如下:</p>
+<ul>
+    <li>Cash計算到小數點<code>後四位</code></li>
+    <li>CashFake計算到小數點<code>後四位</code></li>
+    <li>Credit計算到小數點<code>後四位</code></li>
+    <br>
+    <li>Card只支援<code>整數</code></li>
+</ul>
+<br>
+<p>相關錯誤訊息請參考：</p>
+<ul>
+    <li><a href="{{ path('demo', {'group': 'card', 'item': 'card_op'}) }}">Card Operation</a></li>
+    <li><a href="{{ path('demo', {'group': 'cash', 'item': 'op'}) }}">Cash Operation</a></li>
+    <li><a href="{{ path('demo', {'group': 'cash_fake', 'item': 'op'}) }}">CashFake Operation</a></li>
+    <li><a href="{{ path('demo', {'group': 'credit', 'item': 'op'}) }}">Credit Operation</a></li>
+</ul>
+<br>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <hr>
+        <div>
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="checkbox">orders[0]</label>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[user_id]</label>
+                    <div class="col-md-5">
+                        <input name="orders[0][user_id]" name="orders[0][user_id]" type="text" class="form-control">
+                    </div>
+                    <span class="help-block col-md-4">使用者ID</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[pay_way]</label>
+                    <div class="col-md-5">
+                        <input name="orders[0][pay_way]" type="text" class="form-control">
+                    </div>
+                    <span class="help-block col-md-4">付款種類</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[amount]</label>
+                    <div class="col-md-5">
+                        <input name="orders[0][amount]" type="text" class="form-control">
+                    </div>
+                    <span class="help-block col-md-4">投注金額</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[opcode]</label>
+                    <div class="col-md-5">
+                        <input name="orders[0][opcode]" type="text" class="form-control">
+                    </div>
+                    <span class="help-block col-md-4">交易代碼</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[operator]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][operator]" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">操作者。預設空字串</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[card_amount]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][card_amount]" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">租卡扣點</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[memo]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][memo]" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">備註。預設空字串</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[ref_id]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][ref_id]" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">備查編號。預設null</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[auto_commit]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][auto_commit]" type="text" class="form-control" value="1" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">自動確認交易。預設1</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[force]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][force]" type="text" class="form-control" value="0" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">允許強制扣款。預設為不允許</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[credit_group_num]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][credit_group_num]" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">信用額度群組代碼</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[credit_at]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][credit_at]" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">信用額度日期。ISO8601格式</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[sharelimit_group_num]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][sharelimit_group_num]" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">佔成分配群組代碼</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[at]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][at]" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">佔成日期。ISO8601格式</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">[session_id]</label>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input class="action-enable" type="checkbox">
+                            </span>
+                            <input name="orders[0][session_id]" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <span class="help-block col-md-4">session_id，pay_way為outside須帶入</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_multi_order" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

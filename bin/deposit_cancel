@@ -1,0 +1,16 @@
+#!/bin/sh
+
+MAX=$1
+BIN=$(cd $(dirname "$0"); pwd)
+PHP='/usr/local/bin/php'
+
+# 最大同時跑的數量預設為1個
+if [ -z "$MAX" ]
+then
+    MAX=1
+fi
+
+if [ $MAX -gt "`ps aux | grep durian:deposit-cancel | grep -v grep | wc -l`" ]
+then
+    $PHP $BIN/../app/console durian:deposit-cancel --env=prod >> $BIN/../app/logs/deposit_cancel.log 2>&1 &
+fi

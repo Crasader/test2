@@ -1,0 +1,55 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Suncity Entries By RefId</h1>
+    <code>GET /api/suncity/entries_by_ref_id</code>
+</div>
+
+<p class="lead">使用refId查詢太陽城明細</p>
+
+<div class="alert alert-info">
+    此API僅供RD5檢查使用，帶入參數與回傳內容均為<code>太陽城的資料</code>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <div class="template">
+                <label class="control-label col-md-3">ref_id</label>
+                <div class="col-md-5">
+                    <input name="ref_id" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">RD5 entry id</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">page</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="page" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">頁數</span>
+            <label class="control-label col-md-3">page_limit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">每頁筆數</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_get_suncity_entries_by_ref_id" data-request-type="GET" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

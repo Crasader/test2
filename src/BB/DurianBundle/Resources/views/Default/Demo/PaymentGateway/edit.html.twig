@@ -1,0 +1,235 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Edit PaymentGateway</h1>
+    <code>PUT /api/payment_gateway/{paymentGatewayId}</code>
+</div>
+
+<p class="lead">修改支付平台資料</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/payment_gateway/</span>
+                    <input data-request-param="paymentGatewayId" type="text" class="form-control" placeholder="{paymentGatewayId}">
+                </div>
+            </div>
+            <button id="load-btn" data-request-routing="api_get_payment_gateway" class="btn btn-default" type="button">Load</button>
+            <p class="help-block col-md-offset-2 col-md-10">網址變數{paymentGatewayId}輸入支付平台id</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">code</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="code" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">代碼</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">支付平台名稱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">post_url</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="post_url" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">送交網址</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">auto_reop</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="auto_reop" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否有自動補單</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">reop_url</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="reop_url" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">補單網址</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">label</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="label" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">支付平台Class的名稱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">verify_url</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="verify_url" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">支付平台驗證網址</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">verify_ip</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="verify_ip" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">支付平台驗證Ip</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">withdraw</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="withdraw" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否支援出款</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">upload_key</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="upload_key" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否需上傳公私鑰</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否支援入款</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">mobile</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="mobile" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否支援電子錢包</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">withdraw_url</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="withdraw_url" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">出款網址</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">withdraw_host</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="withdraw_host" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">出款網址域名</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">withdraw_tracking</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="withdraw_tracking" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否支援出款訂單查詢</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">random_float</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="random_float" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否需增加隨機小數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">document_url</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="document_url" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">文件網址</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_edit_payment_gateway" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

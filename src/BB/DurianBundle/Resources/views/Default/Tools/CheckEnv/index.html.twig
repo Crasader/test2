@@ -1,0 +1,36 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block body %}
+<div class="page-header">
+    <h1>主機環境檢查</h1>
+</div>
+
+<p>歡迎來到主機環境檢查網頁，下面列出的清單會顯示未安裝的模組，或是未設定好的服務</p>
+
+<form name="checkform" method="POST">
+    <button type="submit" class="btn btn-primary">開始檢查</button>
+</form>
+
+<p>
+    {% if problems|length > 0 %}
+        <h3>重大問題</h3>
+        <p>若有重大問題存在, 務必馬上修正</p>
+
+        {% for problem in problems.major %}
+            <li>{{ problem }}</li>
+        {% else %}
+            <li>無</li>
+        {% endfor %}
+
+        <hr />
+
+        <h3>建議安裝</h3>
+        <p>建議安裝以下模組, 以改善symfony2體驗</p>
+        {% for problem in problems.minor %}
+            <li>{{ problem }}</li>
+        {% else %}
+            <li>無</li>
+        {% endfor %}
+    {% endif %}
+</p>
+{% endblock %}

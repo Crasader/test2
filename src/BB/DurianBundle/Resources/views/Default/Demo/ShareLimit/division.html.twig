@@ -1,0 +1,45 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get ShareLimit Division</h1>
+    <code>GET /api/user/{userId}/share_limit/{groupNum}/division</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+    <p class="lead">回傳佔成分配, 下注專用</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:share_limit_group.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/share_limit/</span>
+                    <input data-request-param="groupNum" type="text" class="form-control" placeholder="{groupNum}">
+                    <span class="input-group-addon">/division</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}, {groupNum}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">timestamp</label>
+            <div class="col-md-5">
+                <input id="begin_time" name="timestamp" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">時間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_shareLimit_division" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

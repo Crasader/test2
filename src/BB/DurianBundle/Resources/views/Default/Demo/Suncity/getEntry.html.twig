@@ -1,0 +1,34 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Suncity Entry</h1>
+    <code>GET /api/suncity/entry/{entryId}</code>
+</div>
+
+<p class="lead">取得單筆太陽城明細</p>
+
+<div class="alert alert-info">
+    此API僅供RD5檢查使用，帶入參數與回傳內容均為<code>太陽城的資料</code>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/suncity/entry/</span>
+                    <input data-request-param="entryId" type="text" class="form-control" placeholder="{entryId}">
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{entryId}</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_get_suncity_entry" data-request-type="GET" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

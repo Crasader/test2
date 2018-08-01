@@ -1,0 +1,66 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Edit Email</h1>
+    <code>PUT /api/user/{userId}/email</code>
+</div>
+<p class="lead">修改信箱</p>
+<div class="row">
+    <div class="col-md-7">
+        <p><code>verify</code> 是否驗證信箱，預設為1</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/email</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">email</label>
+            <div class="col-md-5">
+                <input name="email" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">信箱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">verify</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="verify" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否驗證Email，預設為1</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">verify_blacklist</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="verify_blacklist" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否檢查黑名單。設1檢查，設0不檢查。預設為1</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_user_edit_email" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Bitcoin Wallet</h1>
+    <code>GET /api/bitcoin_wallet/{bitcoinWalletId}</code>
+</div>
+
+<p class="lead">取得比特幣錢包</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/bitcoin_wallet/</span>
+                    <input data-request-param="bitcoinWalletId" type="text" class="form-control" placeholder="{bitcoinWalletId}">
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{bitcoinWalletId}</p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_bitcoin_wallet" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

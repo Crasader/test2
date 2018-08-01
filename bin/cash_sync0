@@ -1,0 +1,15 @@
+#!/bin/sh
+
+MAX=$1
+BIN=$(cd $(dirname "$0"); pwd)
+
+# 最大同時跑的數量預設為20個
+if [ -z "$MAX" ]
+then
+    MAX=20
+fi
+
+if [ $MAX -gt "`ps aux | grep executeQueue=0 | grep -v grep | wc -l`" ]
+then
+      $BIN/../app/console durian:run-cash-sync --executeQueue=0 --env=prod >> $BIN/../app/logs/run_cash_sync0.log 2>&1 &
+fi

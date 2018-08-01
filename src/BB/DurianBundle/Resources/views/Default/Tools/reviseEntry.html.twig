@@ -1,0 +1,230 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+
+$(function () {
+    $('.btn-put').click(function() {
+        var param = $('form').serialize();
+
+        $.ajax({
+            url: Routing.generate('tools_' + $('select').val() + '_entry_revise'),
+            type: 'PUT',
+            data: param,
+            dataType: 'json',
+            success: function(data) {
+                if ($('#entry tr').length > 1) {
+                    $('#entryTable')[0].deleteRow(1);
+                    if ($('#transfer tr').length > 1) {
+                        $('#transferTable')[0].deleteRow(1);
+                    }
+                }
+
+                if (data.result === 'error') {
+                    $('#errorMsg').find('p:eq(0)').text('錯誤代碼: ' + data.code);
+                    $('#errorMsg').find('p:eq(1)').text('錯誤訊息: ' + data.msg);
+                    $('#entry').hide();
+                    $('#transfer').hide();
+                    $('#errorMsg').show('fast');
+                }
+
+                if (data.result === 'ok') {
+                    $('#entry').find('div:eq(0)').text('更新成功，建立時間由 ' + $('#at').val() + ' 更新為 ' + $('#new_at').val());
+                    $('#entry').find('caption:eq(0)').text($('#type option:selected').text() + '明細');
+                    $('#entry').find('td:eq(1)').text($('#type option:selected').text() + '編號');
+                    var columnArray = ['id', 'cash_id', 'cash_fake_id', 'created_at', 'amount', 'balance'];
+                    var i = 0;
+                    var row = $('#entryTable')[0].insertRow(1);
+                    $.each(data.ret.entry, function(column, content){
+                        if (jQuery.inArray(column, columnArray) >= 0) {
+                            var cell = row.insertCell(i++);
+                            cell.innerHTML = content;
+                        }
+                    });
+                    $('#entry').show();
+                    $('#transfer').hide();
+                    $('#errorMsg').hide();
+
+                    if ($(data.ret.transfer).length) {
+                        $('#transfer').find('caption:eq(0)').text($('#type option:selected').text() + '轉帳交易記錄');
+                        $('#transfer').find('td:eq(1)').text($('#type option:selected').text() + '編號');
+                        var i = 0;
+                        var row = $('#transferTable')[0].insertRow(1);
+                        $.each(data.ret.transfer, function(column, content){
+                            if (jQuery.inArray(column, columnArray) >= 0) {
+                                var cell = row.insertCell(i++);
+                                cell.innerHTML = content;
+                            }
+                        });
+                        $('#transfer').show();
+                    }
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h1>處理額度不符工具</h1>
+</div>
+
+<fieldset>
+    <form class="form-horizontal" role="form">
+        <div class="col-md-4" style="background-color:#eeeeee;padding-top:10px;padding-left:40px;padding-right:40px;padding-bottom:10px">
+            <div class="form-group">
+                <label class="control-label">明細類型</label>
+                <select class="form-control" id = "type">
+                    <option value="cash">現金</option>
+                    <option value="cashfake">假現金</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">明細編號</label>
+                <input name="entry_id" type="text" placeholder="明細編號" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">建立時間</label>
+                <input id="at" name="at" type="datetime" class="form-control" value="{{ "now"|date("Y-m-d H:i:s") }}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">新建立時間</label>
+                <input id="new_at" name="new_at" type="datetime" class="form-control" value="{{ "now"|date("Y-m-d H:i:s") }}">
+            </div>
+            <button class="btn btn-primary btn-put" type="button">修改建立時間</button>
+            <div style="display:none" id="errorMsg">
+                <br><div class="alert alert-danger" role="alert">發生錯誤</div>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+    </form>
+    <div class="col-md-8">
+        {% if content %}
+            <h3>額度不符清單</h3>
+            {% if content.cash %}
+                <div>
+                    <table align="right" class="table table-striped">
+                        <caption style="text-align:left">現金</caption>
+                        <tr>
+                            <td>編號</td>
+                            <td>現金編號</td>
+                            <td>使用者</td>
+                            <td>幣別</td>
+                            <td>交易餘額</td>
+                            <td>額度總和</td>
+                        </tr>
+                        {% for cashError in content.cash %}
+                            <tr>
+                                <td width="15%">{{ cashError.id }}</td>
+                                <td width="15%">{{ cashError.cashId }}</td>
+                                <td width="15%">{{ cashError.userId }}</td>
+                                <td width="15%">{{ cashError.currency }}</td>
+                                <td width="20%">{{ cashError.balance }}</td>
+                                <td width="20%">{{ cashError.totalAmount }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+            {% if content.cashFake %}
+                <div>
+                    <table align="right" class="table table-striped">
+                        <caption style="text-align:left">假現金</caption>
+                        <tr>
+                            <td>編號</td>
+                            <td>假現金編號</td>
+                            <td>使用者</td>
+                            <td>幣別</td>
+                            <td>交易餘額</td>
+                            <td>額度總和</td>
+                        </tr>
+                        {% for cashFakeError in content.cashFake %}
+                            <tr>
+                                <td width="15%">{{ cashFakeError.id }}</td>
+                                <td width="15%">{{ cashFakeError.cashFakeId }}</td>
+                                <td width="15%">{{ cashFakeError.userId }}</td>
+                                <td width="15%">{{ cashFakeError.currency }}</td>
+                                <td width="20%">{{ cashFakeError.balance }}</td>
+                                <td width="20%">{{ cashFakeError.totalAmount }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+            {% if content.card %}
+                <div>
+                    <table align="right" class="table table-striped">
+                        <caption style="text-align:left">租卡</caption>
+                        <tr>
+                            <td>編號</td>
+                            <td>租卡編號</td>
+                            <td>使用者</td>
+                            <td>交易餘額</td>
+                            <td>額度總和</td>
+                        </tr>
+                        {% for cardError in content.card %}
+                            <tr>
+                                <td width="15%">{{ cardError.id }}</td>
+                                <td width="15%">{{ cardError.cardId }}</td>
+                                <td width="15%">{{ cardError.userId }}</td>
+                                <td width="20%">{{ cardError.balance }}</td>
+                                <td width="20%">{{ cardError.totalAmount }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+            <div align="left">
+                <form action="{{ path('tools_error_remove') }}" method="POST">
+                    <input type="submit" value="刪除額度不符" class="btn btn-primary"/>
+                </form>
+            </div>
+        {% endif %}
+        {% if content == null %}
+            {% if status == 'showTable' %}
+                <div class="alert alert-info" role="alert">無額度不符!</div>
+            {% endif %}
+            {% if status == 'delete' %}
+                <div class="alert alert-success" role="alert">刪除成功!</div>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="col-md-9" style="display:none" id="entry">
+        <br><div class="alert alert-success" role="alert"></div>
+        <table class="table table-striped" id="entryTable">
+            <caption style="text-align:left"></caption>
+            <thead>
+                <tr>
+                    <td>明細編號</td>
+                    <td>現金編號</td>
+                    <td>建立時間</td>
+                    <td>交易金額</td>
+                    <td>餘額</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-9" style="display:none" id="transfer">
+        <table class="table table-striped" id="transferTable">
+            <caption style="text-align:left"></caption>
+            <thead>
+                <tr>
+                    <td>明細編號</td>
+                    <td>現金編號</td>
+                    <td>建立時間</td>
+                    <td>交易金額</td>
+                    <td>餘額</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</fieldset>
+{% endblock %}

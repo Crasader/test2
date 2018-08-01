@@ -1,0 +1,44 @@
+<?php
+
+namespace Application\Migrations;
+
+use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema;
+
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+class Version20180710035820 extends AbstractMigration
+{
+    /**
+     * @param Schema $schema
+     */
+    public function up(Schema $schema)
+    {
+        // this up() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql("INSERT INTO payment_gateway (id, code, name, post_url, auto_reop, reop_url, verify_url, verify_ip, label, bind_ip, removed, withdraw, hot, order_id, upload_key) VALUES ('562', 'ZhongXinYun', '众信云支付', 'http://banks.8zcf.com/Pay_Index.html', '0', '', '', '', 'ZhongXinYun', '1', '0', '0', '1', '464', '0')");
+        $this->addSql("INSERT INTO payment_gateway_currency (payment_gateway_id, currency) VALUES ('562', '156')");
+        $this->addSql("INSERT INTO payment_gateway_has_payment_method (payment_gateway_id, payment_method_id) VALUES ('562', '3'), ('562', '8')");
+        $this->addSql("INSERT INTO payment_gateway_has_payment_vendor (payment_gateway_id, payment_vendor_id) VALUES ('562', '1092'), ('562', '1098')");
+        $this->addSql("INSERT INTO payment_gateway_description (payment_gateway_id, name, value) VALUES ('562', 'number', ''), ('562', 'private_key', '')");
+        $this->addSql("INSERT INTO payment_gateway_bind_ip (payment_gateway_id, ip) VALUES ('562', '1033949024')");
+    }
+
+    /**
+     * @param Schema $schema
+     */
+    public function down(Schema $schema)
+    {
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql("DELETE FROM payment_gateway_bind_ip WHERE payment_gateway_id = '562' AND ip = '1033949024'");
+        $this->addSql("DELETE FROM payment_gateway_description WHERE payment_gateway_id = '562'");
+        $this->addSql("DELETE FROM payment_gateway_has_payment_vendor WHERE payment_gateway_id = '562' AND payment_vendor_id IN ('1092', '1098')");
+        $this->addSql("DELETE FROM payment_gateway_has_payment_method WHERE payment_gateway_id = '562' AND payment_method_id IN ('3', '8')");
+        $this->addSql("DELETE FROM payment_gateway_currency WHERE payment_gateway_id = '562' AND currency = '156'");
+        $this->addSql("DELETE FROM payment_gateway WHERE id = '562'");
+    }
+}

@@ -1,0 +1,153 @@
+# docker compose
+# 相關文件在 https://docs.docker.com/compose/
+# 參考網站：http://tech.osteel.me/posts/2015/12/18/from-vagrant-to-docker-how-to-use-docker-for-local-web-development.html
+
+# 使用說明
+#
+# 使用前請先複製檔案
+# $ cp docker-compose.yml.example docker-compose.yml
+#
+# 依照compose設定將所有環境建置起來
+# $ docker-compose up -d
+#
+# 完成後執行
+# $ docker-compose run php composer install
+# 確保透過composer管理函式庫都有安裝完成。包含phpunit
+#
+# 修改compose設定或service參數後如需要重建生效
+# $ docker-compose up -d --build
+#
+# 清空所有環境
+# $ docker-compose down --rmi local
+#
+# 如需匯入mysql資料，可執行命令如下：
+# $ docker exec -i CONTAINER mysql -uuser -psecret durian_bb < backup.sql
+# 或利用本機上的3306 port匯入
+#
+# service參數檔可以在docker資料夾裡找到，修改後記得執行以下命令生效
+# $ docker-compose up -d --build
+#
+# 如需要查看service的log可以使用
+# $ docker logs CONTAINER
+
+version: '2'
+
+services:
+    # nginx container
+    # 服務開在本地80 port
+    nginx:
+        build: ./docker/nginx/
+        ports:
+            - 8080:80
+        links:
+            - php
+        volumes_from:
+            - app
+
+    # php container
+    # Set the TERM environment variable to 'xterm' for fixing color issue
+    #
+    # 專案目錄已經直接掛在php-fpm的`/var/www/html`資料夾裡
+    # 如果本機已經有安裝php與composer，可直接在本機執行`composer install`
+    # Symfony的命令列工具`app/console`也可以直接本機執行
+    #
+    # 如需在container中執行migration，命令如下：
+    # $ docker exec -it CONTAINER app/console doctrine:migration:migrate
+    #
+    # Symfony的`cache`或`logs`資料夾如有寫入權限問題，請把權限設定成777即可
+    php:
+        build: ./docker/php/
+        expose:
+            - 9000
+        links:
+            - mysql
+            - redis
+        volumes_from:
+            - app
+        environment:
+            TERM: xterm
+
+    # Data container for source code
+    #
+    # Added a new container named app, using the same volumes parameter as the
+    # nginx and php ones. The purpose of this container is solely to hold the
+    # application code: when Docker Compose will create it, it is going to be
+    # stopped at once as it doesn't do anything apart from executing the command
+    # "true". This is not a problem as for the volume to be accessible, the
+    # container needs to exist but doesn't need to be running, also preventing the
+    # pointless use of extra resources.
+    # Besides, you'll notice that we're using the same PHP image as the php
+    # container's: this is a good practice as this image already exists and
+    # reusing it doesn't take any extra space (as opposed to using a data-only
+    # image such as busybox, as you may see in other tutorials out there).
+    app:
+        build: ./docker/php/
+        volumes:
+            - .:/var/www/html
+        command: "true"
+
+    # MySQL container
+    #
+    # MySQL檔案預設會掛載在`data/mysql`資料夾
+    # 如果`data/mysql`內無任何資料，系統會自動依照environment設定建出預設資料庫
+    # 可設定參數參考： https://hub.docker.com/r/_/mysql/
+    # 如果`data/mysql` 已經有資料庫則設定將被忽略，且不會影響到已經建立的資料庫
+    #
+    # 方便起見可以複製原本的MySQL檔案，從`/var/lib/mysql`到`data/mysql`
+    # 但須注意因版本及參數設定的不同，檔案可能會有不相容的狀況。
+    # 一般的升版都會自動進行，不需另外處理。例如：MySQL v5.6升級v5.7會自動執行
+    # 注意：檔案可能會被修改權限或升級，直接用link掛載檔案的話需要注意
+    #
+    # local有開對應的port在3306，可以方便用任何的MySQL client開啟。
+    # 注意必須先關閉原本的MySQL服務，避免佔用3306 port
+    #
+    # 記得將`parameters.yml`內的MySQL IP都設定成`mysql`即可連上對應的服務IP
+    # ex:
+    #      database_master_host: 127.0.0.1
+    # 改成 database_master_host: mysql
+    #
+    # 如需匯入mysql資料，可執行命令如下：
+    # $ docker exec -i CONTAINER mysql -uuser -psecret durian_bb < backup.sql
+    # 或利用本機上的3306 port匯入
+    mysql:
+        build: ./docker/mysql/
+        ports:
+            - 3306:3306
+        volumes_from:
+            - data4mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: very-secret
+            MYSQL_DATABASE: durian_bb
+            MYSQL_USER: rd5
+            MYSQL_PASSWORD: secret
+
+    # Data container for MySQL
+    data4mysql:
+        build: ./docker/mysql/
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+        command: "true"
+
+    # Redis container
+    #
+    # Redis檔案預設會掛載在`data/redis`資料夾
+    # 預設只有在save時會需要寫入檔案
+    # 對應開在local的port是6379，方便在本地用任何一種client連上
+    #
+    # 設定連線時將連線到Redis服務的位址設定成`redis`即可
+    # ex:
+    #      redis_sequence: ['redis://127.0.0.1:6379/4']
+    # 改成 redis_sequence: ['redis://redis:6379/4']
+    redis:
+        build: ./docker/redis/
+        ports:
+            - 6379:6379
+        volumes_from:
+            - data4redis
+
+    # Data container for redis
+    data4redis:
+        build: ./docker/redis/
+        volumes:
+            - ./data/redis:/data
+        command: "true"

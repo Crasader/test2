@@ -1,0 +1,155 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+
+$(function () {
+    $('.btn-get').click(function() {
+        var param = $('form').serialize();
+
+        $.ajax({
+            url: Routing.generate('tools_deposit_test'),
+            type: 'POST',
+            data: param,
+            dataType: 'json',
+            success: function(data) {
+                if (data.result === 'error') {
+                    var showMsg = '';
+                    showMsg += '<p>發生錯誤</p>';
+                    showMsg += '<p>code: ' + data.code + '</p>';
+                    showMsg += '<p>msg:' + data.msg + '</p>';
+
+                    $('.msg').html(showMsg);
+                }
+
+                if (data.result === 'ok') {
+                    var form = document.createElement("form");
+                    form.setAttribute('method', 'post');
+                    form.setAttribute('action', data.ret.request_url);
+
+                    params = data.ret.params;
+
+                    for (var key in params) {
+                        var hiddenField = document.createElement('input');
+                        hiddenField.setAttribute('type', 'hidden');
+                        hiddenField.setAttribute('name', key);
+                        hiddenField.setAttribute('value', params[key]);
+
+                        form.appendChild(hiddenField);
+                    }
+
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h1>測試線上入款工具</h1>
+</div>
+
+<fieldset>
+    <form class="form-horizontal" role="form">
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">amount</label>
+            <div class="col-md-5">
+                <input name="amount" type="text" class="form-control" value="0.01">
+            </div>
+            <span class="help-block col-md-4">金額</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">currency</label>
+            <div class="col-md-5">
+                <input name="currency" type="text" class="form-control" value="CNY">
+            </div>
+            <span class="help-block col-md-4">幣別</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">payment_vendor_id</label>
+            <div class="col-md-5">
+                <input name="payment_vendor_id" type="text" class="form-control" value="1">
+            </div>
+            <span class="help-block col-md-4">支付廠商</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">domain</label>
+            <div class="col-md-5">
+                <input name="domain" type="text" class="form-control" value="6">
+            </div>
+            <span class="help-block col-md-4">廳</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">server_ip</label>
+            <div class="col-md-5">
+                <input name="server_ip" type="text" class="form-control" value="172.26.53.1:6081">
+            </div>
+            <span class="help-block col-md-4">負載平衡IP，預設為正式站的</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">request_url</label>
+            <div class="col-md-5">
+                <input name="request_url" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-5">提交網址，非必填，預設為商家的shop_url串pay.php</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">notify_url</label>
+            <div class="col-md-5">
+                <input name="notify_url" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-5">返回網址，非必填，預設為商家的shop_url串return.php</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">merchant_id</label>
+            <div class="col-md-5">
+                <input name="merchant_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">商號ID，非必填，預設為空字串</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">user_id</label>
+            <div class="col-md-5">
+                <input name="user_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">使用者ID，非必填，預設使用php1test</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">abandon_offer</label>
+            <div class="col-md-5">
+                <input name="abandon_offer" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">放棄優惠，預設0</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label class="control-label col-md-2">language</label>
+                <div class="col-md-5">
+                    <select name="lang" class="form-control">
+                        <option value="zh-tw">繁中</option>
+                        <option value="zh-cn">簡中</option>
+                        <option value="en">英文</option>
+                        <option value="th">泰文</option>
+                        <option value="ja">日文</option>
+                        <option value="ko">韓文</option>
+                        <option value="vi">越南文</option>
+                        <option value="id">印尼</option>
+                        <option value="ug">維吾爾</option>
+                        <option value="es">西班牙</option>
+                        <option value="lo">寮國</option>
+                        <option value="km">柬埔寨</option>
+                    </select>
+                </div>
+            <span class="help-block col-md-4">語言</span>
+        </div>
+        <div class="form-group col-md-10">
+            <button class="btn btn-primary btn-get" type="button">Send request</button>
+        </div>
+    </form>
+</fieldset>
+<div class="form-group col-md-8 msg"></div>
+{% endblock %}

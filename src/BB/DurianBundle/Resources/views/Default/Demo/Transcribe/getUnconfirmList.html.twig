@@ -1,0 +1,66 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Transcribe Unconfirm List</h1>
+    <code>GET /api/transcribe/unconfirm_list</code>
+</div>
+
+<p class="lead">取得未認領清單</p>
+<div class="alert alert-info">符合以下兩種情境的明細為未認領清單：
+    <div><code>1.代入的金額 = 人工抄錄明細金額</code></div>
+    <div><code>2.代入的金額 = 人工抄錄明細金額 - 人工抄錄明細手續費</code></div>
+</div>
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">account_id</label>
+            <div class="col-md-5">
+                <input name="account_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">出入款帳號id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount_min</label>
+            <div class="col-md-5">
+                <input name="amount_min" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">搜尋金額的下限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount_max</label>
+            <div class="col-md-5">
+                <input name="amount_max" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">搜尋金額的上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">booked_at_start</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="booked_at_start" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋帳目時間,起。ISO8601格式</span>
+            <label class="control-label col-md-3">booked_at_end</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="booked_at_end" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋帳目時間,迄。ISO8601格式</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_get_transcribe_unconfirm_list" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

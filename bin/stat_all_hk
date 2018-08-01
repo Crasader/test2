@@ -1,0 +1,49 @@
+#!/bin/sh
+
+BIN=$(cd $(dirname "$0"); pwd)
+PHP="/usr/local/bin/php"
+
+time=`$PHP $BIN/../app/console durian:time-generator --day --commandName='stat-domain-cash-opcode-hk'`
+
+start="`echo $time|awk -F ',' '{print $1}'| sed "s/,/ /g"`"
+end="`echo $time|awk -F ',' '{print $2}'| sed "s/,/ /g"`"
+
+#因 background_process 的 last_end_time 記的是執行時昨天的日期, 會造成每天統計了兩天的資料, 所以這邊將起始時間加一天
+start=`date --date="$start 1 days" +'%Y-%m-%d'`
+
+echo "開始時間$start" >> $BIN/../app/logs/stat_all_hk.log
+echo "結束時間$end" >> $BIN/../app/logs/stat_all_hk.log
+
+runStart="$start"
+conditionStart=`date -d "$start" +'%Y%m%d%H%M%S'`
+conditionEnd=`date -d "$end" +'%Y%m%d%H%M%S'`
+start1=`date -d "$start" +'%Y-%m-%d %H:%M:%S'`
+
+batchSize='3000'
+waitSec='0.3'
+
+while [ $conditionStart -lt $conditionEnd ]
+do
+    echo "=stat-cash-opcode-hk" >> $BIN/../app/logs/stat_all_hk.log
+    echo "$PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-opcode --table-name='stat_cash_opcode_hk' --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}"" >> $BIN/../app/logs/stat_all_hk.log
+    $PHP -d memory_limit=256M $BIN/../app/console durian:stat-cash-opcode --table-name='stat_cash_opcode_hk' --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}" >> $BIN/../app/logs/stat_all_hk.log 2>&1
+    if [ "$?" -ne "0" ]; then
+       exit 1
+    fi
+
+    #為了消化語法避免資料庫落後先 sleep 120 秒
+    sleep 120
+
+    echo "=stat-domain-cash-opcode-hk" >> $BIN/../app/logs/stat_all_hk.log
+    echo "$PHP -d memory_limit=256M $BIN/../app/console durian:stat-domain-cash-opcode --table-name='stat_domain_cash_opcode_hk' --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}"" >> $BIN/../app/logs/stat_all_hk.log
+    $PHP -d memory_limit=256M $BIN/../app/console durian:stat-domain-cash-opcode --table-name='stat_domain_cash_opcode_hk' --batch-size="${batchSize}" --wait-sec="${waitSec}" --env=prod --start-date="${runStart}" --end-date="${runStart}" >> $BIN/../app/logs/stat_all_hk.log 2>&1
+    if [ "$?" -ne "0" ]; then
+       exit 1
+    fi
+
+    runEnd=`date --date="$runStart 1 days" +'%Y-%m-%d'`
+    runStart="$runEnd"
+    start1=`date --date="$start1 1 days" +'%Y-%m-%d %H:%M:%S'`
+    conditionStart=`date -d "$start1" +'%Y%m%d%H%M%S'`
+done
+

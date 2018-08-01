@@ -1,0 +1,66 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get CashFake Total Balance Live</h1>
+    <code>GET /api/cash_fake/total_balance_live</code>
+</div>
+
+<p class="lead">回傳即時計算會員總餘額</p>
+<p><code>parent_id</code>目前僅能使用廳主</p>
+<p><code>enable=1</code>則回傳啟用會員總額，不帶參數則為回傳所有會員</p>
+<p><code>include_test=1</code>則回傳測試體系總額，不帶參數則為回傳所有會員</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">parent_id</label>
+            <div class="col-md-5">
+                <input name="parent_id" type="text" class="form-control" value="1">
+            </div>
+            <span class="help-block col-md-4">上層id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">enable</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="enable" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">計算停用或啟用會員</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">include_test</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="include_test" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否計算測試體系</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">currency</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="currency" type="text" class="form-control" value="CNY" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">幣別</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_cash_fake_get_total_balance_live" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

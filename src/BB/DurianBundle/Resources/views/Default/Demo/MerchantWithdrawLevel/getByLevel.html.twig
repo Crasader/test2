@@ -1,0 +1,71 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Merchant Withdraw Level By Level</h1>
+    <code>GET /api/level/{levelId}/merchant/withdraw/level</code>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <p class="lead">依層級回傳出款商家層級設定</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/level/</span>
+                    <input data-request-param="levelId" type="text" class="form-control" placeholder="{levelId}">
+                    <span class="input-group-addon">/merchant/withdraw/level</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{levelId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">currency</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="currency" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">幣別</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">enable</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="enable" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">啟停用</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">suspend</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="suspend" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">暫停</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_merchant_withdraw_level_by_level" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

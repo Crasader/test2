@@ -1,0 +1,45 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set Domain Withdraw Bank Currency</h1>
+    <code>PUT /api/domain/{domain}/withdraw/bank_currency</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">設定廳主支援的出款銀行幣別</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/domain/</span>
+                    <input data-request-param="domain" type="text" class="form-control" placeholder="{domain}">
+                    <span class="input-group-addon">/withdraw/bank_currency</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">填入網址變數{domain}</p>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-2">bank_currency[]</label>
+                <div class="col-md-6">
+                    <input name="bank_currency[]" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">銀行幣別編號</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_domain_set_withdraw_bank_currency" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

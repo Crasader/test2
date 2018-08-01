@@ -1,0 +1,442 @@
+<?php
+
+/* BBDurianBundle:Default:monitor.html.twig */
+class __TwigTemplate_4c0cbfd79e3e53cc683b323a5a5af1e5d2be5bbd99e8fa4e7d3ead71b7442dbc extends Twig_Template
+{
+    public function __construct(Twig_Environment $env)
+    {
+        parent::__construct($env);
+
+        // line 1
+        $this->parent = $this->loadTemplate("::base.html.twig", "BBDurianBundle:Default:monitor.html.twig", 1);
+        $this->blocks = array(
+            'javascripts' => array($this, 'block_javascripts'),
+            'navbar' => array($this, 'block_navbar'),
+            'body' => array($this, 'block_body'),
+        );
+    }
+
+    protected function doGetParent(array $context)
+    {
+        return "::base.html.twig";
+    }
+
+    protected function doDisplay(array $context, array $blocks = array())
+    {
+        $this->parent->display($context, array_merge($this->blocks, $blocks));
+    }
+
+    // line 3
+    public function block_javascripts($context, array $blocks = array())
+    {
+        // line 4
+        echo "    <script type=\"text/javascript\">
+    var setReload;
+    var displayMode = \"showOnlyError\";
+
+    var style = new Array();
+    style['normal'] = 'success';
+    style['noExecuted'] = 'danger';
+    style['executedTooLong'] = 'warning';
+    style['disable'] = 'success';
+    style['abnormal'] = 'danger';
+    style['executing'] = 'warning';
+
+    var statusArr = new Array();
+    statusArr['normal'] = '正常';
+    statusArr['noExecuted'] = '沒有執行';
+    statusArr['executedTooLong'] = '執行太久';
+    statusArr['disable'] = '停用';
+    statusArr['executing'] = '執行中';
+
+    \$().ready(function(){
+        reload();
+    });
+
+    //取得背景程式資訊,寫入Table中
+    function reload() {
+        \$.ajax({
+            url: Routing.generate('api_monitor_queue'),
+            type: 'GET',
+            data: \$('form').serialize(),
+            dataType: 'json',
+            success: function(data) {
+
+                \$('#queueTable-error').addClass('hide');
+
+                var errorRow = \$('#queue-error');
+                errorRow.empty();
+
+                \$('#queue-cash').empty();
+                \$('#queue-cash_fake').empty();
+                \$('#queue-card').empty();
+                \$('#queue-credit').empty();
+                \$('#queue-italking').empty();
+                \$('#queue-rm_plan_user').empty();
+                \$('#queue-message').empty();
+                \$('#queue-deposit').empty();
+                \$('#queue-shopweb').empty();
+                \$('#queue-audit').empty();
+                \$('#queue-login_log').empty();
+                \$('#queue-reward').empty();
+                \$('#queue-kue').empty();
+                \$('#queue-user_size').empty();
+                \$('#queue-level').empty();
+                \$('#queue-bodog').empty();
+                \$('#queue-external').empty();
+                \$('#queue-suncity').empty();
+                \$('#queue-merchant_rsa_key').empty();
+                \$('#queue-auto_withdraw').empty();
+                \$('#queue-set_withdraw_status').empty();
+
+                for (queueInfo in data['ret']) {
+
+                    var name = data['ret'][queueInfo].name;
+                    var queueNum = data['ret'][queueInfo].queueNum;
+                    var type = data['ret'][queueInfo].type;
+                    var memo = data['ret'][queueInfo].memo;
+                    var status = \"\";
+
+                    if (name.indexOf('failed') !== -1 && queueNum > 0) {
+                        status = 'danger';
+                    } else {
+                        status = 'success';
+                    }
+
+                    if (status === 'success') {
+                        var currTd = '<div title=\"' + memo + '\">';
+                        currTd += '<label class=\"col-md-3\">'+ name +'</label>';
+                        currTd += '<label class=\"col-md-1\">'+ queueNum +'</label></div>';
+
+                        \$('#queue-' + type).append(currTd);
+
+                    } else {
+                        var currTd = '<div title=\"' + memo + '\">';
+                        currTd += '<label class=\"col-md-3\">'+ type + '_' + name +'</label>';
+                        currTd += '<label class=\"col-md-1\">'+ queueNum +'</label></div>';
+
+                        \$('#queueTable tr').removeClass('hide');
+                        errorRow.append(currTd);
+                    }
+                }
+            }
+        });
+
+        \$.ajax({
+            url: Routing.generate('api_monitor_database'),
+            type: 'GET',
+            data: \$('form').serialize(),
+            dataType: 'json',
+            success: function(data) {
+                var row = \$('#database tbody');
+                row.empty();
+                var rowNum = 0;
+                var setTDNum = 4;
+                var hasSuccessStatus = false;
+                var newDbInfo = data['ret'].sort(sortRow);
+                var tr;
+
+                for (dbInfo in newDbInfo) {
+                    var status = data['ret'][dbInfo].status;
+                    var name   = data['ret'][dbInfo].name;
+                    var number = data['ret'][dbInfo].number;
+                    var memo   = data['ret'][dbInfo].memo;
+                    var Columns = [name, number];
+
+                    if (rowNum % setTDNum === 0) {
+                        tr = document.createElement('tr');
+                    }
+
+                    rowNum = rowNum + 1;
+
+                    if (!hasSuccessStatus && style[status] === 'success') {
+                        rowNum = 1;
+                        hasSuccessStatus = true;
+                        tr = document.createElement('tr');
+                    }
+
+                    for (var i = 0; i < Columns.length; i++) {
+                        td = document.createElement('td');
+                        var columnText = document.createTextNode(Columns[i]);
+                        td.title = memo;
+                        td.className = style[status];
+                        td.appendChild(columnText);
+                        tr.appendChild(td);
+                    }
+
+                    row.append(tr);
+                }
+
+                if (displayMode === \"showOnlyError\") {
+                    \$('#database tr td[class=\"success\"]').addClass('hide');
+                }
+            }
+        });
+
+        \$.ajax({
+            url: Routing.generate('api_monitor_background'),
+            type: 'GET',
+            data: \$('form').serialize(),
+            dataType: 'json',
+            success: function(data) {
+                var row = \$('#background tbody');
+                row.empty();
+
+                var newBgInfo = data['ret'].sort(sortRow);
+                var backgroundHide = true;
+
+                for (bgInfo in newBgInfo) {
+                    var status   = data['ret'][bgInfo].status;
+                    var name     = data['ret'][bgInfo].name;
+                    var memo     = data['ret'][bgInfo].memo;
+                    var beginAt  = data['ret'][bgInfo].beginAt;
+                    var endAt    = data['ret'][bgInfo].endAt;
+                    var time     = data['ret'][bgInfo].time;
+                    var bgNum    = data['ret'][bgInfo].bgNum;
+                    var bgMsgNum = data['ret'][bgInfo].bgMsgNum;
+                    var tr = document.createElement('tr');
+                    var Columns = [name, beginAt, endAt, time, bgNum, bgMsgNum, statusArr[status]];
+
+                    if (style[status] === 'success' && displayMode === \"showOnlyError\") {
+                        tr.title = memo;
+                        tr.className = style[status] + \" hide\";
+                    } else {
+                        tr.title = memo;
+                        tr.className = style[status];
+                        backgroundHide = false;
+                    }
+
+                    for (var i = 0; i < Columns.length; i++) {
+                        var td = document.createElement('td');
+                        var columnText = document.createTextNode(Columns[i]);
+                        td.appendChild(columnText);
+                        tr.appendChild(td);
+                    }
+
+                    row.append(tr);
+                }
+
+                if (backgroundHide && displayMode === \"showOnlyError\") {
+                    \$('#background thead').addClass('hide');
+                }
+            }
+        });
+    }
+
+    /**
+     * 用於對a,b進行比較並用於排序。若a應排在b之前則回傳-1,否則回傳1
+     *
+     * @param array a
+     * @param array b
+     *
+     * @return integer
+     */
+    function sortRow(a, b) {
+        var styleA = style[a.status];
+        var styleB = style[b.status];
+
+        if (styleA === styleB) {
+            if (a.name < b.name) {
+
+                return -1;
+            }
+            if (a.status === 'normal' && b.status === 'disable'){
+
+                return -1;
+            }
+
+            return 1;
+        }
+
+        if (styleA === 'success') {
+
+            return 1;
+        }
+
+        return -1;
+    }
+
+    \$('.btn-reload').click(function() {
+        clearInterval(setReload);
+        if (!\$(this).hasClass('active')) {
+            reload();
+            setReload = setInterval(reload, 2000);
+        }
+    });
+
+    \$('.btn-dislpay').click(function() {
+        if (!\$(this).hasClass('active')) {
+            \$('#database tr td').removeClass('hide');
+            \$('#background thead').removeClass('hide');
+            \$('#background tr').removeClass('hide');
+            \$('#background-title').removeClass('hide');
+
+            displayMode = \"showAll\";
+        } else {
+            displayMode = \"showOnlyError\";
+
+            \$('#database tr td[class=\"success\"]').addClass('hide');
+            \$('#background tr[class=\"success\"]').addClass('hide');
+
+            var danger = \$('#background tr[class=\"danger\"]').length;
+            var warning = \$('#background tr[class=\"warning\"]').length;
+            if (!danger && !warning) {
+                \$('#background thead').addClass('hide');
+            }
+
+            if (\$('#database-error').hasClass('hide')) {
+                \$('#line').addClass('hide');
+            }
+        }
+    });
+    </script>
+";
+    }
+
+    // line 266
+    public function block_navbar($context, array $blocks = array())
+    {
+        // line 267
+        echo "    ";
+        $this->loadTemplate("BBDurianBundle:Default:navbar.html.twig", "BBDurianBundle:Default:monitor.html.twig", 267)->display($context);
+    }
+
+    // line 270
+    public function block_body($context, array $blocks = array())
+    {
+        // line 271
+        echo "    <p>
+        <button type=\"button\" class=\"btn btn-default btn-reload\" data-toggle=\"button\">自動更新</button>
+        <button type=\"button\" class=\"btn btn-default btn-dislpay\" data-toggle=\"button\">全部顯示</button>
+    </p>
+
+    <table class=\"table table-striped\" id=\"queueTable\">
+        <tr class=\"hide alert-danger\" id=\"queueTable-error\">
+            <td class=\"col-md-1\"><label class=\"control-label\">error</label></td>
+            <td><div class=\"row\" id=\"queue-error\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">card</label></td>
+            <td><div class=\"row\" id=\"queue-card\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">cash</label></td>
+            <td><div class=\"row\" id=\"queue-cash\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">cashFake</label></td>
+            <td><div class=\"row\" id=\"queue-cash_fake\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">credit</label></td>
+            <td><div class=\"row\" id=\"queue-credit\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">italking</label></td>
+            <td><div class=\"row\" id=\"queue-italking\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">rmPlanUser</label></td>
+            <td><div class=\"row\" id=\"queue-rm_plan_user\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">message</label></td>
+            <td><div class=\"row\" id=\"queue-message\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">deposit</label></td>
+            <td><div class=\"row\" id=\"queue-deposit\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">shopWeb</label></td>
+            <td><div class=\"row\" id=\"queue-shopweb\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">audit</label></td>
+            <td><div class=\"row\" id=\"queue-audit\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">loginLog</label></td>
+            <td><div class=\"row\" id=\"queue-login_log\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">reward</label></td>
+            <td><div class=\"row\" id=\"queue-reward\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">kue</label></td>
+            <td><div class=\"row\" id=\"queue-kue\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">userSize</label></td>
+            <td><div class=\"row\" id=\"queue-user_size\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">level</label></td>
+            <td><div class=\"row\" id=\"queue-level\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">bodog</label></td>
+            <td><div class=\"row\" id=\"queue-bodog\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">external</label></td>
+            <td><div class=\"row\" id=\"queue-external\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">suncity</label></td>
+            <td><div class=\"row\" id=\"queue-suncity\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">merchantRsaKey</label></td>
+            <td><div class=\"row\" id=\"queue-merchant_rsa_key\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">autoWithdraw</label></td>
+            <td><div class=\"row\" id=\"queue-auto_withdraw\"></div></td>
+        </tr>
+        <tr>
+            <td><label class=\"control-label\">setWithdrawStatus</label></td>
+            <td><div class=\"row\" id=\"queue-set_withdraw_status\"></div></td>
+        </tr>
+    </table>
+
+    <table class=\"table\" id=\"database\"><tbody></tbody></table>
+
+    <table class=\"table\" id=\"background\">
+        <thead>
+            <tr>
+                <th>名稱</th>
+                <th>開始時間</th>
+                <th>結束時間</th>
+                <th>執行時間</th>
+                <th>執行數量</th>
+                <th>資料筆數</th>
+                <th>狀態</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+";
+    }
+
+    public function getTemplateName()
+    {
+        return "BBDurianBundle:Default:monitor.html.twig";
+    }
+
+    public function isTraitable()
+    {
+        return false;
+    }
+
+    public function getDebugInfo()
+    {
+        return array (  308 => 271,  305 => 270,  300 => 267,  297 => 266,  33 => 4,  30 => 3,  11 => 1,);
+    }
+
+    public function getSourceContext()
+    {
+        return new Twig_Source("", "BBDurianBundle:Default:monitor.html.twig", "/var/www/html/src/BB/DurianBundle/Resources/views/Default/monitor.html.twig");
+    }
+}

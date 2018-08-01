@@ -1,0 +1,10 @@
+#!/bin/sh
+
+BIN=$(cd $(dirname "$0"); pwd)
+PHP=`which php`
+yest=$( date --date="yesterday" +"%Y/%m/%d" )
+
+if [ 1 -gt "`ps aux | grep stat-cash-deposit-withdraw | grep -v grep | wc -l`" ]
+then
+    $PHP -d memory_limit=512M $BIN/../app/console durian:stat-cash-deposit-withdraw --batch-size=1000 --wait-sec=0.3 --start-date="$yest" --end-date="$yest" --env=prod >> $BIN/../app/logs/stat_cash_deposit_withdraw.log 2>&1
+fi

@@ -1,0 +1,79 @@
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-durian-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('home') }}">Durian2</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-durian-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ path('home') }}">Home</a></li>
+                <li><a href="{{ path('demo_default') }}">Demo</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">How-to</li>
+                        <li><a href="{{ path('doc', {'item': 'sensitive_data'}) }}">Sensitive Data</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Mapping List</li>
+                        <li><a href="{{ path('doc', {'item': 'exception_map'}) }}">Exception Map</a></li>
+                        <li><a href="{{ path('doc', {'item': 'login_result'}) }}">Login Result</a></li>
+                        <li><a href="{{ path('doc', {'item': 'role_map'}) }}">Role Map</a></li>
+                        <li><a href="{{ path('doc', {'item': 'account_log_status'}) }}">AccountLog Status</a></li>
+                        <li><a href="{{ path('doc', {'item': 'bank_status'}) }}">Bank Status</a></li>
+                        <li><a href="{{ path('doc', {'item': 'credit_group'}) }}">Credit Group</a></li>
+                        <li><a href="{{ path('doc', {'item': 'share_limit_group'}) }}">ShareLimit Group</a></li>
+                        <li><a href="{{ path('doc', {'item': 'currency'}) }}">Currency</a></li>
+                        <li><a href="{{ path('doc', {'item': 'game_map'}) }}">Game Map</a></li>
+                        <li><a href="{{ path('doc', {'item': 'order_strategy'}) }}">Order Strategy</a></li>
+                        <li><a href="{{ path('doc', {'item': 'merchant_order_strategy'}) }}">Merchant Order Strategy</a></li>
+                        <li><a href="{{ path('doc', {'item': 'italking_map'}) }}">ITalking Map</a></li>
+                        <li><a href="{{ path('doc', {'item': 'deposit_payway'}) }}">Deposit Payway</a></li>
+                        <li><a href="{{ path('doc', {'item': 'client_os_map'}) }}">Client OS Map</a></li>
+                        <li><a href="{{ path('doc', {'item': 'client_browser_map'}) }}">Client Browser Map</a></li>
+                        <li><a href="{{ path('doc', {'item': 'ingress_map'}) }}">Ingress Map</a></li>
+                        <li><a href="{{ path('doc', {'item': 'language_map'}) }}">Language Map</a></li>
+                        <li><a href="{{ path('doc', {'item': 'outside_group_map'}) }}">Outside Group Map</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Opcode</li>
+                        <li><a href="{{ path('doc', {'item': 'opcode/opcode'}) }}">All</a></li>
+                        <li><a href="{{ path('doc', {'item': 'opcode/allow_amount_zero'}) }}">Allow Amount Zero</a></li>
+                        <li><a href="{{ path('doc', {'item': 'opcode/allow_balance_negative'}) }}">Allow Balance Negative</a></li>
+                        <li><a href="{{ path('doc', {'item': 'opcode/disable_not_allow'}) }}">Disable Not Allow</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('tools_check') }}">Check</a></li>
+                        <li><a href="{{ path('tools_check_speed') }}">Check Speed</a></li>
+                        <li><a href="{{ path('tools_domain_map') }}">Domain Map</a></li>
+                        <li><a href="{{ path('tools_deposit_check') }}">Deposit Check</a></li>
+                        <li><a href="{{ path('tools_display_background_process_name') }}">Set Background Process</a></li>
+                        <li><a href="{{ path('tools_revise_entry') }}">Revise Entry</a></li>
+                        <li><a href="{{ path('tools_repair_entry_page') }}">Repair Entry</a></li>
+                        <li><a href="{{ path('tools_display_ip_blacklist') }}">Ip Blacklist</a></li>
+                        <li><a href="{{ path('tools_display_kue_job') }}">Manage Kue Job</a></li>
+                        <li><a href="{{ path('tools_set_random_float_vendor') }}">Set Random Float Vendor</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('log_operation') }}">LogOperation</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+            <p class="navbar-text pull-right">
+                {{ render(controller('BBDurianBundle:Default:version')) }}
+            </p>
+        </div>
+    </div>
+</div>

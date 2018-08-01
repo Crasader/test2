@@ -1,0 +1,56 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set Merchant Level Method</h1>
+    <code>PUT /api/merchant/{merchantId}/level/payment_method</code>
+</div>
+
+<p class="lead">設定商家層級付款方式</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-9">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/merchant/</span>
+                    <input data-request-param="merchantId" type="text" class="form-control" placeholder="{merchantId}">
+                    <span class="input-group-addon">/level/payment_method</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{merchantId}</p>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">payment_method[]</label>
+                <div class="col-md-5">
+                    <input name="payment_method[]" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">付款方式ID</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">level_id[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="level_id[]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">層級ID</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_set_merchant_level_method" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

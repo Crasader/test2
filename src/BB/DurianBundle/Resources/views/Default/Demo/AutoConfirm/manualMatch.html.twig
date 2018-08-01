@@ -1,0 +1,43 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Manual Match Auto Confirm Entry</h1>
+    <code>PUT /api/auto_confirm/{autoConfirmEntryId}/manual</code>
+</div>
+
+<p class="lead">人工匹配訂單</p>
+
+    <form class="form-horizontal" role="form">
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-md-2"></label>
+                <div class="input-group col-md-7">
+                    <span class="input-group-addon">/api/auto_confirm/</span>
+                    <input data-request-param="autoConfirmEntryId" type="text" class="form-control" placeholder="{autoConfirmEntryId}">
+                    <span class="input-group-addon">/manual</span>
+                </div>
+                <p class="help-block col-md-offset-2 col-md-10">輸入匯款明細Id{autoConfirmEntryId}</p>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">operator</label>
+                <div class="col-md-5">
+                    <input name="operator" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">操作者</span>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">order_number</label>
+                <div class="col-md-5">
+                    <input name="order_number" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">訂單號</span>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-6">
+                    <button data-request-routing="api_manual_match_auto_confirm_entry" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

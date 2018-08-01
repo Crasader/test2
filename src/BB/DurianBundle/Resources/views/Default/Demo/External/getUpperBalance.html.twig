@@ -1,0 +1,54 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Upper Balance</h1>
+    <code>GET /api/external/upper_balance</code>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <p class="lead">取得上層餘額</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:external_game_map.html.twig' %}
+</div>
+
+<div class="alert alert-danger">
+    此API目前僅支援PT電子、歐博視訊、MG電子、PTⅡ電子、開元棋牌
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">game_code</label>
+            <div class="col-md-5">
+                <input name="game_code" type="text" class="form-control" value="1">
+            </div>
+            <span class="help-block col-md-4">遊戲平台編號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">test</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="test" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">
+                預設正式體系。
+                <div>目前僅以下遊戲有測試體系。</div>
+                <div>1.歐博視訊</div>
+                <div>2.MG電子</div>
+                <div>3.開元棋牌</div>
+            </span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_upper_balance" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,353 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>User List</h1>
+    <code>GET /api/user/list</code>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <p class="lead">使用者與體系列表</p>
+        <p>可另外傳入多個<code>fields[]</code>指定回傳欄位</p>
+        <p>如參數<code>sub_ret=1</code>但沒有帶入<code>all_parents</code>、<code>parent</code>參數或沒有相關資訊，則不會回傳<code>sub_ret</code>附屬資訊。</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:role_map.html.twig' %}
+    {% include 'BBDurianBundle:Default/Doc:sensitive_data.html.twig' %}
+</div>
+<div class="alert alert-danger">
+    下注用的佔成一定要用專用API <code>GET /api/user/{userId}/share_limit/{groupNum}/division</code>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">parent_id</label>
+            <div class="col-md-5">
+                <input name="parent_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">上層ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">depth</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="depth" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">查詢的帳號與上層相差的層數。預設不限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">enable</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="enable" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋停啟用。預設不限制</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bankrupt</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bankrupt" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋是否停權。預設不限制</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">sub</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sub" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋子帳號。預設不限制</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">block</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="block" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋凍結帳號。預設不限制</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">test</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="test" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋測試帳號。預設不限制</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">hidden_test</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="hidden_test" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋隱藏測試帳號。預設不限制</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">rent</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="rent" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋租卡體系。預設不限制</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">password_reset</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="password_reset" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">重設密碼設定。預設不限制</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">role</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="role" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">帳號身份。預設不限制</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">size</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="size" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋下層總數。預設不限，只能帶整數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">start_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="start_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋建立區間：起始。預設不限制。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">end_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="end_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋建立區間：結束。預設不限制。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">modified_start_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="modified_start_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋修改區間：起始。預設不限制。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">modified_end_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="modified_end_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">搜尋修改區間：結束。預設不限制。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">search_field[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="search_field[]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">搜尋欄位。</span>
+                <label class="control-label col-md-3">search_value[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="search_value[]" type="text" class="form-control" value="%" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">搜尋關鍵字。可在字串前後自行添加%進行搜尋</span>
+            </div>
+        </div>
+        <div class="alert alert-info">
+            目前支援的欄位有:使用者上的username、alias，銀行資訊的account，詳細資料的name_real、name_english、passport、identity_card、driver_license、insurance_card、health_card、telephone、qq_num、email。
+        </div>
+        <div class="alert alert-info">
+            search_field跟search_value可接受型態為字串跟陣列，字串型態只能為一組search條件，陣列型態則可以為多組search條件，search_field跟search_value之間是依照index做對應，search_field[1]的欄位會抓search_value[1]的值做查詢。ex.search_field['passport', 'identityCard'], search_field['PA123456', 'IC123456']。
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fields[]</label>
+            <div class="input-group">
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="id">id</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="parent_id">parent_id</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="username">username</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="domain">domain</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="alias">alias</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="sub">sub</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="enable">enable</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="block">block</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="bankrupt">bankrupt</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="test">test</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="hidden_test">hidden_test</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="rent">rent</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="size">size</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="err_num">err_num</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="created_at">created_at</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="modified_at">modified_at</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="password_expire_at">password_expire_at</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="password_reset">password_reset</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="last_bank">last_bank</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="last_login">last_login</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="currency">currency</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="role">role</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fields[]</label>
+            <div class="input-group">
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="parent">parent</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="all_parents">all_parents</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="cash">cash</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="cash_fake">cash_fake</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="card">card</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="enabled_card">enabled_card</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="credit">credit</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="outside">outside</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="sharelimit">sharelimit</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="sharelimit_next">sharelimit_next</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="sharelimit_sys">sharelimit_sys</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="sharelimit_next_sys">sharelimit_next_sys</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="deposit_withdraw">deposit_withdraw</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">sort[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="sort[]" type="text" class="form-control" value="id" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">排序欄位</span>
+                <label class="control-label col-md-3">order[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="order[]" type="text" class="form-control" value="asc" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">升冪或降冪。可設定asc或desc</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_result</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_result" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁從第幾筆開始</span>
+            <label class="control-label col-md-3">max_results</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁顯示筆數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">sub_ret</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sub_ret" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否回傳附屬資訊。預設0。</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_user_list" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

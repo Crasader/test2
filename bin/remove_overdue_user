@@ -1,0 +1,9 @@
+#!/bin/sh
+
+BIN=$(cd $(dirname "$0"); pwd)
+PHP=`which php`
+
+if [ 1 -gt "`ps aux | grep remove-overdue-user | grep -v grep | wc -l`" ]
+then
+    $PHP -d memory_limit=512M $BIN/../app/console durian:remove-overdue-user --env=prod
+fi

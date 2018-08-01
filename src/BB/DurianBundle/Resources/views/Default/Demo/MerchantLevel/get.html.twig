@@ -1,0 +1,34 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Merchant Level</h1>
+    <code>GET /api/merchant/{merchantId}/level/{levelId}</code>
+</div>
+
+<p class="lead">回傳商家層級設定</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div>
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <span class="input-group-addon">/api/merchant/</span>
+                        <input data-request-param="merchantId" type="text" class="form-control" placeholder="{merchantId}">
+                        <span class="input-group-addon">/level/</span>
+                        <input data-request-param="levelId" type="text" class="form-control" placeholder="{levelId}">
+                    </div>
+                </div>
+                <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{merchantId}, {levelId}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_merchant_level" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

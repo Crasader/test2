@@ -1,0 +1,93 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get ShareLimit Option</h1>
+    <code>GET /api/share_limit/option</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+    <p class="lead">回傳佔成範圍</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:share_limit_group.html.twig' %}
+</div>
+<div class="alert alert-info">
+    <code>user_id</code>或<code>parent_id</code>只能二選一
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">user_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="user_id" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">parent_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="parent_id" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">上層ID。</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">group_num_set[]</label>
+            <div class="col-md-5">
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="1">1
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="2">2
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="3">3
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="5">5
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="6">6
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="7">7
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="8">8
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="9">9
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="10">10
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="11">11
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="12">12
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" name="group_num_set[]" value="13">13
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_shareLimit_option" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

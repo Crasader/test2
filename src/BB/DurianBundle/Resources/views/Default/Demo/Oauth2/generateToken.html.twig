@@ -1,0 +1,92 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Generate Access Token</h1>
+    <code>POST /api/oauth2/token</code>
+</div>
+
+<p class="lead">產生存取碼</p>
+<div class="alert alert-info">
+    grant_type (授權方式)目前僅支援 <code>authorization_code</code>, <code>refresh_token</code>, <code>password</code>
+</div>
+
+<form class="form-horizontal" data-http-header>
+    <fieldset>
+        <legend>Headers</legend>
+        <div class="form-group">
+            <label class="control-label col-md-3">Authorization</label>
+            <div class="col-md-5">
+                <input name="Authorization" type="text" class="form-control" />
+            </div>
+            <span class="help-block col-md-4">基本認證字串<br>(base64encode(Client Id:secret))</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">session-id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="session-id" type="text" class="form-control" disabled />
+                </div>
+            </div>
+            <span class="help-block col-md-4">Session Id (用於 password)</span>
+        </div>
+    </fieldset>
+</form>
+
+<form class="form-horizontal">
+    <fieldset>
+        <legend>Params</legend>
+        <div class="form-group">
+            <label class="control-label col-md-3">grant_type</label>
+            <div class="col-md-5">
+                <input name="grant_type" type="text" class="form-control" value="authorization_code">
+            </div>
+            <span class="help-block col-md-4">授權方式，預設為 authorization_code</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">code</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="code" type="text" class="form-control" disabled />
+                </div>
+            </div>
+            <span class="help-block col-md-4">授權碼 (用於 authorization_code)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">redirect_uri</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="redirect_uri" type="text" class="form-control" disabled />
+                </div>
+            </div>
+            <span class="help-block col-md-4">導向網址 (用於 authorization_code)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">refresh_token</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="refresh_token" type="text" class="form-control" disabled />
+                </div>
+            </div>
+            <span class="help-block col-md-4">更新碼 (用於 refresh_token)</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_oauth2_token" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

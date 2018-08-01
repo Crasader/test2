@@ -1,0 +1,464 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set DepositCompany</h1>
+    <code>PUT /api/payment_charge/{paymentChargeId}/deposit_company</code>
+</div>
+
+<p class="lead">修改公司入款設定</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-8">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/payment_charge/</span>
+                    <input data-request-param="paymentChargeId" type="text" class="form-control" placeholder="{paymentChargeId}">
+                    <span class="input-group-addon">/deposit_company</span>
+                </div>
+            </div>
+            <button data-request-routing="api_payment_charge_deposit_company_get" class="btn btn-default" type="button" id="load-btn">Load</button>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{paymentChargeId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">discount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="discount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">存款優惠(1)首次存款優惠 / (2)每次存款優惠</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">discount_give_up</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="discount_give_up" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">放棄存款優惠</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">discount_amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="discount_amount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">優惠標準(元)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">discount_percent</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="discount_percent" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">優惠百分比(%)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">discount_factor</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="discount_factor" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">優惠係數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">discount_limit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="discount_limit" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">優惠上限金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_live</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_live" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">真人額度稽核開關</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_live_amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_live_amount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">真人額度稽核</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_ball</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_ball" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">球類額度稽核開關</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_ball_amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_ball_amount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">球類額度稽核</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_complex</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_complex" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">綜合額度稽核開關</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_complex_amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_complex_amount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">綜合額度稽核</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_normal</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_normal" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">常態性稽核開關</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_3d</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_3d" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">3D廳稽核開關</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_3d_amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_3d_amount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">3D廳稽核(%)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_battle</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_battle" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">對戰稽核開關</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_battle_amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_battle_amount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">對戰稽核(%)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_virtual</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_virtual" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">虛擬賽事稽核開關</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_virtual_amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_virtual_amount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">虛擬賽事稽核(%)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_discount_amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_discount_amount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">優惠餘額稽核(%)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_loosen</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_loosen" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">常態性稽核放寬額度</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">audit_administrative</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="audit_administrative" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">常態性稽核行政費率(%)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">other_discount_amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="other_discount_amount" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">其他優惠標準(元)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">other_discount_percent</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="other_discount_percent" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">其他優惠百分比(%)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">other_discount_limit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="other_discount_limit" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">其他優惠上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">daily_discount_limit</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="daily_discount_limit" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">單日優惠上限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sc_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_sc_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">大股東最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sc_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_sc_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">大股東最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_co_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_co_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">股東最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_co_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_co_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">股東最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sa_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_sa_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">總代理最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_sa_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_sa_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">總代理最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_ag_max</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_ag_max" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">代理最高存款金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">deposit_ag_min</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="deposit_ag_min" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">代理最低存款金額</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_payment_charge_deposit_company_set" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

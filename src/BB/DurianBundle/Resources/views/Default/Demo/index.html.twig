@@ -1,0 +1,428 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block head_style %}
+{{ parent() }}
+{# Syntax highlighting for the Web. See http://highlightjs.org #}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/github.min.css"/>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="//ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+
+{# Syntax highlighting for the Web. See http://highlightjs.org #}
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+<script type="text/javascript">
+{# 處理勾選啟用事件 #}
+var enableHandler = function() {
+    var el = $(this);
+    var inputs;
+
+    inputs = el.closest('.form-group').find('input[type="text"]');
+
+    if (el.prop('checked')) {
+        inputs.prop('disabled', false);
+    } else {
+        inputs.attr('disabled', true);
+    }
+
+    inputs = el.closest('.form-group').find('input[type="checkbox"]');
+
+    if (el.prop('checked')) {
+        inputs.prop('checked', true);
+    } else {
+        inputs.prop('checked', false);
+    }
+};
+
+{# 綁定送出request事件 #}
+$(function () {
+    $('.btn-primary').click(function() {
+        var btn = $(this);
+        var routing = btn.data('request-routing');
+        var type = btn.data('request-type');
+        var processData = true;
+        var contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+
+        if (btn.attr('data-request-processData') == "false") {
+            processData = false;
+        }
+
+        if (btn.attr('data-request-contentType') == "false") {
+            contentType = false;
+        }
+
+        var params = {};
+        var error = 0;
+
+        {# 預設用GET #}
+        if (!type) {
+            type = 'GET';
+        }
+
+        btn.button('loading');
+
+        {# 抓request參數 #}
+        $('[data-request-param]').each(function() {
+            var e = $(this);
+
+            var key = e.data('request-param');
+            var val = e.val();
+            var uncheck = e.data('request-uncheck');
+
+            params[key] = val;
+
+            if (!uncheck) {
+                e.closest('.form-group').removeClass('has-error');
+            }
+
+            {# 沒有填值會標示錯誤 #}
+            if (!uncheck && val === '') {
+                e.closest('.form-group').addClass('has-error');
+                error++;
+            }
+        });
+
+        if (error !== 0) {
+            btn.button('reset');
+            return;
+        }
+
+        {# 敏感資料 #}
+        var sensitive = getSensitvieData();
+
+        var data = $('form:not([data-http-header])').serialize();
+        var headers = $('form[data-http-header]').serializeArray();
+
+        {# 設定自定義header #}
+        $('[data-header-param]').each(function() {
+            var e = $(this);
+
+            var name = e.attr('name');
+            var val = e.val();
+
+            headers.push({
+                name: name,
+                value: val
+            });
+        });
+
+        {# 因應特定頁面需自行設定data資料，呼叫頁面function處理 #}
+        if ($.isFunction(window.resetDataParam)) {
+            data = resetDataParam();
+        }
+
+        $.ajax({
+            url: Routing.generate(routing, params),
+            type: type,
+            data: data,
+            dataType: 'json',
+            contentType: contentType,
+            processData: processData,
+            beforeSend: function(jqXHR, settings) {
+                jqXHR.setRequestHeader("Sensitive-Data", $.param(sensitive));
+
+                $.each(headers, function (i, header) {
+                    jqXHR.setRequestHeader(header.name, header.value);
+                });
+
+                var obj = {};
+                $.each(['url', 'type', 'contentType', 'data'], function(index, val) {
+                    obj[val] = settings[val];
+                });
+
+                var target = $('#request-dump');
+                dump_json(obj, target);
+            },
+            success: function(data, textStatus, jqXHR) {
+                var target = $('#response-dump');
+                dump_json(data, target);
+            },
+            error: function(jqXHR) {
+                var obj = JSON.parse(jqXHR.responseText);
+
+                var target = $('#response-dump');
+                dump_json(obj, target);
+            },
+            complete: function(jqXHR) {
+                refreshWdt(jqXHR.getResponseHeader('x-debug-token'));
+                btn.button('reset');
+            }
+        });
+    });
+
+    {# 綁定載入資料按鈕事件 #}
+    $('#load-btn').click(function() {
+        var btn = $(this);
+        var routing = btn.data('request-routing');
+        var type = btn.data('request-type');
+        var params = {};
+        var error = 0;
+
+        {# 預設用GET #}
+        if (!type) {
+            type = 'GET';
+        }
+
+        btn.button('loading');
+
+        {# 抓request參數 #}
+        $('[data-request-param]').each(function() {
+            var e = $(this);
+
+            var key = e.data('request-param');
+            var val = e.val();
+            var uncheck = e.data('request-uncheck');
+
+            params[key] = val;
+
+            if (!uncheck) {
+                e.closest('.form-group').removeClass('has-error');
+            }
+
+            {# 沒有填值會標示錯誤 #}
+            if (!uncheck && val === '') {
+                e.closest('.form-group').addClass('has-error');
+                error++;
+            }
+        });
+
+        if (error > 0) {
+            btn.button('reset');
+            return;
+        }
+
+        {# 敏感資料 #}
+        var sensitive = getSensitvieData();
+
+        var data = $('form').serialize();
+
+        {# 因應特定頁面需自行設定data資料，呼叫頁面function處理 #}
+        if ($.isFunction(window.resetDataParam)) {
+            data = resetDataParam();
+        }
+
+        $.ajax({
+            url: Routing.generate(routing, params),
+            type: type,
+            data: data,
+            dataType: 'json',
+            beforeSend: function(jqXHR, settings) {
+                jqXHR.setRequestHeader("Sensitive-Data", $.param(sensitive));
+
+                var obj = {};
+                $.each(['url', 'type', 'contentType', 'data'], function(index, val) {
+                    obj[val] = settings[val];
+                });
+
+                var target = $('#request-dump');
+                dump_json(obj, target);
+            },
+            success: function(data, textStatus, jqXHR) {
+                var target = $('#response-dump');
+                dump_json(data, target);
+
+                if (data['result'] === 'ok') {
+                    doLoad(data['ret']);
+
+                    {# 因應特定頁面回傳data['ret'][0]，呼叫頁面function callback處理 #}
+                    if ($.isFunction(window.reLoad)) {
+                        reLoad(doLoad(data['ret'][0]));
+                    }
+                }
+            },
+            error: function(jqXHR) {
+                var obj = JSON.parse(jqXHR.responseText);
+
+                var target = $('#response-dump');
+                dump_json(obj, target);
+            },
+            complete: function(jqXHR) {
+                refreshWdt(jqXHR.getResponseHeader('x-debug-token'));
+                btn.button('reset');
+            }
+        });
+    });
+
+    {# 綁定勾選啟用事件 #}
+    $('.action-enable').change(enableHandler);
+
+    {# 綁定增加更多欄位的按鈕事件 #}
+    $('.action-more').click(function () {
+        var el = $(this);
+        var root = el.closest('div');
+        var template = root.find('.template');
+
+        var count = template.data('count');
+        if (count === undefined) {
+            count = 0;
+        }
+        count++;
+        template.data('count', count);
+
+        var clone = template.clone();
+        clone.removeClass('template');
+        clone.find('input[type=text]').val('');
+
+        var str = clone.html().replace(/\[[0-9]+\]/g, '[' + count + ']');
+        clone.html(str);
+        clone.find('.action-enable').change(enableHandler);
+
+        root.append(clone);
+    });
+});
+
+{# 將json原始碼顯示在<pre>元件內 #}
+function dump_json(data, target) {
+    var str = JSON.stringify(data, null, '\t');
+    target.text(str);
+    hljs.highlightBlock(target[0]);
+}
+
+{# 用js程式來產生表單 #}
+function render_tabs(target, enums) {
+    var tab = target.find('.nav-tabs > li').first();
+
+    $.each(enums, function(index, val) {
+        var tabClone = tab.clone();
+
+        var ob = tabClone.find('a');
+
+        var str = ob.attr('href').replace('1', val);
+        ob.attr('href', str);
+
+        var str = ob.text().replace('1', val);
+        ob.text(str);
+
+        if (index === 0) {
+            tabClone.addClass('active');
+        }
+
+        target.find('.nav-tabs').append(tabClone);
+    });
+
+    tab.remove();
+
+    var pan = target.find('.tab-pane').first();
+
+    $.each(enums, function(index, val) {
+        var panClone = pan.clone();
+
+        var str = panClone.attr('id').replace(/1/, val);
+        panClone.attr('id', str);
+
+        panClone.find('label').each(function() {
+            var ob = $(this);
+            var str = ob.text().replace(/1/g, val);
+            ob.text(str);
+        });
+
+        panClone.find('input[type="text"]').each(function() {
+            var ob = $(this);
+            var str = ob.attr('name').replace(/1/g, val);
+            ob.attr('name', str);
+        });
+
+        if (index === 0) {
+            panClone.addClass('active');
+        }
+
+        panClone.find('.action-enable').change(enableHandler);
+        target.find('.tab-content').append(panClone);
+    });
+
+    pan.remove();
+}
+
+{# 組合敏感資料 #}
+function getSensitvieData() {
+    var clientIp = $('input[name=client_ip]').val();
+    var pathInfo = $('input[name=path_info]').val();
+
+    var sensitive = new Object;
+    sensitive.entrance = 5;
+    sensitive.operator = '';
+    sensitive.client_ip = clientIp;
+    sensitive.run_php = pathInfo;
+    sensitive.operator_id = '';
+    sensitive.vendor = 'acc';
+
+    return sensitive;
+}
+
+{# 填入資料到表單 #}
+function doLoad(obj) {
+    {# 定義Load按鈕事件 #}
+    $('input[name]').each(function() {
+        var el = $(this);
+        var name = el.attr('name');
+        var splitted = name.split(/[\[\]]/);
+
+        {# 過濾掉陣列中的空字串 #}
+        splitted = $.grep(splitted, function(val) {
+            return (val !== '');
+        });
+
+        var v = obj;
+        $(splitted).each(function(key, val) {
+            if ($.isPlainObject(v)) {
+                v = v[val];
+            }
+        });
+
+        {# 日期物件要輸出日期字串 #}
+        if ($.isPlainObject(v) && v['date'] !== undefined) {
+            v = v['date'];
+        }
+
+        {# 將 boolean 型態改為數字 #}
+        if ($.type(v) === 'boolean') {
+            v = Number(v);
+        }
+
+        el.val(v);
+    });
+}
+
+{# 刷新symfony開發環境的toolbar #}
+function refreshWdt(token)
+{
+    if (token === null) return;
+
+    var url;
+
+    try {
+        // prod 不存在 _wdt 會出錯
+        url = Routing.generate('_wdt', {'token': token})
+    } catch (err) {
+        return
+    }
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (msg) {
+            $('div[id^=sfwdt]').html(msg);
+        }
+    });
+}
+</script>
+{% endblock %}
+{% block body %}
+    <div class="col-md-9">
+        {% block content %}{% endblock %}
+        <p class="help-block">Request</p>
+        <pre><code id="request-dump" class='language-javascript'>{}</code></pre>
+        <p class="help-block">Response</p>
+        <pre><code id="response-dump" class='language-javascript'>{}</code></pre>
+    </div>
+    <div class="col-md-3">
+        {% block sidebar %}
+            {% include 'BBDurianBundle:Default/Demo:sidebar.html.twig' %}
+        {% endblock %}
+    </div>
+    <div class="hidden">
+        <input name="client_ip" type="hidden" value="{{clientIp}}">
+        <input name="path_info" type="hidden" value="{{pathInfo}}">
+    </div>
+{% endblock %}

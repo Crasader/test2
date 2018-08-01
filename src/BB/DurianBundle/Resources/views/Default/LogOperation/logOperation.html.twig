@@ -1,0 +1,452 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+
+$(function () {
+    $().ready(function(){
+        var now = new Date();
+        setAt($('#start-at'), now);
+        setAt($('#end-at'), now);
+    });
+
+    $('.btn-get').click(function() {
+        {# 檢查時間，如果錯誤則警告 #}
+        var checkStart = checkTime($('#start-at').val(), $(this));
+        var checkEnd = checkTime($('#end-at').val(), $(this));
+
+        if (checkStart && checkEnd) {
+            currentPage = 1;
+            screenOutput(currentPage);
+        }
+    });
+
+    {# 顯示進階選項 #}
+    $('#advanced').click(function() {
+        if (this.checked === true) {
+            $('.advanced').removeClass('hide');
+        } else {
+            $('.advanced').addClass('hide');
+        }
+    });
+
+    {# 顯示欄位設定 #}
+    $('.column-choose').click(function () {
+        if (this.checked === true) {
+            $('.'+this.value).show();
+        } else {
+            $('.'+this.value).hide();
+        }
+    });
+
+    {# 點選設定時間按鈕事件 #}
+    $('.set-time').click(function() {
+        var el = $(this);
+
+        if (el.is('.start')) {
+            var check = $('#start-at').val();
+
+            if (check) {
+                var now = checkTime(check, el);
+            } else {
+                var end = $('#end-at');
+                var now = checkTime(end.val(), el);
+            }
+
+            if (now) {
+                setAt($('#start-at'), now);
+            }
+        } else {
+            var check = $('#end-at').val();
+
+            if (check) {
+                var now = checkTime(check, el);
+            } else {
+                var start = $('#start-at');
+                var now = checkTime(start.val(), el);
+            }
+
+            if (now) {
+                setAt($('#end-at'), now);
+            }
+        }
+    });
+});
+
+function screenOutput(currentPage) {
+    btn = $('.btn-get');
+    btn.button('loading');
+
+    var param = $('form').serialize();
+    param += "&page=" + currentPage;
+
+    $.ajax({
+        url: Routing.generate('log_operation'),
+        type: 'GET',
+        data: param,
+        dataType: 'json',
+        success: function(data) {
+            totalPage = data.page;
+
+            var count = 0;
+
+            $('#table thead tr').addClass('hide');
+            $('#searchMsg').removeClass('hide');
+            $('#fields').addClass('hide');
+            for (count;count < {{maxResults}};count++) {
+                $('#table tbody tr:eq('+count+')').addClass('hide');
+            }
+
+            createPagination(data.page, currentPage);
+            delete data.page;
+            editTable(data);
+        },
+        complete: function() {
+            btn.button('reset');
+        }
+    });
+}
+
+{# 分頁 #}
+function createPagination(page, currentPage) {
+    var pagination = '';
+
+    if (page > 1) {
+        pagination += '<button class="btn btn-default pre" type="button">';
+        pagination += '<<';
+        pagination += '</button>';
+
+        pagination += '<input type="text" class="search-page" placeholder='+currentPage+'>';
+        pagination += '/'+page;
+
+        pagination += '<button class="btn btn-default next" type="button">';
+        pagination += '>>';
+        pagination += '</button>';
+
+        pagination += '<button class="btn btn-search" type="button">';
+        pagination += 'search';
+        pagination += '</button>';
+    }
+    $('.page_choose').html(pagination);
+
+    $('.btn-search').click(function() {
+        currentPage = $(this).parent().find('.search-page').val();
+
+        if (currentPage < 1) {
+            currentPage = 1;
+        } else if (currentPage > totalPage) {
+            currentPage = totalPage;
+        }
+
+        screenOutput(currentPage);
+    });
+
+    $('.pre').click(function() {
+        currentPage--;
+
+        if (currentPage < 1) {
+            currentPage = 1;
+        }
+
+        screenOutput(currentPage);
+    });
+
+    $('.next').click(function() {
+        currentPage++;
+
+        if (currentPage > totalPage) {
+            currentPage = totalPage;
+        }
+
+        screenOutput(currentPage);
+    });
+}
+
+{# 將資料塞進table #}
+function editTable(data) {
+    var trNumber = 0;
+
+    for (logOperation in data) {
+        var tdNumber = 0;
+
+        var at = formatDate(data[logOperation].at);
+        var message = data[logOperation].message;
+
+        $('#table tbody tr:eq('+trNumber+') td:eq('+tdNumber+')').html(data[logOperation].tableName);
+        tdNumber++;
+        $('#table tbody tr:eq('+trNumber+') td:eq('+tdNumber+')').html(data[logOperation].majorKey);
+        tdNumber++;
+        $('#table tbody tr:eq('+trNumber+') td:eq('+tdNumber+')').html(data[logOperation].uri);
+        tdNumber++;
+        $('#table tbody tr:eq('+trNumber+') td:eq('+tdNumber+')').html(data[logOperation].method);
+        tdNumber++;
+        $('#table tbody tr:eq('+trNumber+') td:eq('+tdNumber+')').html(at);
+        tdNumber++;
+        $('#table tbody tr:eq('+trNumber+') td:eq('+tdNumber+')').html(data[logOperation].serverName);
+        tdNumber++;
+        $('#table tbody tr:eq('+trNumber+') td:eq('+tdNumber+')').html(data[logOperation].clientIp);
+        tdNumber++;
+        $('#table tbody tr:eq('+trNumber+') td:eq('+tdNumber+')').html(message.replace(/,[ ]?@/g,',<br>@'));
+        tdNumber++;
+
+        if (data[logOperation].majorKey) {
+            $('#table thead tr').removeClass('hide');
+            $('#searchMsg').addClass('hide');
+            $('#table tbody tr:eq('+trNumber+')').removeClass('hide');
+            $('#fields').removeClass('hide');
+        }
+
+        trNumber++;
+    }
+}
+
+function formatDate(logOperationDate) {
+    logOperationDate = new Date(logOperationDate);
+
+    var year = logOperationDate.getFullYear();
+    var month = addZero(logOperationDate.getMonth() + 1);
+    var day = addZero(logOperationDate.getDate());
+    var hour = addZero(logOperationDate.getHours());
+    var minute = addZero(logOperationDate.getMinutes());
+    var second = addZero(logOperationDate.getSeconds());
+
+    logOperationDate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+
+    return logOperationDate;
+}
+
+function addZero(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+
+    return i;
+}
+
+{# 設定搜尋時間的value #}
+function setAt(target, datetime) {
+    var nowYear = datetime.getFullYear();
+    var nowMonth = datetime.getMonth() + 1;
+    var nowDate = datetime.getDate();
+    var nowHour = datetime.getHours();
+    var nowMinute = datetime.getMinutes();
+    var nowSecond = datetime.getSeconds();
+
+    target.val(
+        nowYear + '/' +
+        addZero(nowMonth) + '/' +
+        addZero(nowDate) + ' ' +
+        addZero(nowHour) + ':' +
+        addZero(nowMinute) + ':' +
+        addZero(nowSecond)
+    );
+}
+
+function checkTime(time, el) {
+    if (time.match(/^\d{4}-\d{2}-\d{2}[ ]\d{2}:\d{2}:\d{2}/)) {
+        time = time.replace(/-/g, '/'); {# 防止因格式錯誤造成Date()發生invalid date #}
+    }
+
+    if (time) {
+        time = new Date(time);
+    } else {
+        time = new Date();
+    }
+
+    {# 如果getTime()錯誤則警告 #}
+    if (!time.getTime()) {
+        $('.well').addClass('has-error');
+        return false;
+    }
+
+    {# 如果時間格式正確則取消has-error #}
+    $('.well').removeClass('has-error');
+
+    {# 時間調整 #}
+    if (el.is('.add')) {
+        if ($('[name="time-choose"]:checked').val() === '1min') {
+            time.setMinutes(time.getMinutes()+1);
+        } else if ($('[name="time-choose"]:checked').val() === '10min') {
+            time.setMinutes(time.getMinutes()+10);
+        } else if ($('[name="time-choose"]:checked').val() === '1hour') {
+            time.setHours(time.getHours()+1);
+        } else if ($('[name="time-choose"]:checked').val() === '1day') {
+            time.setDate(time.getDate()+1);
+        } else if ($('[name="time-choose"]:checked').val() === '1month') {
+            time.setMonth(time.getMonth()+1);
+        }
+    } else {
+        if ($('[name="time-choose"]:checked').val() === '1min') {
+            time.setMinutes(time.getMinutes()-1);
+        } else if ($('[name="time-choose"]:checked').val() === '10min') {
+            time.setMinutes(time.getMinutes()-10);
+        } else if ($('[name="time-choose"]:checked').val() === '1hour') {
+            time.setHours(time.getHours()-1);
+        } else if ($('[name="time-choose"]:checked').val() === '1day') {
+            time.setDate(time.getDate()-1);
+        } else if ($('[name="time-choose"]:checked').val() === '1month') {
+            time.setMonth(time.getMonth()-1);
+        }
+    }
+
+    return time;
+}
+</script>
+{% endblock %}
+
+{% block body %}
+<form class="form-horizontal" role="form">
+    <div class="well">
+        <div class="form-group">
+            <label class="control-label col-md-1">start_at</label>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-default set-time start sub"><<</button>&nbsp;
+                <input name="start_at" id="start-at" type="text" class="form-inline">&nbsp;
+                <button type="button" class="btn btn-default set-time start add">>></button>
+            </div>
+            <span class="help-block col-md-3">搜尋開始時間</span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-1">end_at</label>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-default set-time end sub"><<</button>&nbsp;
+                <input name="end_at" id="end-at" type="text" class="form-inline">&nbsp;
+                <button type="button" class="btn btn-default set-time end add">>></button>
+            </div>
+            <span class="help-block col-md-5">搜尋結束時間</span>
+        </div>
+
+        <div class="form-group">
+            <div class="btn-group col-md-4">
+                <center>
+                    <label class="control-label"><input type="radio" name="time-choose" value="1min" checked> 1分鐘 </label>&nbsp;
+                    <label class="control-label"><input type="radio" name="time-choose" value="10min"> 10分鐘 </label>&nbsp;
+                    <label class="control-label"><input type="radio" name="time-choose" value="1hour"> 1小時 </label>&nbsp;
+                    <label class="control-label"><input type="radio" name="time-choose" value="1day"> 1天 </label>&nbsp;
+                    <label class="control-label"><input type="radio" name="time-choose" value="1month"> 1個月 </label>&nbsp;
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="template">
+            <label class="control-label col-md-1">table_name</label>
+            <div class="col-md-4">
+                <select class="form-control table-choose" name="table_name">
+                    <option value="">---</option>
+                    {% for table in tables %}
+                        <option value="{{ table['tableName'] }}">{{ table['tableName'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <span class="help-block col-md-4">自行選擇欲搜尋的異動資料表</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-1">method</label>
+        <div class="col-md-4">
+            <label class="checkbox-inline"><input name="method[]" type="checkbox" value="PUT">PUT</label>
+            <label class="checkbox-inline"><input name="method[]" type="checkbox" value="POST">POST</label>
+            <label class="checkbox-inline"><input name="method[]" type="checkbox" value="DELETE">DELETE</label>
+        </div>
+        <span class="help-block col-md-4">預設為全部搜尋</span>
+    </div>
+
+    <div class="form-group advanced hide">
+        <label for="major_key" class="control-label col-md-1">major_key</label>
+        <div class="col-md-4">
+            <input name="major_key" id="major-key" type="text" class="form-control">
+        </div>
+        <span class="help-block col-md-4">主要欄位資訊。可在字串前後自行添加%進行搜尋</span>
+    </div>
+
+    <div class="form-group advanced hide">
+        <label class="control-label col-md-1">uri</label>
+        <div class="col-md-4">
+            <input name="uri" type="text" class="form-control">
+        </div>
+        <span class="help-block col-md-4">URL。可在字串前後自行添加%進行搜尋</span>
+    </div>
+
+    <div class="form-group advanced hide">
+        <label class="control-label col-md-1">message</label>
+        <div class="col-md-4">
+            <input name="message" type="text" class="form-control">
+        </div>
+        <span class="help-block col-md-4">message。可在字串前後自行添加%進行搜尋</span>
+    </div>
+
+    <div class="form-group advanced hide">
+        <label class="control-label col-md-1">server_name</label>
+        <div class="col-md-4">
+            <input name="server_name" type="text" class="form-control">
+        </div>
+        <span class="help-block col-md-4">server_name。可在字串前後自行添加%進行搜尋</span>
+    </div>
+
+    <div class="form-group advanced hide">
+        <label class="control-label col-md-1">client_ip</label>
+        <div class="col-md-4">
+            <input name="client_ip" type="text" class="form-control">
+        </div>
+        <span class="help-block col-md-4">client_ip。可在字串前後自行添加%進行搜尋</span>
+    </div>
+    <div class="form-group">
+        <label class="checkbox-inline"><input id='advanced' type="checkbox">更多搜尋條件</label>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-get" type="button" data-loading-text="loading...">Request</button>
+    </div>
+</form>
+
+<div class='hide' id='fields'>
+    <div class="well well-lg">
+        <label>fields:</label>
+        <label class="checkbox-inline"><input class='column-choose' type="checkbox" value="tableName" checked>table_name</label>
+        <label class="checkbox-inline"><input class='column-choose' type="checkbox" value="majorKey" checked>major_key</label>
+        <label class="checkbox-inline"><input class='column-choose' type="checkbox" value="uri" checked>uri</label>
+        <label class="checkbox-inline"><input class='column-choose' type="checkbox" value="method" checked>method</label>
+        <label class="checkbox-inline"><input class='column-choose' type="checkbox" value="at" checked>at</label>
+        <label class="checkbox-inline"><input class='column-choose' type="checkbox" value="serverName" checked>server_name</label>
+        <label class="checkbox-inline"><input class='column-choose' type="checkbox" value="clientIp" checked>client_ip</label>
+        <label class="checkbox-inline"><input class='column-choose' type="checkbox" value="message" checked>message</label>
+    </div>
+
+    <div class="page_choose"></div>
+</div>
+
+<table class="table table-striped" id='table'>
+    <thead>
+        <tr class='hide'>
+            <th class='tableName'>tableName</th>
+            <th class='majorKey'>major_key</th>
+            <th class='uri'>uri</th>
+            <th class='method'>method</th>
+            <th class='at'>at</th>
+            <th class='serverName'>server_name</th>
+            <th class='clientIp'>client_ip</th>
+            <th class='message'>message</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for count in 1..maxResults %}
+            <tr class="hide">
+                <td class='tableName'></td>
+                <td class='majorKey'></td>
+                <td class='uri'></td>
+                <td class='method'></td>
+                <td class='at'></td>
+                <td class='serverName'></td>
+                <td class='clientIp'></td>
+                <td class='message'></td>
+            </tr>
+        {% endfor %}
+        <tr class='hide' id='searchMsg'><td>沒有符合的資料</td></tr>
+    </tbody>
+</table>
+<div class="page_choose"></div>
+{% endblock %}

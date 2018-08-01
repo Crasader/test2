@@ -1,0 +1,157 @@
+{% extends 'BBDurianBundle:Default:index.html.twig' %}
+{% block head_style %}
+<style type="text/css">
+    .form-horizontal {
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+$(function () {
+    var methods = [];
+
+    $.getJSON(Routing.generate('api_payment_method_get_all')).then(function (pm) {
+        if (pm.result === 'ok') {
+            methods = pm.ret.filter(function (x) {
+                return [1, 3, 8].indexOf(x.id) !== -1;
+            })
+        }
+    });
+
+    $('#load-btn').click(function () {
+        var param = {paymentGatewayId: document.getElementById('paymentGatewayId').value};
+
+        $.when(
+            $.getJSON(Routing.generate('api_payment_gateway_get_payment_vendor', param)),
+            $.getJSON(Routing.generate('api_payment_gateway_get_random_float_vendor', param))
+        ).then(function (pv, rfv) {
+            if (pv[0].result === 'ok' && rfv[0].result === 'ok') {
+                methods.forEach(function (method) {
+                    render(pv[0].ret, rfv[0].ret, method);
+                });
+
+                document.getElementById('submit').disabled = false;
+                $('.msg').html('');
+
+                return;
+            }
+
+            var showMsg = '';
+
+            if (pv[0].result === 'error') {
+                showMsg += '<p>發生錯誤</p>';
+                showMsg += '<p>code: ' + pv[0].code + '</p>';
+                showMsg += '<p>msg:' + pv[0].msg + '</p>';
+                $('.msg').html(showMsg);
+            }
+
+            if (rfv[0].result === 'error') {
+                showMsg += '<p>發生錯誤</p>';
+                showMsg += '<p>code: ' + pv[0].code + '</p>';
+                showMsg += '<p>msg:' + pv[0].msg + '</p>';
+            }
+
+            if(showMsg) {
+                $('.msg').html(showMsg);
+            }
+
+            clearRender();
+        });
+    })
+
+    $('#submit').click(function () {
+        var param = {paymentGatewayId: document.getElementById('paymentGatewayId').value};
+
+        $.ajax({
+            url: Routing.generate('api_payment_gateway_set_random_float_vendor', param),
+            type: 'PUT',
+            data: $('form').serialize(),
+            dataType: 'json',
+            success: function (data) {
+                clearRender();
+                var showMsg = '';
+
+                if (data.result === 'error') {
+                    showMsg += '<p>發生錯誤</p>';
+                    showMsg += '<p>code: ' + data.code + '</p>';
+                    showMsg += '<p>msg:' + data.msg + '</p>';
+                    $('.msg').html(showMsg);
+                }
+
+                if (data.result === 'ok') {
+                    showMsg += '<p>成功</p>';
+                    showMsg += '<p>ret: ' + JSON.stringify(data.ret) + '</p>';
+                    $('.msg').html(showMsg);
+                }
+            }
+        });
+    });
+
+    function render(hasPaymentVender, hasFloatVender, method) {
+        var fragment = document.createDocumentFragment();
+
+        hasPaymentVender.filter(function (item) {
+            return item.payment_method === method.id;
+        }).forEach(function (item) {
+            var newDom = document.getElementById('temp').cloneNode(true);
+            newDom.removeAttribute('style');
+            newDom.removeAttribute('id');
+            var input = newDom.querySelector('input');
+            var label = newDom.querySelector('label');
+            input.value = item.id;
+            input.checked = hasFloatVender.indexOf(item.id) !== -1;
+            input.id = 'code' + item.id;
+            label.innerText = item.name + ' [' + item.id + ']';
+            label.setAttribute('for', input.id);
+            fragment.appendChild(newDom)
+        });
+
+        var dom = document.getElementById('method' + method.id);
+        dom.innerHTML = '<legend>' + method.name + '</legend>';
+        dom.appendChild(fragment);
+    }
+
+    function clearRender() {
+        methods.forEach(function (method) {
+            document.getElementById('method' + method.id).innerHTML = '';
+        });
+
+        document.getElementById('submit').disabled = true;
+    }
+});
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h1>設定支付平台支援隨機小數工具</h1>
+</div>
+
+<fieldset>
+    <div class="form-group">
+        <label class="control-label col-md-2"></label>
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon">請輸入支付平台Id</span>
+                <input id="paymentGatewayId" type="text" class="form-control" placeholder="{paymentGatewayId}">
+            </div>
+        </div>
+        <button id="load-btn" class="btn btn-default" type="button">Load</button>
+    </div>
+    <div id="temp" class="form-group" style="display: none">
+        <input type="checkbox" name="payment_vendor[]" style="width:18px; height: 18px;vertical-align: sub">
+        <label style="margin-left: .5em; font-size: medium">工商銀行</label>
+    </div>
+    <form class="form-horizontal">
+        <fieldset id="method1"></fieldset>
+        <fieldset id="method3"></fieldset>
+        <fieldset id="method8"></fieldset>
+    </form>
+    <div class="form-group col-md-10">
+        <button id='submit' class="btn btn-primary btn-get" disabled type="button">Send request</button>
+    </div>
+</fieldset>
+<div class="form-group col-md-8 msg"></div>
+{% endblock %}

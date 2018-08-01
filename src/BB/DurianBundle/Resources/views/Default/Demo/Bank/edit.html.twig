@@ -1,0 +1,204 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+{# Load按鈕事件callback處理 #}
+function reLoad(callback) {
+    if (typeof(callback) === 'function') {
+        callback();
+    }
+
+    {# 將Load出的account資料放入old_account欄位中 #}
+    if (0 !== $('form').serialize().length) {
+        $('input[name=old_account]').val(document.forms[0].elements['account'].value);
+    }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Edit Bank</h1>
+    <code>PUT /api/user/{userId}/bank</code>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <p class="lead">修改使用者銀行資訊</p>
+        <p>修改時可以只送需修改的欄位</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:bank_status.html.twig' %}
+    {% include 'BBDurianBundle:Default/Doc:sensitive_data.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/bank</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account</label>
+            <div class="col-md-5">
+                <input id="account" name="account" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">銀行帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3"></label>
+            <div class="col-md-5">
+                <button data-request-routing="api_usr_get_bank" class="btn btn-default" type="button" id="load-btn">Load</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bank_id</label>
+            <div class="col-md-5">
+                <input name="bank_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">銀行id(若old_account為空則取此id的account)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">old_account</label>
+            <div class="col-md-5">
+                <input name="old_account" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">原本的銀行帳號(必填)</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">new_account</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="new_account" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">欲修改銀行帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">code</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="code" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">銀行代碼</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">status</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="status" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">銀行資訊狀態</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">province</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="province" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">開戶省份</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">city</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="city" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">開戶城市</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">verify_blacklist</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="verify_blacklist" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否檢查黑名單。設1檢查，設0不檢查。預設為1</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">mobile</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="mobile" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否為電子錢包帳戶</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">branch</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="branch" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">支行</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account_holder</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="account_holder" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">帳戶持有人</span>
+        </div>
+        <div>
+            <div class="form-group">
+                <label class="control-label col-md-3">force</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="force" type="text" class="form-control" value="0" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">允許強制修改帳戶持有人</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_bank_edit" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

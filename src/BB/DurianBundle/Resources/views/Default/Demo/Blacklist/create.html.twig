@@ -1,0 +1,158 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create Blacklist</h1>
+    <code>POST /api/blacklist</code>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">新增黑名單</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <p>若不指定<code>domain</code> 則預設為全廳</p>
+        <p><code>account ~ client_ip</code>新增欄位只可擇一帶入</p>
+        <p><code>控端操作請帶 control_terminal = 1</code></p>
+        <p><code>廳主端不可新增全廳或其他廳黑名單</code></p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="domain" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">廳</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="account" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">銀行帳號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">identity_card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="identity_card" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">身分證字號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name_real</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name_real" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">真實姓名</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">telephone</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="telephone" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電話</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">email</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="email" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">電子信箱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ip</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ip" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">IP</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">note</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="note" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">operator</label>
+            <div class="col-md-5">
+                    <input name="operator" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">操作者</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">client_ip</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="client_ip" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">操作者ip</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">control_terminal</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="control_terminal" value=0 type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">標記是否為控端操作，預設為0</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_blacklist_create" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

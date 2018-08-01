@@ -1,0 +1,209 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Remove Plan</h1>
+    <code>GET /api/remove_plan</code>
+</div>
+<p class="lead">列出刪除使用者計畫</p>
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">plan_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="plan_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">刪除計畫編號</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">parent_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="parent_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">上層ID</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">depth</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="depth" type="text" class="form-control" disabled value="0">
+                </div>
+            </div>
+            <span class="help-block col-md-4">要刪除的帳號與上層相差的層數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">level_id</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="level_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">會員層級</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">created_at</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="created_at" type="text" class="form-control" disabled value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者建立時間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">last_login</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="last_login" type="text" class="form-control" disabled value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+                </div>
+            </div>
+            <span class="help-block col-md-4">最後登入時間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">creator</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="creator" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">建立者</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">untreated</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="untreated" type="text" class="form-control" disabled value="0">
+                </div>
+            </div>
+            <span class="help-block col-md-4">處理中</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">user_created</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="user_created" type="text" class="form-control" disabled value="0">
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者建立完成</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">confirm</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="confirm" type="text" class="form-control" disabled value="0">
+                </div>
+            </div>
+            <span class="help-block col-md-4">已確認</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">cancel</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="cancel" type="text" class="form-control" disabled value="0">
+                </div>
+            </div>
+            <span class="help-block col-md-4">已撤銷</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">finished</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="finished" type="text" class="form-control" disabled value="0">
+                </div>
+            </div>
+            <span class="help-block col-md-4">已完成</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+        <div class="template">
+                <label class="control-label col-md-3">sort[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="sort[]" type="text" class="form-control" value="id" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">排序欄位</span>
+                <label class="control-label col-md-3">order[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="order[]" type="text" class="form-control" value="asc" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">升冪或降冪。可設定asc或desc</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_result</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_result" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁從第幾筆開始</span>
+            <label class="control-label col-md-3">max_results</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁顯示筆數</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_remove_plan" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

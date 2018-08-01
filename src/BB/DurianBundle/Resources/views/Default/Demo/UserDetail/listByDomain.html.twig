@@ -1,0 +1,353 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>User Detail List By Domain</h1>
+    <code>GET /api/user_detail/list_by_domain</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">提供指定廳使用者詳細資料列表</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:sensitive_data.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">parent_id</label>
+            <div class="col-md-5">
+                <input name="parent_id" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">上層ID。</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">depth</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="depth" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">查詢的帳號與上層相差的層數。預設不限</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">username</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="username" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者名稱。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">alias</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="alias" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者暱稱。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">nickname</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="nickname" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者遊戲暱稱。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name_real</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name_real" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者真實姓名。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name_chinese</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name_chinese" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者中文姓名。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name_english</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="name_english" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者英文姓名。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">country</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="country" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">使用者國籍。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">passport</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="passport" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">護照號碼。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">identity_card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="identity_card" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">身分證字號。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">driver_license</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="driver_license" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">駕照號碼。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">insurance_card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="insurance_card" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">保險證字號。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">health_card</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="health_card" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">健保卡號碼。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">telephone</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="telephone" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">聯絡電話。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">qq_num</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="qq_num" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">QQ帳號。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">note</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="note" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">birthday</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="birthday" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">生日。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">email</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="email" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">email。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="account" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">取款帳號。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">wechat</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="wechat" type="text" class="form-control" value="%" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">微信帳號。字串內可加%搜尋</span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">sort[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="sort[]" type="text" class="form-control" value="id" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">排序欄位</span>
+                <label class="control-label col-md-3">order[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="order[]" type="text" class="form-control" value="asc" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">升冪或降冪。可設定asc或desc</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">first_result</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="first_result" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁從第幾筆開始</span>
+            <label class="control-label col-md-3">max_results</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="max_results" type="text" class="form-control" value="20" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">分頁顯示筆數</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">fields[]</label>
+            <div class="col-md-5">
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="email">email</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="nickname">nickname</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="name_real">name_real</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="name_chinese">name_chinese</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="name_english">name_english</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="country">country</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="passport">passport</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="identity_card">identity_card</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="driver_license">driver_license</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="insurance_card">insurance_card</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="health_card">health_card</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="password">password</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="birthday">birthday</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="telephone">telephone</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="qq_num">qq_num</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="wechat">wechat</label>
+                <label class="checkbox"><input name="fields[]" type="checkbox" value="note">note</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">sub_ret</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="sub_ret" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否回傳附屬資訊。預設0</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_user_detail_list_by_domain" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

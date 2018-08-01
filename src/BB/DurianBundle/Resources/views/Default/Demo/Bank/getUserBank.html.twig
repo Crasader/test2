@@ -1,0 +1,88 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Bank by userId</h1>
+    <code>GET /api/user/{userId}/bank</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">回傳使用者所有的銀行資料</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:sensitive_data.html.twig' %}
+</div>
+
+<div class="alert alert-warning">
+    <code>last</code>這個變數不能和其他變數同時傳
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/bank</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">last</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="last" type="text" class="form-control" value="1" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">指定回傳最後一次交易銀行資料</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="account" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">依指定的帳號回傳銀行資料</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">mobile</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="mobile" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">是否為電子錢包帳戶</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">account_holder</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="account_holder" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">依指定的帳戶持有人回傳銀行資料</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_usr_get_bank" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

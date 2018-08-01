@@ -1,0 +1,12 @@
+# mysql.cnf
+
+[mysqld]
+
+# MySql預設是latin編碼，必須修改成utf8，否則建table如果沒有指定編碼會變latin
+character-set-server=utf8
+collation-server=utf8_general_ci
+
+innodb_file_per_table=true
+
+# 嚴謹模式
+sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES

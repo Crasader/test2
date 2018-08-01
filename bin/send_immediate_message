@@ -1,0 +1,15 @@
+#!/bin/sh
+
+MAX=$1
+BIN=$(cd $(dirname "$0"); pwd)
+
+# 最大同時跑的數量預設為20個
+if [ -z "$MAX" ]
+then
+    MAX=20
+fi
+
+if [ $MAX -gt "`ps aux | grep 'send-message --immediate' | grep -v grep | wc -l`" ]
+then
+    $BIN/../app/console durian:send-message --immediate --env=prod >> $BIN/../app/logs/send_immediate_message.log 2>&1 &
+fi

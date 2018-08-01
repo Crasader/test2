@@ -1,0 +1,45 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set ChatRoom Ban At</h1>
+    <code>PUT /api/user/{userId}/chat_room/ban_at</code>
+</div>
+<p class="lead">設定使用者聊天室禁言時間</p>
+<div class="row">
+    {% include 'BBDurianBundle:Default/Doc:chat_room.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/ban_at</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入使用者編號{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">ban_at</label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="ban_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">禁言時間。ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_chat_room_set_ban_at" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

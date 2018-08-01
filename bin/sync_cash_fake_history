@@ -1,0 +1,15 @@
+#!/bin/sh
+
+MAX=$1
+BIN=$(cd $(dirname "$0"); pwd)
+
+# 最大同時跑的數量預設為20個
+if [ -z "$MAX" ]
+then
+    MAX=20
+fi
+
+if [ $MAX -gt "`ps aux | grep 'sync-cash-fake --history' | grep -v grep | wc -l`" ]
+then
+    $BIN/../app/console durian:sync-cash-fake --history --env=prod >> $BIN/../app/logs/run_cash_fake_history.log 2>&1 &
+fi

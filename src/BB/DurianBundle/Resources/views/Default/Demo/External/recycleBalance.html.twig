@@ -1,0 +1,75 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Recycle External Balance</h1>
+    <code>PUT /api/user/{userId}/external/recycle_balance</code>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <p class="lead">回收所有外接遊戲額度</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:external_game_map.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/user/</span>
+                    <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                    <span class="input-group-addon">/external/recycle_balance</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">type</label>
+            <div class="col-md-5">
+                <input name="type" type="text" class="form-control" value="0">
+            </div>
+            <span class="help-block col-md-4">
+                種類
+                <div>1 (帳號刪除)</div>
+                <div>2 (系統回收，必帶備註)</div>
+                <div>3 (會員手動收回)</div>
+            </span>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default action-more" type="button">複製參數</button>
+            <div class="template">
+                <label class="control-label col-md-3">ignore_code[]</label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input class="action-enable" type="checkbox">
+                        </span>
+                        <input name="ignore_code[]" type="text" class="form-control" disabled>
+                    </div>
+                </div>
+                <span class="help-block col-md-4">不進行回收的遊戲平台編號</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" value="" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註。預設為空值</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_external_recycle_balance" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

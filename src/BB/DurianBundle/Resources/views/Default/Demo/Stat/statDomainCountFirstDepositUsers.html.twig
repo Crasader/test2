@@ -1,0 +1,43 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Stat Domain Count First Deposit Users</h1>
+    <code>GET /api/stat/domain/{domain}/count_first_deposit_users</code>
+</div>
+
+<p class="lead">統計廳的首存會員人數，輸出為美東日期</p>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/stat/domain/</span>
+                    <input data-request-param="domain" type="text" class="form-control" placeholder="{domain}">
+                    <span class="input-group-addon">/count_first_deposit_users</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{domain}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">start_at</label>
+            <div class="col-md-5">
+                <input name="start_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">搜尋首存區間起始，美東日期。必填，請使用ISO-8601格式</span>
+            <label class="control-label col-md-3">end_at</label>
+            <div class="col-md-5">
+                <input name="end_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <span class="help-block col-md-4">搜尋首存區間結束，美東日期。必填，請使用ISO-8601格式</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_stat_domain_count_first_deposit_users" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

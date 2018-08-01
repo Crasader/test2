@@ -1,0 +1,76 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create PaymentCharge</h1>
+    <code>POST /api/domain/{domain}/payment_charge</code>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <p class="lead">新增線上支付設定</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:deposit_payway.html.twig' %}
+</div>
+
+<form class="form-horizontal">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/domain/</span>
+                    <input data-request-param="domain" type="text" class="form-control" placeholder="{domain}">
+                    <span class="input-group-addon">/payment_charge</span>
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{domain}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">source</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="source" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">複製來源</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">payway</label>
+            <div class="col-md-5">
+                <input name="payway" type="text" class="form-control" value="1">
+            </div>
+            <span class="help-block col-md-4">支付種類，請參考上面文件填入編號。</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">name</label>
+            <div class="col-md-5">
+                <input name="name" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">名稱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">preset</label>
+            <div class="col-md-5">
+                <input name="preset" type="text" class="form-control" value="0">
+            </div>
+            <span class="help-block col-md-4">是否為預設</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">code</label>
+            <div class="col-md-5">
+                <input name="code" type="text" class="form-control" value="">
+            </div>
+            <span class="help-block col-md-4">代碼</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_create_domain_payment_charge" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

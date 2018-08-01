@@ -1,0 +1,97 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Get Deposit Merchant</h1>
+    <code>GET /api/user/{userId}/deposit_merchant</code>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <p class="lead">回傳入款商號</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:deposit_payway.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-7 input-group">
+                <span class="input-group-addon">/api/user/</span>
+                <input data-request-param="userId" type="text" class="form-control" placeholder="{userId}">
+                <span class="input-group-addon">/deposit_merchant</span>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{userId}</p>
+        </div>
+        <div>
+            <div class="form-group">
+                <label class="control-label col-md-3">payway</label>
+                <div class="col-md-5">
+                    <input name="payway" type="text" class="form-control" value="1">
+                </div>
+                <span class="help-block col-md-4">支付種類</span>
+            </div>
+        </div>
+        <div>
+            <div class="form-group">
+                <label class="control-label col-md-3">ip</label>
+                <div class="col-md-5">
+                    <input name="ip" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">使用者IP</span>
+            </div>
+        </div>
+        <div>
+            <div class="form-group">
+                <label class="control-label col-md-3">payment_vendor_id</label>
+                <div class="col-md-5">
+                    <input name="payment_vendor_id" type="text" class="form-control">
+                </div>
+                <span class="help-block col-md-4">付款廠商id</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="amount" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">金額，預設為0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">bundleID</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="bundleID" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">IOS BundleID，預設為空字串</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">applyID</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="applyID" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">Andorid應用包名，預設為空字串</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_get_deposit_merchant" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

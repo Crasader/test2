@@ -1,0 +1,97 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Set Maintain By Game</h1>
+    <code>PUT /api/maintain/game/{code}</code>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">設定遊戲維護資訊</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:game_map.html.twig' %}
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/maintain/game/</span>
+                    <input data-request-param="code" type="text" class="form-control" placeholder="{code}">
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{code}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">begin_at</label>
+            <div class="col-md-5">
+                <input name="begin_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <p class="help-block col-md-4">維護開始時間，請使用ISO-8601格式輸入</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">end_at</label>
+            <div class="col-md-5">
+                <input name="end_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <p class="help-block col-md-4">維護結束時間，請使用ISO-8601格式輸入</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">msg</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="msg" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <p class="help-block col-md-4">維護訊息</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">operator</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="operator" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <p class="help-block col-md-4">修改人員</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">notice_interval</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="notice_interval" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <p class="help-block col-md-4">維護前幾分鐘提醒（單位：分鐘）。提醒時間不可小於現在時間</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">send_domain_message</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="send_domain_message" value=0 type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <p class="help-block col-md-4">傳送廳主訊息開關，預設不送訊息。</p>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_set_maintain_by_game" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

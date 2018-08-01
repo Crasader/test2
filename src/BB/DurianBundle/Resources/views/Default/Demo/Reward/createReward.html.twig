@@ -1,0 +1,102 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Create Reward</h1>
+    <code>POST /api/reward</code>
+</div>
+
+<p class="lead">新增抽紅包活動</p>
+<p>提供<code>總金額</code> 、 <code>總紅包個數</code> 、 <code>最大值</code> 與 <code>最小值</code>，會產生出這個範圍內的紅包，至少會有一包最大值紅包</p>
+
+<div class="alert alert-info">
+    總金額最大值為<code>10000000000</code>
+</div>
+<div class="alert alert-info">
+    紅包數量最大值為<code>500000</code>
+</div>
+<div class="alert alert-info">
+    總金額、紅包最大、最小金額 必須為<code>整數</code>
+</div>
+<div class="alert alert-info">
+    活動開始時間至少必須為<code>一天以後</code>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">name</label>
+            <div class="col-md-5">
+                <input name="name" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">活動名稱</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">domain</label>
+            <div class="col-md-5">
+                <input name="domain" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">廳主id</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">amount</label>
+            <div class="col-md-5">
+                <input name="amount" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">總金額</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">quantity</label>
+            <div class="col-md-5">
+                <input name="quantity" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">紅包數量</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">min_amount</label>
+            <div class="col-md-5">
+                <input name="min_amount" type="text" class="form-control">
+            </div>
+            <p class="help-block col-md-4">紅包最小金額</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">max_amount</label>
+            <div class="col-md-5">
+                <input name="max_amount" type="text" class="form-control">
+            </div>
+            <p class="help-block col-md-4">紅包最大金額</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">begin_at</label>
+            <div class="col-md-5">
+                <input name="begin_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <p class="help-block col-md-4">活動開始時間，請使用ISO-8601格式輸入</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">end_at</label>
+            <div class="col-md-5">
+                <input name="end_at" type="text" class="form-control" value="{{ "now"|date("Y-m-d\\TH:i:sO") }}">
+            </div>
+            <p class="help-block col-md-4">活動結束時間，請使用ISO-8601格式輸入</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_reward_create" data-request-type="POST" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

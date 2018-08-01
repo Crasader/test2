@@ -1,0 +1,38 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Global Ip Check</h1>
+    <code>GET /api/global_ip/check</code>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p class="lead">回傳網段內全域IP</p>
+    </div>
+</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-3">ip_start</label>
+            <div class="col-md-5">
+                <input name="ip_start" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">起始IP</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">ip_end</label>
+            <div class="col-md-5">
+                <input name="ip_end" type="text" class="form-control">
+            </div>
+            <span class="help-block col-md-4">結束IP</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_global_ip_check" data-request-type="GET" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

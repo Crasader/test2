@@ -1,0 +1,101 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Update Remove Plan User Status</h1>
+    <code>PUT /api/remove_plan_user/{planUserId}</code>
+</div>
+
+<p class="lead">更新刪除使用者名單狀態</p>
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2"></label>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">/api/remove_plan_user/</span>
+                    <input data-request-param="planUserId" type="text" class="form-control" placeholder="{planUserId}">
+                </div>
+            </div>
+            <p class="help-block col-md-offset-2 col-md-10">輸入網址變數{planUserId}</p>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">remove</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="remove" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">已刪除。預設 0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">cancel</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="cancel" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">已取消。預設 0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">recover_fail</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="recover_fail" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">回收餘額失敗。預設 0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">get_balance_fail</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="get_balance_fail" type="text" class="form-control" value="0" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">取得餘額失敗。預設 0</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">error_code</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="error_code" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">錯誤代碼</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">memo</label>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="memo" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">備註。預設空字串</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button data-request-routing="api_update_remove_plan_user" data-request-type="PUT" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

@@ -1,0 +1,45 @@
+imports:
+    - { resource: config.yml }
+
+#framework:
+#    validation:
+#        cache: validator.mapping.cache.doctrine.apc
+#    serializer:
+#        cache: serializer.mapping.cache.apc
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                metadata_cache_driver:
+                    type: service
+                    id: file_system_cache
+                query_cache_driver:
+                    type: service
+                    id: file_system_cache
+            his:
+                metadata_cache_driver:
+                    type: service
+                    id: file_system_cache
+                query_cache_driver:
+                    type: service
+                    id: file_system_cache
+
+doctrine_cache:
+    providers:
+        configurable_filesystem_provider_type:
+            type : file_system
+            aliases :
+                - file_system_cache
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            buffer_size:  100
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug

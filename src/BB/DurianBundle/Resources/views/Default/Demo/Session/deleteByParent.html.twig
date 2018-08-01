@@ -1,0 +1,68 @@
+{% extends 'BBDurianBundle:Default/Demo:index.html.twig' %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Delete Session By Parent</h1>
+    <code>DELETE /api/session</code>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <p class="lead">依據上層使用者，刪除 Session 資料</p>
+        <p>不指定<code>parent_id、depth、role</code>刪除所有session</p>
+        <p>只指定<code>depth</code>刪除所有廳底下depth層的session(包含廳主)</p>
+        <p>只指定<code>role</code>刪除所有身分為role的session</p>
+        <p>指定<code>parent_id</code>與<code>depth</code>刪除parent底下共depth層的session(包含parent本身)</p>
+        <p>指定<code>parent_id</code>與<code>role</code> 刪除parent底下身分為role的session(不包含parent)</p>
+    </div>
+    {% include 'BBDurianBundle:Default/Doc:role_map.html.twig' %}
+</div>
+
+<div class="alert alert-info"><code>depth</code> 與 <code>role</code> 只能擇一帶入，都不帶預設刪除所有下層</div>
+
+<form class="form-horizontal" role="form">
+    <fieldset>
+        <div class="form-group">
+            <label class="control-label col-md-2">parent_id</label>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="parent_id" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">上層使用者編號，不帶則預設不分廳</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">depth</label>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="depth" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">欲刪除層數，預設刪除全部下層</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">role</label>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input class="action-enable" type="checkbox">
+                    </span>
+                    <input name="role" type="text" class="form-control" disabled>
+                </div>
+            </div>
+            <span class="help-block col-md-4">要刪除特定的使用者身分，請參考Role Map</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <button data-request-routing="api_session_delete_by_parent" data-request-type="DELETE" class="btn btn-primary" type="button" data-loading-text="loading...">Request</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}
