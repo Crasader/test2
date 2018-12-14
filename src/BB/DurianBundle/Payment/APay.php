@@ -6,7 +6,7 @@ use BB\DurianBundle\Exception\PaymentException;
 use BB\DurianBundle\Exception\PaymentConnectionException;
 
 /**
- * A付
+ * A付123
  */
 class APay extends PaymentBase
 {
